@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.netbeans.gnu.m4;
+package org.netbeans.gnu.m4.file;
 
 import java.io.IOException;
 import org.netbeans.core.spi.multiview.MultiViewElement;
@@ -42,7 +42,7 @@ import org.openide.windows.TopComponent;
 )
 @DataObject.Registration(
         mimeType = "text/x-m4",
-        iconBase = "org/netbeans/gnu/m4/JavaIcon.gif",
+        iconBase = "org/netbeans/gnu/m4/file/JavaIcon.gif",
         displayName = "#LBL_M4_LOADER",
         position = 300
 )
@@ -113,7 +113,7 @@ public class M4DataObject extends MultiDataObject {
 
     @MultiViewElement.Registration(
             displayName = "#LBL_M4_EDITOR",
-            iconBase = "org/netbeans/gnu/m4/JavaIcon.gif",
+            iconBase = "org/netbeans/gnu/m4/file/JavaIcon.gif",
             mimeType = "text/x-m4",
             persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED,
             preferredID = "M4",
