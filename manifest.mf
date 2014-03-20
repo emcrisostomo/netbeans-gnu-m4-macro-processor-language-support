@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.netbeans.gnu.m4
+OpenIDE-Module-Implementation-Version: 0
+OpenIDE-Module-Localizing-Bundle: org/netbeans/gnu/m4/Bundle.properties
+
