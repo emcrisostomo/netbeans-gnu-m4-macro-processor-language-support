@@ -100,42 +100,6 @@ TOKEN :
   }
 }
 
-/* Reserved words */
-
-<*>
-TOKEN :
-{
-  < BOOLEAN: "boolean" >
-| < BREAK: "break" >
-| < CASE: "case" >
-| < CHAR: "char" >
-| < CONTINUE: "continue" >
-| < _DEFAULT: "default" >
-| < DO: "do" >
-| < DONE: "done" >
-| < DOUBLE: "double" >
-| < ELSE: "else" >
-| < FALSE: "false" >
-| < FINALLY: "finally" >
-| < FLOAT: "float" >
-| < FOR: "for" >
-| < GOTO: "goto" >
-| < IF: "if" >
-| < FI: "fi" >
-| < INT: "int" >
-| < LONG: "long" >
-| < NULL: "null" >
-| < RETURN: "return" >
-| < SHORT: "short" >
-| < SWITCH: "switch" >
-| < TEST: "test" >
-| < THEN: "then" >
-| < TRUE: "true" >
-| < TRY: "try" >
-| < VOID: "void" >
-| < WHILE: "while" >
-}
-
 /* Separators */
 
 <*>
@@ -273,18 +237,9 @@ TOKEN :
 <*>
 TOKEN :
 {
-  < UNKNOWN_MACRO_PRIVATE: "_A"(["A"-"Z"])"_"(["0"-"9","a"-"z","A"-"Z","_"])* >
-| < UNKNOWN_MACRO:         "A"(["A"-"Z"])"_"(["0"-"9","a"-"z","A"-"Z","_"])* >
-| < UNKNOWN_VARIABLE:      "a"(["a"-"z"])"_"(["0"-"9","a"-"z","A"-"Z","_"])* >
-}
-
-/* Generic M4 m4_* macro */
-
-<*>
-TOKEN :
-{
-  < MF_MACRO_PRIVATE: "_m4_"(["0"-"9","a"-"z","A"-"Z","_"])* >
-| < MF_MACRO:         "m4_"(["0"-"9","a"-"z","A"-"Z","_"])* >
+  < M4_MACRO: <MACRO_NAME> >
+| < M4_MACRO_INVOCATION: <MACRO_NAME>"(" >
+| < #MACRO_NAME: (["A"-"Z","a"-"z","_"])(["0"-"9","a"-"z","A"-"Z","_"])* >
 }
 
 /* IDENTIFIERS */

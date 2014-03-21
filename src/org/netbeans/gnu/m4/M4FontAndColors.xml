@@ -14,8 +14,8 @@
     <fontcolor name="text" default="identifier"/>
     <fontcolor name="errors" default="error"/>
     <fontcolor name="separator" default="separator"/>
-    <fontcolor name="unknown-keyword" default="keyword">
+    <fontcolor name="m4-macro" default="keyword"/>
+    <fontcolor name="m4-macro-invocation" default="m4-macro">
         <font style="bold" />
     </fontcolor>
-    <fontcolor name="m4-keyword" default="keyword" foreColor="red"/>
 </fontscolors>
