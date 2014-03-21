@@ -1619,15 +1619,6 @@ public static final int[] jjnewLexState = {
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
 };
-static final long[] jjtoToken = {
-   0x11ffffffffffffffL, 0x45eL, 
-};
-static final long[] jjtoSkip = {
-   0x0L, 0x200L, 
-};
-static final long[] jjtoSpecial = {
-   0x0L, 0x200L, 
-};
 protected JavaCharStream input_stream;
 private final int[] jjrounds = new int[78];
 private final int[] jjstateSet = new int[156];
@@ -1715,7 +1706,6 @@ int jjmatchedKind;
 /** Get the next Token. */
 public Token getNextToken() 
 {
-  Token specialToken = null;
   Token matchedToken;
   int curPos = 0;
 
@@ -1730,7 +1720,6 @@ public Token getNextToken()
    {
       jjmatchedKind = 0;
       matchedToken = jjFillToken();
-      matchedToken.specialToken = specialToken;
       return matchedToken;
    }
    image = jjimage;
@@ -1762,32 +1751,11 @@ public Token getNextToken()
      {
         if (jjmatchedPos + 1 < curPos)
            input_stream.backup(curPos - jjmatchedPos - 1);
-        if ((jjtoToken[jjmatchedKind >> 6] & (1L << (jjmatchedKind & 077))) != 0L)
-        {
            matchedToken = jjFillToken();
-           matchedToken.specialToken = specialToken;
            TokenLexicalActions(matchedToken);
        if (jjnewLexState[jjmatchedKind] != -1)
          curLexState = jjnewLexState[jjmatchedKind];
            return matchedToken;
-        }
-        else
-        {
-           if ((jjtoSpecial[jjmatchedKind >> 6] & (1L << (jjmatchedKind & 077))) != 0L)
-           {
-              matchedToken = jjFillToken();
-              if (specialToken == null)
-                 specialToken = matchedToken;
-              else
-              {
-                 matchedToken.specialToken = specialToken;
-                 specialToken = (specialToken.next = matchedToken);
-              }
-           }
-         if (jjnewLexState[jjmatchedKind] != -1)
-           curLexState = jjnewLexState[jjmatchedKind];
-           continue EOFLoop;
-        }
      }
      int error_line = input_stream.getEndLine();
      int error_column = input_stream.getEndColumn();

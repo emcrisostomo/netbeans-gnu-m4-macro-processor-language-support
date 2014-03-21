@@ -49,13 +49,13 @@ TOKEN :
 <DEFAULT>
 TOKEN :
 {
-  <SINGLE_LINE_COMMENT: "#" (~["\n", "\r"])* ("\n" | "\r" | "\r\n")?>
+  < SINGLE_LINE_COMMENT: "#" (~["\n", "\r"])* ("\n" | "\r" | "\r\n")? >
 }
 
 <*>
 TOKEN : 
 {
-  <DNL_COMMENT: "dnl" (~["\n", "\r"])* ("\n" | "\r" | "\r\n")?>
+  < DNL_COMMENT: "dnl" (~["\n", "\r"])* ("\n" | "\r" | "\r\n")? >
 }
 
 TOKEN_MGR_DECLS : {
@@ -232,17 +232,17 @@ TOKEN :
   >
 }
 
-/* Unknown macro type */
+/* M4 Macros */
 
 <*>
 TOKEN :
 {
   < M4_MACRO: <MACRO_NAME> >
 | < M4_MACRO_INVOCATION: <MACRO_NAME>"(" >
-| < #MACRO_NAME: (["A"-"Z","a"-"z","_"])(["0"-"9","a"-"z","A"-"Z","_"])* >
+| < #MACRO_NAME: ["A"-"Z","a"-"z","_"] (["0"-"9","a"-"z","A"-"Z","_"])* >
 }
 
-/* IDENTIFIERS */
+/* Identifier */
 
 <*>
 TOKEN :
@@ -270,13 +270,13 @@ TOKEN :
 }
 
 <MCOMMENT>
-SPECIAL_TOKEN : 
+TOKEN : 
 {
-  < ~[] > 
+  < MTEXT: ~[] > 
 }
 
 <DEFAULT>
 TOKEN :
 {
-  <TEXT: ~[]>
+  < TEXT: ~[] >
 }

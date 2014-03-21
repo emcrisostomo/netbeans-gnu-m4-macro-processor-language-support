@@ -120,6 +120,7 @@ public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
             new M4TokenId("LETTER", "identifier", regExCounter++),
             new M4TokenId("PART_LETTER", "identifier", regExCounter++),
             // Text
+            new M4TokenId("MTEXT", "text", M4ParserConstants.MTEXT),
             new M4TokenId("TEXT", "text", M4ParserConstants.TEXT)
         });
 

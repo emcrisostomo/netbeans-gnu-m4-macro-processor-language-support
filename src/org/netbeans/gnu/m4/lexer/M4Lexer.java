@@ -46,7 +46,7 @@ public class M4Lexer implements Lexer<M4TokenId> {
     public org.netbeans.api.lexer.Token<M4TokenId> nextToken() {
         Token token = javaParserTokenManager.getNextToken();
 
-        if (isVerbose) {
+        if (true) {
             logger.info((token == null) ? "token: null" : token.image + ":" + token.kind);
         }
 

@@ -155,6 +155,8 @@ public interface M4ParserConstants {
   /** RegularExpression Id. */
   int PART_LETTER = 72;
   /** RegularExpression Id. */
+  int MTEXT = 73;
+  /** RegularExpression Id. */
   int TEXT = 74;
 
   /** Lexical state. */
@@ -237,7 +239,7 @@ public interface M4ParserConstants {
     "<IDENTIFIER>",
     "<LETTER>",
     "<PART_LETTER>",
-    "<token of kind 73>",
+    "<MTEXT>",
     "<TEXT>",
   };
 
