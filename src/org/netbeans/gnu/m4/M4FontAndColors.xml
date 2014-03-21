@@ -1,0 +1,43 @@
+<!DOCTYPE fontscolors PUBLIC
+    "-//NetBeans//DTD Editor Fonts and Colors settings 1.1//EN"
+    "https://netbeans.org/dtds/EditorFontsColors-1_1.dtd">
+<fontscolors>
+    <fontcolor name="whitespace" default="whitespace"/>
+    <fontcolor name="comment" default="comment"/>
+    <fontcolor name="keyword" default="keyword"/>
+    <fontcolor name="operator" default="operator"/>
+    <fontcolor name="number" default="number"/>
+    <fontcolor name="character" default="char"/>
+    <fontcolor name="string" default="string"/>
+    <fontcolor name="literal" default="keyword" />
+    <fontcolor name="identifier" default="identifier"/>
+    <fontcolor name="text" default="identifier"/>
+    <fontcolor name="errors" default="error"/>
+    <fontcolor name="separator" default="separator"/>
+    <fontcolor name="autoconf" default="keyword">
+        <font style="bold" />
+    </fontcolor>
+    <fontcolor name="autoconf-obsolete" default="autoconf" strikeThrough="black"/>
+    <fontcolor name="autoconf-ah-keyword" default="keyword" foreColor="pink">
+        <font style="bold" />
+    </fontcolor>
+    <fontcolor name="autoconf-am-keyword" default="keyword" foreColor="magenta">
+        <font style="bold" />
+    </fontcolor>
+    <fontcolor name="autoconf-am-obsolete-keyword" default="autoconf-am-keyword" strikeThrough="black"/>
+    <fontcolor name="autoconf-as-keyword" default="keyword" foreColor="orange">
+        <font style="bold" />
+    </fontcolor>
+    <fontcolor name="autoconf-au-keyword" default="keyword">
+        <font style="bold" />
+    </fontcolor>
+    <fontcolor name="autoconf-ac-generic-keyword" default="keyword"/>
+    <fontcolor name="autoconf-ah-generic-keyword" default="autoconf-ah-keyword"/>
+    <fontcolor name="autoconf-am-generic-keyword" default="autoconf-am-keyword"/>
+    <fontcolor name="autoconf-an-generic-keyword" default="keyword" foreColor="gray"/>
+    <fontcolor name="autoconf-as-generic-keyword" default="autoconf-as-keyword"/>
+    <fontcolor name="autoconf-au-generic-keyword" default="keyword" />
+    <fontcolor name="autoconf-ax-generic-keyword" default="keyword" foreColor="red"/>
+    <fontcolor name="unknown-keyword" default="keyword" foreColor="black"/>
+    <fontcolor name="m4-keyword" default="keyword"/>
+</fontscolors>
