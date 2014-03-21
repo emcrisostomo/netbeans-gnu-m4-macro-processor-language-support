@@ -52,6 +52,12 @@ TOKEN :
   <SINGLE_LINE_COMMENT: "#" (~["\n", "\r"])* ("\n" | "\r" | "\r\n")?>
 }
 
+<*>
+TOKEN : 
+{
+  <DNL_COMMENT: "dnl" (~["\n", "\r"])* ("\n" | "\r" | "\r\n")?>
+}
+
 TOKEN_MGR_DECLS : {
   int m4NestingDepth ;
 }

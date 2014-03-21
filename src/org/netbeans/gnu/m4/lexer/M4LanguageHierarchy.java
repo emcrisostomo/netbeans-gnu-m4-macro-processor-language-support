@@ -42,6 +42,7 @@ public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
             new M4TokenId("EOF", "whitespace", regExCounter++),
             new M4TokenId("WHITESPACE", "whitespace", regExCounter++),
             new M4TokenId("SINGLE_LINE_COMMENT", "comment", regExCounter++),
+            new M4TokenId("DNL_COMMENT", "comment", regExCounter++),
             // Operators
             new M4TokenId("LBRACKET", "operator", regExCounter++),
             new M4TokenId("MLBRACKET", "operator", regExCounter++),
