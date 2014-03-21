@@ -113,14 +113,10 @@ public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
             new M4TokenId("STRING_LITERAL", "string", regExCounter++),
             // m4 macros
             new M4TokenId("M4_MACRO", "m4-macro", regExCounter++),
-            new M4TokenId("M4_MACRO_INVOCATION", "m4-macro-invocation", regExCounter++),
             new M4TokenId("MACRO_NAME", "m4-macro", regExCounter++),
-            // Identifiers
-            new M4TokenId("IDENTIFIER", "identifier", regExCounter++),
-            new M4TokenId("LETTER", "identifier", regExCounter++),
-            new M4TokenId("PART_LETTER", "identifier", regExCounter++),
+            new M4TokenId("M4_MACRO_INVOCATION", "m4-macro-invocation", regExCounter++),
             // Text
-            new M4TokenId("MTEXT", "text", M4ParserConstants.MTEXT),
+            new M4TokenId("QUOTED_TEXT", "m4-quoted", M4ParserConstants.QUOTED_TEXT),
             new M4TokenId("TEXT", "text", M4ParserConstants.TEXT)
         });
 

@@ -145,19 +145,13 @@ public interface M4ParserConstants {
   /** RegularExpression Id. */
   int M4_MACRO = 67;
   /** RegularExpression Id. */
-  int M4_MACRO_INVOCATION = 68;
+  int MACRO_NAME = 68;
   /** RegularExpression Id. */
-  int MACRO_NAME = 69;
+  int M4_MACRO_INVOCATION = 69;
   /** RegularExpression Id. */
-  int IDENTIFIER = 70;
+  int QUOTED_TEXT = 70;
   /** RegularExpression Id. */
-  int LETTER = 71;
-  /** RegularExpression Id. */
-  int PART_LETTER = 72;
-  /** RegularExpression Id. */
-  int MTEXT = 73;
-  /** RegularExpression Id. */
-  int TEXT = 74;
+  int TEXT = 71;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -234,12 +228,9 @@ public interface M4ParserConstants {
     "<CHARACTER_LITERAL>",
     "<STRING_LITERAL>",
     "<M4_MACRO>",
-    "<M4_MACRO_INVOCATION>",
     "<MACRO_NAME>",
-    "<IDENTIFIER>",
-    "<LETTER>",
-    "<PART_LETTER>",
-    "<MTEXT>",
+    "<M4_MACRO_INVOCATION>",
+    "<QUOTED_TEXT>",
     "<TEXT>",
   };
 

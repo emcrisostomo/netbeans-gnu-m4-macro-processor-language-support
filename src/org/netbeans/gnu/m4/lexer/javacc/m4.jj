@@ -234,48 +234,26 @@ TOKEN :
 
 /* M4 Macros */
 
-<*>
+<DEFAULT>
 TOKEN :
 {
   < M4_MACRO: <MACRO_NAME> >
-| < M4_MACRO_INVOCATION: <MACRO_NAME>"(" >
 | < #MACRO_NAME: ["A"-"Z","a"-"z","_"] (["0"-"9","a"-"z","A"-"Z","_"])* >
 }
-
-/* Identifier */
 
 <*>
 TOKEN :
 {
-  < IDENTIFIER: <LETTER> (<PART_LETTER>)* >
-|
-  < #LETTER:
-    [  
-      "$",
-      "A"-"Z",
-      "_",
-      "a"-"z"
-     ]
-  >
-|
-  < #PART_LETTER:
-    [  
-      "$",
-      "0"-"9",
-      "A"-"Z",
-      "_",
-      "a"-"z"
-    ]
-  >
+  < M4_MACRO_INVOCATION: <MACRO_NAME>"(" >
 }
 
 <MCOMMENT>
-TOKEN : 
+TOKEN :
 {
-  < MTEXT: ~[] > 
+  < QUOTED_TEXT: ~[] >
 }
 
-<DEFAULT>
+<*>
 TOKEN :
 {
   < TEXT: ~[] >
