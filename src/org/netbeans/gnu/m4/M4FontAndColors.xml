@@ -18,5 +18,5 @@
     <fontcolor name="m4-macro-invocation" default="keyword">
         <font style="bold" />
     </fontcolor>
-    <fontcolor name="m4-quoted" default="text"/>
+    <fontcolor name="m4-quoted" default="character"/>
 </fontscolors>
