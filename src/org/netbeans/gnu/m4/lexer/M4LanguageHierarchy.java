@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.netbeans.gnu.m4.lexer.javacc.M4Lexer;
 import org.netbeans.gnu.m4.lexer.javacc.M4ParserConstants;
 import org.netbeans.spi.lexer.LanguageHierarchy;
 import org.netbeans.spi.lexer.Lexer;
@@ -127,7 +128,7 @@ public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
         }
     }
 
-    static synchronized M4TokenId getToken(int id) {
+    public static synchronized M4TokenId getToken(int id) {
         if (idToToken == null) {
             init();
         }
