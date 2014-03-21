@@ -16,7 +16,7 @@
  */
 @TemplateRegistration(
         folder = "M4", 
-        content = "M4Template.m4",
+        content = "macro.m4",
         displayName = "M4 macro file")
 package org.netbeans.gnu.m4.file;
 
