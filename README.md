@@ -7,9 +7,6 @@ following functionality:
   * Syntax highlighting for M4 files (`.m4`).
   * Brace matching for M4 files.
 
-**Disclaimer:** Having development started on March 2014, the plugin is
-still in its early stages and thus **not meant for general use**.
-
 Limitations
 -----------
 
