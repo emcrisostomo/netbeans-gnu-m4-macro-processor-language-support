@@ -49,6 +49,10 @@ public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
             new M4TokenId("MLBRACKET", "operator", regExCounter++),
             new M4TokenId("MRBRACKET", "operator", regExCounter++),
             new M4TokenId("RBRACKET", "operator", regExCounter++),
+            new M4TokenId("LQUOTE", "operator", regExCounter++),
+            new M4TokenId("MQLQUOTE", "operator", regExCounter++),
+            new M4TokenId("MQRQUOTE", "operator", regExCounter++),
+            new M4TokenId("RQUOTE", "operator", regExCounter++),
             // Separators
             new M4TokenId("LPAREN", "operator", regExCounter++),
             new M4TokenId("RPAREN", "operator", regExCounter++),
@@ -100,6 +104,10 @@ public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
             new M4TokenId("LBRACE_QG", "operator", regExCounter++),
             new M4TokenId("RBRACE_QG", "operator", regExCounter++),
             new M4TokenId("EMPTY_QG", "operator", regExCounter++),
+            // m4 macros
+            new M4TokenId("M4_MACRO", "m4-macro", regExCounter++),
+            new M4TokenId("MACRO_NAME", "m4-macro", regExCounter++),
+            new M4TokenId("M4_MACRO_INVOCATION", "m4-macro-invocation", regExCounter++),
             //  Literals
             new M4TokenId("INTEGER_LITERAL", "number", regExCounter++),
             new M4TokenId("DECIMAL_LITERAL", "number", regExCounter++),
@@ -112,10 +120,6 @@ public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
             new M4TokenId("HEXADECIMAL_EXPONENT", "number", regExCounter++),
             new M4TokenId("CHARACTER_LITERAL", "character", regExCounter++),
             new M4TokenId("STRING_LITERAL", "string", regExCounter++),
-            // m4 macros
-            new M4TokenId("M4_MACRO", "m4-macro", regExCounter++),
-            new M4TokenId("MACRO_NAME", "m4-macro", regExCounter++),
-            new M4TokenId("M4_MACRO_INVOCATION", "m4-macro-invocation", regExCounter++),
             // Text
             new M4TokenId("QUOTED_TEXT", "m4-quoted", M4ParserConstants.QUOTED_TEXT),
             new M4TokenId("TEXT", "text", M4ParserConstants.TEXT)

@@ -59,10 +59,10 @@ TOKEN :
 }
 
 TOKEN_MGR_DECLS : {
-  int m4NestingDepth ;
+  int m4NestingDepth;
 }
 
-/* SEPARATORS */
+/* Quotes */
 
 <DEFAULT>
 TOKEN : 
@@ -96,6 +96,42 @@ TOKEN :
 TOKEN :
 {
   < RBRACKET: "]" > {
+    m4NestingDepth = 0;
+  }
+}
+
+<DEFAULT>
+TOKEN :
+{
+  < LQUOTE: "`" > {
+    m4NestingDepth = 1;
+  } : MCOMMENT
+}
+
+<MCOMMENT>
+TOKEN :
+{
+  < MQLQUOTE: "`" > {
+    m4NestingDepth += 1; 
+  }
+}
+
+<MCOMMENT>
+TOKEN :
+{
+  < MQRQUOTE: "'" > {
+    if (m4NestingDepth == 1)
+    {
+      SwitchTo( DEFAULT );
+    }
+    m4NestingDepth -= 1;
+  }
+}
+
+<DEFAULT>
+TOKEN :
+{
+  < RQUOTE: "'" > {
     m4NestingDepth = 0;
   }
 }
@@ -167,9 +203,24 @@ TOKEN :
 | < EMPTY_QG:    "@&t@" >
 }
 
-/* Literals */
+/* M4 Macros */
+
+<DEFAULT>
+TOKEN :
+{
+  < M4_MACRO: <MACRO_NAME> >
+| < #MACRO_NAME: ["A"-"Z","a"-"z","_"] (["0"-"9","a"-"z","A"-"Z","_"])* >
+}
 
 <*>
+TOKEN :
+{
+  < M4_MACRO_INVOCATION: <MACRO_NAME>"(" >
+}
+
+/* Literals */
+
+<DEFAULT>
 TOKEN :
 {
   < INTEGER_LITERAL:
@@ -230,21 +281,6 @@ TOKEN :
       )*
       "\""
   >
-}
-
-/* M4 Macros */
-
-<DEFAULT>
-TOKEN :
-{
-  < M4_MACRO: <MACRO_NAME> >
-| < #MACRO_NAME: ["A"-"Z","a"-"z","_"] (["0"-"9","a"-"z","A"-"Z","_"])* >
-}
-
-<*>
-TOKEN :
-{
-  < M4_MACRO_INVOCATION: <MACRO_NAME>"(" >
 }
 
 <MCOMMENT>

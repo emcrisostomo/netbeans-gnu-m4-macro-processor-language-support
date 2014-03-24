@@ -25,133 +25,141 @@ public interface M4ParserConstants {
   /** RegularExpression Id. */
   int RBRACKET = 7;
   /** RegularExpression Id. */
-  int LPAREN = 8;
+  int LQUOTE = 8;
   /** RegularExpression Id. */
-  int RPAREN = 9;
+  int MQLQUOTE = 9;
   /** RegularExpression Id. */
-  int LBRACE = 10;
+  int MQRQUOTE = 10;
   /** RegularExpression Id. */
-  int RBRACE = 11;
+  int RQUOTE = 11;
   /** RegularExpression Id. */
-  int SEMICOLON = 12;
+  int LPAREN = 12;
   /** RegularExpression Id. */
-  int COMMA = 13;
+  int RPAREN = 13;
   /** RegularExpression Id. */
-  int DOT = 14;
+  int LBRACE = 14;
   /** RegularExpression Id. */
-  int ASSIGN = 15;
+  int RBRACE = 15;
   /** RegularExpression Id. */
-  int LT = 16;
+  int SEMICOLON = 16;
   /** RegularExpression Id. */
-  int BANG = 17;
+  int COMMA = 17;
   /** RegularExpression Id. */
-  int TILDE = 18;
+  int DOT = 18;
   /** RegularExpression Id. */
-  int HOOK = 19;
+  int ASSIGN = 19;
   /** RegularExpression Id. */
-  int COLON = 20;
+  int LT = 20;
   /** RegularExpression Id. */
-  int EQ = 21;
+  int BANG = 21;
   /** RegularExpression Id. */
-  int LE = 22;
+  int TILDE = 22;
   /** RegularExpression Id. */
-  int GE = 23;
+  int HOOK = 23;
   /** RegularExpression Id. */
-  int NE = 24;
+  int COLON = 24;
   /** RegularExpression Id. */
-  int SC_OR = 25;
+  int EQ = 25;
   /** RegularExpression Id. */
-  int SC_AND = 26;
+  int LE = 26;
   /** RegularExpression Id. */
-  int INCR = 27;
+  int GE = 27;
   /** RegularExpression Id. */
-  int DECR = 28;
+  int NE = 28;
   /** RegularExpression Id. */
-  int PLUS = 29;
+  int SC_OR = 29;
   /** RegularExpression Id. */
-  int MINUS = 30;
+  int SC_AND = 30;
   /** RegularExpression Id. */
-  int STAR = 31;
+  int INCR = 31;
   /** RegularExpression Id. */
-  int SLASH = 32;
+  int DECR = 32;
   /** RegularExpression Id. */
-  int BIT_AND = 33;
+  int PLUS = 33;
   /** RegularExpression Id. */
-  int BIT_OR = 34;
+  int MINUS = 34;
   /** RegularExpression Id. */
-  int XOR = 35;
+  int STAR = 35;
   /** RegularExpression Id. */
-  int REM = 36;
+  int SLASH = 36;
   /** RegularExpression Id. */
-  int LSHIFT = 37;
+  int BIT_AND = 37;
   /** RegularExpression Id. */
-  int PLUSASSIGN = 38;
+  int BIT_OR = 38;
   /** RegularExpression Id. */
-  int MINUSASSIGN = 39;
+  int XOR = 39;
   /** RegularExpression Id. */
-  int STARASSIGN = 40;
+  int REM = 40;
   /** RegularExpression Id. */
-  int SLASHASSIGN = 41;
+  int LSHIFT = 41;
   /** RegularExpression Id. */
-  int ANDASSIGN = 42;
+  int PLUSASSIGN = 42;
   /** RegularExpression Id. */
-  int ORASSIGN = 43;
+  int MINUSASSIGN = 43;
   /** RegularExpression Id. */
-  int XORASSIGN = 44;
+  int STARASSIGN = 44;
   /** RegularExpression Id. */
-  int REMASSIGN = 45;
+  int SLASHASSIGN = 45;
   /** RegularExpression Id. */
-  int LSHIFTASSIGN = 46;
+  int ANDASSIGN = 46;
   /** RegularExpression Id. */
-  int RSIGNEDSHIFTASSIGN = 47;
+  int ORASSIGN = 47;
   /** RegularExpression Id. */
-  int ELLIPSIS = 48;
+  int XORASSIGN = 48;
   /** RegularExpression Id. */
-  int LBRACKET_QG = 49;
+  int REMASSIGN = 49;
   /** RegularExpression Id. */
-  int RBRACKET_QG = 50;
+  int LSHIFTASSIGN = 50;
   /** RegularExpression Id. */
-  int DOLLAR_QG = 51;
+  int RSIGNEDSHIFTASSIGN = 51;
   /** RegularExpression Id. */
-  int BANG_QG = 52;
+  int ELLIPSIS = 52;
   /** RegularExpression Id. */
-  int LBRACE_QG = 53;
+  int LBRACKET_QG = 53;
   /** RegularExpression Id. */
-  int RBRACE_QG = 54;
+  int RBRACKET_QG = 54;
   /** RegularExpression Id. */
-  int EMPTY_QG = 55;
+  int DOLLAR_QG = 55;
   /** RegularExpression Id. */
-  int INTEGER_LITERAL = 56;
+  int BANG_QG = 56;
   /** RegularExpression Id. */
-  int DECIMAL_LITERAL = 57;
+  int LBRACE_QG = 57;
   /** RegularExpression Id. */
-  int HEX_LITERAL = 58;
+  int RBRACE_QG = 58;
   /** RegularExpression Id. */
-  int OCTAL_LITERAL = 59;
+  int EMPTY_QG = 59;
   /** RegularExpression Id. */
-  int FLOATING_POINT_LITERAL = 60;
+  int M4_MACRO = 60;
   /** RegularExpression Id. */
-  int DECIMAL_FLOATING_POINT_LITERAL = 61;
+  int MACRO_NAME = 61;
   /** RegularExpression Id. */
-  int DECIMAL_EXPONENT = 62;
+  int M4_MACRO_INVOCATION = 62;
   /** RegularExpression Id. */
-  int HEXADECIMAL_FLOATING_POINT_LITERAL = 63;
+  int INTEGER_LITERAL = 63;
   /** RegularExpression Id. */
-  int HEXADECIMAL_EXPONENT = 64;
+  int DECIMAL_LITERAL = 64;
   /** RegularExpression Id. */
-  int CHARACTER_LITERAL = 65;
+  int HEX_LITERAL = 65;
   /** RegularExpression Id. */
-  int STRING_LITERAL = 66;
+  int OCTAL_LITERAL = 66;
   /** RegularExpression Id. */
-  int M4_MACRO = 67;
+  int FLOATING_POINT_LITERAL = 67;
   /** RegularExpression Id. */
-  int MACRO_NAME = 68;
+  int DECIMAL_FLOATING_POINT_LITERAL = 68;
   /** RegularExpression Id. */
-  int M4_MACRO_INVOCATION = 69;
+  int DECIMAL_EXPONENT = 69;
   /** RegularExpression Id. */
-  int QUOTED_TEXT = 70;
+  int HEXADECIMAL_FLOATING_POINT_LITERAL = 70;
   /** RegularExpression Id. */
-  int TEXT = 71;
+  int HEXADECIMAL_EXPONENT = 71;
+  /** RegularExpression Id. */
+  int CHARACTER_LITERAL = 72;
+  /** RegularExpression Id. */
+  int STRING_LITERAL = 73;
+  /** RegularExpression Id. */
+  int QUOTED_TEXT = 74;
+  /** RegularExpression Id. */
+  int TEXT = 75;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -168,6 +176,10 @@ public interface M4ParserConstants {
     "\"[\"",
     "\"]\"",
     "\"]\"",
+    "\"`\"",
+    "\"`\"",
+    "\"\\\'\"",
+    "\"\\\'\"",
     "\"(\"",
     "\")\"",
     "\"{\"",
@@ -216,6 +228,9 @@ public interface M4ParserConstants {
     "\"@{:@\"",
     "\"@:}@\"",
     "\"@&t@\"",
+    "<M4_MACRO>",
+    "<MACRO_NAME>",
+    "<M4_MACRO_INVOCATION>",
     "<INTEGER_LITERAL>",
     "<DECIMAL_LITERAL>",
     "<HEX_LITERAL>",
@@ -227,9 +242,6 @@ public interface M4ParserConstants {
     "<HEXADECIMAL_EXPONENT>",
     "<CHARACTER_LITERAL>",
     "<STRING_LITERAL>",
-    "<M4_MACRO>",
-    "<MACRO_NAME>",
-    "<M4_MACRO_INVOCATION>",
     "<QUOTED_TEXT>",
     "<TEXT>",
   };
