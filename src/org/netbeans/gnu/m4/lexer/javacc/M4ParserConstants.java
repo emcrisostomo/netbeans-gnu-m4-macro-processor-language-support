@@ -71,9 +71,9 @@ public interface M4ParserConstants {
   /** RegularExpression Id. */
   int SC_AND = 30;
   /** RegularExpression Id. */
-  int INCR = 31;
+  int INCR_OP = 31;
   /** RegularExpression Id. */
-  int DECR = 32;
+  int DECR_OP = 32;
   /** RegularExpression Id. */
   int PLUS = 33;
   /** RegularExpression Id. */
@@ -129,37 +129,183 @@ public interface M4ParserConstants {
   /** RegularExpression Id. */
   int EMPTY_QG = 59;
   /** RegularExpression Id. */
-  int M4_MACRO = 60;
+  int DEFINE = 60;
   /** RegularExpression Id. */
-  int MACRO_NAME = 61;
+  int NARGS = 61;
   /** RegularExpression Id. */
-  int M4_MACRO_INVOCATION = 62;
+  int UNDEFINE = 62;
   /** RegularExpression Id. */
-  int INTEGER_LITERAL = 63;
+  int DEFN = 63;
   /** RegularExpression Id. */
-  int DECIMAL_LITERAL = 64;
+  int PUSHDEF = 64;
   /** RegularExpression Id. */
-  int HEX_LITERAL = 65;
+  int POPDEF = 65;
   /** RegularExpression Id. */
-  int OCTAL_LITERAL = 66;
+  int INDIR = 66;
   /** RegularExpression Id. */
-  int FLOATING_POINT_LITERAL = 67;
+  int BUILTIN = 67;
   /** RegularExpression Id. */
-  int DECIMAL_FLOATING_POINT_LITERAL = 68;
+  int IFDEF = 68;
   /** RegularExpression Id. */
-  int DECIMAL_EXPONENT = 69;
+  int IFELSE = 69;
   /** RegularExpression Id. */
-  int HEXADECIMAL_FLOATING_POINT_LITERAL = 70;
+  int SHIFT = 70;
   /** RegularExpression Id. */
-  int HEXADECIMAL_EXPONENT = 71;
+  int REVERSE = 71;
   /** RegularExpression Id. */
-  int CHARACTER_LITERAL = 72;
+  int COND = 72;
   /** RegularExpression Id. */
-  int STRING_LITERAL = 73;
+  int JOIN = 73;
   /** RegularExpression Id. */
-  int QUOTED_TEXT = 74;
+  int JOINALL = 74;
   /** RegularExpression Id. */
-  int TEXT = 75;
+  int QUOTE = 75;
+  /** RegularExpression Id. */
+  int DQUOTE = 76;
+  /** RegularExpression Id. */
+  int DQUOTE_ELT = 77;
+  /** RegularExpression Id. */
+  int ARGN = 78;
+  /** RegularExpression Id. */
+  int FORLOOP = 79;
+  /** RegularExpression Id. */
+  int FOREACH = 80;
+  /** RegularExpression Id. */
+  int FOREACHQ = 81;
+  /** RegularExpression Id. */
+  int STACK_FOREACH = 82;
+  /** RegularExpression Id. */
+  int STACK_FOREACH_LIFO = 83;
+  /** RegularExpression Id. */
+  int DEFINE_BLIND = 84;
+  /** RegularExpression Id. */
+  int CURRY = 85;
+  /** RegularExpression Id. */
+  int COPY = 86;
+  /** RegularExpression Id. */
+  int RENAME = 87;
+  /** RegularExpression Id. */
+  int DUMPDEF = 88;
+  /** RegularExpression Id. */
+  int TRACEON = 89;
+  /** RegularExpression Id. */
+  int TRACEOFF = 90;
+  /** RegularExpression Id. */
+  int DEBUGMODE = 91;
+  /** RegularExpression Id. */
+  int DEBUGFILE = 92;
+  /** RegularExpression Id. */
+  int CHANGEQUOTE = 93;
+  /** RegularExpression Id. */
+  int CHANGECOM = 94;
+  /** RegularExpression Id. */
+  int CHANGEWORD = 95;
+  /** RegularExpression Id. */
+  int M4WRAP = 96;
+  /** RegularExpression Id. */
+  int INCLUDE = 97;
+  /** RegularExpression Id. */
+  int SINCLUDE = 98;
+  /** RegularExpression Id. */
+  int DIVERT = 99;
+  /** RegularExpression Id. */
+  int UNDIVERT = 100;
+  /** RegularExpression Id. */
+  int DIVNUM = 101;
+  /** RegularExpression Id. */
+  int CLEARDIVERT = 102;
+  /** RegularExpression Id. */
+  int LEN = 103;
+  /** RegularExpression Id. */
+  int INDEX = 104;
+  /** RegularExpression Id. */
+  int REGEXP = 105;
+  /** RegularExpression Id. */
+  int SUBSTR = 106;
+  /** RegularExpression Id. */
+  int TRANSLIT = 107;
+  /** RegularExpression Id. */
+  int PATSUBST = 108;
+  /** RegularExpression Id. */
+  int UPCASE = 109;
+  /** RegularExpression Id. */
+  int DOWNCASE = 110;
+  /** RegularExpression Id. */
+  int CAPITALIZE = 111;
+  /** RegularExpression Id. */
+  int FORMAT = 112;
+  /** RegularExpression Id. */
+  int INCR = 113;
+  /** RegularExpression Id. */
+  int DECR = 114;
+  /** RegularExpression Id. */
+  int EVAL = 115;
+  /** RegularExpression Id. */
+  int __GNU__ = 116;
+  /** RegularExpression Id. */
+  int __OS2__ = 117;
+  /** RegularExpression Id. */
+  int OS2 = 118;
+  /** RegularExpression Id. */
+  int __UNIX__ = 119;
+  /** RegularExpression Id. */
+  int __WINDOWS__ = 120;
+  /** RegularExpression Id. */
+  int WINDOWS = 121;
+  /** RegularExpression Id. */
+  int SYSCMD = 122;
+  /** RegularExpression Id. */
+  int ESYSCMD = 123;
+  /** RegularExpression Id. */
+  int SYSVAL = 124;
+  /** RegularExpression Id. */
+  int MKSTEMP = 125;
+  /** RegularExpression Id. */
+  int MAKETEMP = 126;
+  /** RegularExpression Id. */
+  int ERRPRINT = 127;
+  /** RegularExpression Id. */
+  int __FILE__ = 128;
+  /** RegularExpression Id. */
+  int __LINE__ = 129;
+  /** RegularExpression Id. */
+  int __PROGRAM__ = 130;
+  /** RegularExpression Id. */
+  int M4EXIT = 131;
+  /** RegularExpression Id. */
+  int FATAL_ERROR = 132;
+  /** RegularExpression Id. */
+  int M4_MACRO = 133;
+  /** RegularExpression Id. */
+  int MACRO_NAME = 134;
+  /** RegularExpression Id. */
+  int M4_MACRO_INVOCATION = 135;
+  /** RegularExpression Id. */
+  int INTEGER_LITERAL = 136;
+  /** RegularExpression Id. */
+  int DECIMAL_LITERAL = 137;
+  /** RegularExpression Id. */
+  int HEX_LITERAL = 138;
+  /** RegularExpression Id. */
+  int OCTAL_LITERAL = 139;
+  /** RegularExpression Id. */
+  int FLOATING_POINT_LITERAL = 140;
+  /** RegularExpression Id. */
+  int DECIMAL_FLOATING_POINT_LITERAL = 141;
+  /** RegularExpression Id. */
+  int DECIMAL_EXPONENT = 142;
+  /** RegularExpression Id. */
+  int HEXADECIMAL_FLOATING_POINT_LITERAL = 143;
+  /** RegularExpression Id. */
+  int HEXADECIMAL_EXPONENT = 144;
+  /** RegularExpression Id. */
+  int CHARACTER_LITERAL = 145;
+  /** RegularExpression Id. */
+  int STRING_LITERAL = 146;
+  /** RegularExpression Id. */
+  int QUOTED_TEXT = 147;
+  /** RegularExpression Id. */
+  int TEXT = 148;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -228,6 +374,79 @@ public interface M4ParserConstants {
     "\"@{:@\"",
     "\"@:}@\"",
     "\"@&t@\"",
+    "\"define\"",
+    "\"nargs\"",
+    "\"undefine\"",
+    "\"defn\"",
+    "\"pushdef\"",
+    "\"popdef\"",
+    "\"indir\"",
+    "\"builtin\"",
+    "\"ifdef\"",
+    "\"ifelse\"",
+    "\"shift\"",
+    "\"reverse\"",
+    "\"cond\"",
+    "\"join\"",
+    "\"joinall\"",
+    "\"quote\"",
+    "\"dquote\"",
+    "\"dquote_elt\"",
+    "\"argn\"",
+    "\"forloop\"",
+    "\"foreach\"",
+    "\"foreachq\"",
+    "\"stack_foreach\"",
+    "\"stack_foreach_lifo\"",
+    "\"define_blind\"",
+    "\"curry\"",
+    "\"copy\"",
+    "\"rename\"",
+    "\"dumpdef\"",
+    "\"traceon\"",
+    "\"traceoff\"",
+    "\"debugmode\"",
+    "\"debugfile\"",
+    "\"changequote\"",
+    "\"changecom\"",
+    "\"changeword\"",
+    "\"m4wrap\"",
+    "\"include\"",
+    "\"sinclude\"",
+    "\"divert\"",
+    "\"undivert\"",
+    "\"divnum\"",
+    "\"cleardivert\"",
+    "\"len\"",
+    "\"index\"",
+    "\"regexp\"",
+    "\"substr\"",
+    "\"translit\"",
+    "\"patsubst\"",
+    "\"upcase\"",
+    "\"downcase\"",
+    "\"capitalize\"",
+    "\"format\"",
+    "\"incr\"",
+    "\"decr\"",
+    "\"eval\"",
+    "\"__gnu__\"",
+    "\"__os2__\"",
+    "\"os2\"",
+    "\"__unix__\"",
+    "\"__windows__\"",
+    "\"windows\"",
+    "\"syscmd\"",
+    "\"esyscmd\"",
+    "\"sysval\"",
+    "\"mkstemp\"",
+    "\"maketemp\"",
+    "\"errprint\"",
+    "\"__file__\"",
+    "\"__line__\"",
+    "\"__program__\"",
+    "\"m4exit\"",
+    "\"fatal_error\"",
     "<M4_MACRO>",
     "<MACRO_NAME>",
     "<M4_MACRO_INVOCATION>",

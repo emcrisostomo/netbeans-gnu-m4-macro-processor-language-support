@@ -14,6 +14,7 @@
     <fontcolor name="text" default="identifier"/>
     <fontcolor name="errors" default="error"/>
     <fontcolor name="separator" default="separator"/>
+    <fontcolor name="m4-builtin-macro" default="keyword"/>
     <fontcolor name="m4-macro" default="identifier"/>
     <fontcolor name="m4-macro-invocation" default="keyword">
         <font style="bold" />

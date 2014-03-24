@@ -138,7 +138,7 @@ TOKEN :
 
 /* Separators */
 
-<*>
+<DEFAULT>
 TOKEN :
 {
   < LPAREN: "(" >
@@ -152,43 +152,43 @@ TOKEN :
 
 /* Operators */
 
-<*>
+<DEFAULT>
 TOKEN :
 {
-  < ASSIGN: "=" >
-| < LT: "<" >
-| < BANG: "!" >
-| < TILDE: "~" >
-| < HOOK: "?" >
-| < COLON: ":" >
-| < EQ: "==" >
-| < LE: "<=" >
-| < GE: ">=" >
-| < NE: "!=" >
-| < SC_OR: "||" >
-| < SC_AND: "&&" >
-| < INCR: "++" >
-| < DECR: "--" >
-| < PLUS: "+" >
-| < MINUS: "-" >
-| < STAR: "*" >
-| < SLASH: "/" >
-| < BIT_AND: "&" >
-| < BIT_OR: "|" >
-| < XOR: "^" >
-| < REM: "%" >
-| < LSHIFT: "<<" >
-| < PLUSASSIGN: "+=" >
-| < MINUSASSIGN: "-=" >
-| < STARASSIGN: "*=" >
-| < SLASHASSIGN: "/=" >
-| < ANDASSIGN: "&=" >
-| < ORASSIGN: "|=" >
-| < XORASSIGN: "^=" >
-| < REMASSIGN: "%=" >
-| < LSHIFTASSIGN: "<<=" >
+  < ASSIGN:             "=" >
+| < LT:                 "<" >
+| < BANG:               "!" >
+| < TILDE:              "~" >
+| < HOOK:               "?" >
+| < COLON:              ":" >
+| < EQ:                 "==" >
+| < LE:                 "<=" >
+| < GE:                 ">=" >
+| < NE:                 "!=" >
+| < SC_OR:              "||" >
+| < SC_AND:             "&&" >
+| < INCR_OP:            "++" >
+| < DECR_OP:            "--" >
+| < PLUS:               "+" >
+| < MINUS:              "-" >
+| < STAR:               "*" >
+| < SLASH:              "/" >
+| < BIT_AND:            "&" >
+| < BIT_OR:             "|" >
+| < XOR:                "^" >
+| < REM:                "%" >
+| < LSHIFT:             "<<" >
+| < PLUSASSIGN:         "+=" >
+| < MINUSASSIGN:        "-=" >
+| < STARASSIGN:         "*=" >
+| < SLASHASSIGN:        "/=" >
+| < ANDASSIGN:          "&=" >
+| < ORASSIGN:           "|=" >
+| < XORASSIGN:          "^=" >
+| < REMASSIGN:          "%=" >
+| < LSHIFTASSIGN:       "<<=" >
 | < RSIGNEDSHIFTASSIGN: ">>=" >
-| < ELLIPSIS: "..." >
+| < ELLIPSIS:           "..." >
 }
 
 <*>
@@ -201,6 +201,86 @@ TOKEN :
 | < LBRACE_QG:   "@{:@" >
 | < RBRACE_QG:   "@:}@" >
 | < EMPTY_QG:    "@&t@" >
+}
+
+/* Builtin M4 Macros */
+
+<DEFAULT>
+TOKEN :
+{
+  < DEFINE:             "define" >
+| < NARGS:              "nargs" >
+| < UNDEFINE:           "undefine" >
+| < DEFN:               "defn" >
+| < PUSHDEF:            "pushdef" >
+| < POPDEF:             "popdef" >
+| < INDIR:              "indir" >
+| < BUILTIN:            "builtin" >
+| < IFDEF:              "ifdef" >
+| < IFELSE:             "ifelse" >
+| < SHIFT:              "shift" >
+| < REVERSE:            "reverse" >
+| < COND:               "cond" >
+| < JOIN:               "join" >
+| < JOINALL:            "joinall" >
+| < QUOTE:              "quote" >
+| < DQUOTE:             "dquote" >
+| < DQUOTE_ELT:         "dquote_elt" >
+| < ARGN:               "argn" >
+| < FORLOOP:            "forloop" >
+| < FOREACH:            "foreach" >
+| < FOREACHQ:           "foreachq" >
+| < STACK_FOREACH:      "stack_foreach" >
+| < STACK_FOREACH_LIFO: "stack_foreach_lifo" >
+| < DEFINE_BLIND:       "define_blind" >
+| < CURRY:              "curry" >
+| < COPY:               "copy" >
+| < RENAME:             "rename" >
+| < DUMPDEF:            "dumpdef" >
+| < TRACEON:            "traceon" >
+| < TRACEOFF:           "traceoff" >
+| < DEBUGMODE:          "debugmode" >
+| < DEBUGFILE:          "debugfile" >
+| < CHANGEQUOTE:        "changequote" >
+| < CHANGECOM:          "changecom" >
+| < CHANGEWORD:         "changeword" >
+| < M4WRAP:             "m4wrap" >
+| < INCLUDE:            "include" >
+| < SINCLUDE:           "sinclude" >
+| < DIVERT:             "divert" >
+| < UNDIVERT:           "undivert" >
+| < DIVNUM:             "divnum" >
+| < CLEARDIVERT:        "cleardivert" >
+| < LEN:                "len" >
+| < INDEX:              "index" >
+| < REGEXP:             "regexp" >
+| < SUBSTR:             "substr" >
+| < TRANSLIT:           "translit" >
+| < PATSUBST:           "patsubst" >
+| < UPCASE:             "upcase" >
+| < DOWNCASE:           "downcase" >
+| < CAPITALIZE:         "capitalize" >
+| < FORMAT:             "format" >
+| < INCR:               "incr" >
+| < DECR:               "decr" >
+| < EVAL:               "eval" >
+| < __GNU__:            "__gnu__" >
+| < __OS2__:            "__os2__" >
+| < OS2:                "os2" >
+| < __UNIX__:           "__unix__" >
+| < __WINDOWS__:        "__windows__" >
+| < WINDOWS:            "windows" >
+| < SYSCMD:             "syscmd" >
+| < ESYSCMD:            "esyscmd" >
+| < SYSVAL:             "sysval" >
+| < MKSTEMP:            "mkstemp" >
+| < MAKETEMP:           "maketemp" >
+| < ERRPRINT:           "errprint" >
+| < __FILE__:           "__file__" >
+| < __LINE__:           "__line__" >
+| < __PROGRAM__:        "__program__" >
+| < M4EXIT:             "m4exit" >
+| < FATAL_ERROR:        "fatal_error" >
 }
 
 /* M4 Macros */
