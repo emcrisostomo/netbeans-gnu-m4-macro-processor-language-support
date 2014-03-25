@@ -69,7 +69,7 @@ public class M4CompletionProvider implements CompletionProvider {
                     // character.
                     final int tokenBeginning = findTokenBeginning(line);
                     final String filter = new String(line, tokenBeginning + 1, line.length - tokenBeginning - 1);
-                    
+
                     int startOffset;
                     if (tokenBeginning > 0) {
                         startOffset = lineStartOffset + tokenBeginning + 1;
@@ -77,50 +77,10 @@ public class M4CompletionProvider implements CompletionProvider {
                         startOffset = lineStartOffset;
                     }
 
-                    // macro definitions
-                    Set<String> macroDefs = new HashSet<>();
+                    // Find macro definitions
+                    Set<String> macroDefs = extractMacroDefs((AbstractDocument) document, caretOffset, filter);
 
-                    final AbstractDocument doc = (AbstractDocument) document;
-                    doc.readLock();
-
-                    try {
-                        TokenHierarchy ti = TokenHierarchy.get(doc);
-                        TokenSequence ts = ti.tokenSequence();
-
-                        while (ts.moveNext()) {
-                            Token t = ts.token();
-                            System.out.println(t);
-
-                            // Only add macros defined before the current
-                            // caret position.
-                            if (t.offset(ti) >= caretOffset - t.length()) {
-                                continue;
-                            }
-
-                            final String currentTokenText = t.text().toString();
-                            // Filter out names which do not start with the
-                            // current token text.
-                            if (currentTokenText.equals("") || !currentTokenText.startsWith(filter)) {
-                                continue;
-                            }
-
-                            // Ignore tokens which are not our instances
-                            // (used only as a cast safeguard).
-                            if (!(t.id() instanceof M4TokenId)) {
-                                continue;
-                            }
-
-                            M4TokenId m4Token = (M4TokenId) t.id();
-                            
-                            if (m4Token.isMacroName()) {
-                                macroDefs.add(currentTokenText);
-                            }
-                        }
-                    } finally {
-                        doc.readUnlock();
-                    }
-
-                    // add macro names defined in the same compilation unit
+                    // Add macro names defined in the same compilation unit
                     for (String macroName : macroDefs) {
                         completionResultSet.addItem(new M4CompletionItem(macroName, startOffset, caretOffset));
                     }
@@ -129,6 +89,51 @@ public class M4CompletionProvider implements CompletionProvider {
                 } finally {
                     completionResultSet.finish();
                 }
+            }
+
+            private Set<String> extractMacroDefs(AbstractDocument doc, int caretOffset, String filter) {
+                Set<String> macroDefs = new HashSet<>();
+                
+                doc.readLock();
+
+                try {
+                    TokenHierarchy ti = TokenHierarchy.get(doc);
+                    TokenSequence ts = ti.tokenSequence();
+
+                    while (ts.moveNext()) {
+                        Token t = ts.token();
+                        System.out.println(t);
+
+                            // Only add macros defined before the current
+                        // caret position.
+                        if (t.offset(ti) >= caretOffset - t.length()) {
+                            continue;
+                        }
+
+                        final String currentTokenText = t.text().toString();
+                            // Filter out names which do not start with the
+                        // current token text.
+                        if (currentTokenText.equals("") || !currentTokenText.startsWith(filter)) {
+                            continue;
+                        }
+
+                            // Ignore tokens which are not our instances
+                        // (used only as a cast safeguard).
+                        if (!(t.id() instanceof M4TokenId)) {
+                            continue;
+                        }
+
+                        M4TokenId m4Token = (M4TokenId) t.id();
+
+                        if (m4Token.isMacroName()) {
+                            macroDefs.add(currentTokenText);
+                        }
+                    }
+                } finally {
+                    doc.readUnlock();
+                }
+                
+                return macroDefs;
             }
         }, jtc);
     }
@@ -169,7 +174,7 @@ public class M4CompletionProvider implements CompletionProvider {
                 return i;
             }
         }
-        
+
         return -1;
     }
 }
