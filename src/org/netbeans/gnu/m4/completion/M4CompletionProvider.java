@@ -44,6 +44,8 @@ import org.openide.util.Exceptions;
 @MimeRegistration(mimeType = "text/x-m4", service = CompletionProvider.class)
 public class M4CompletionProvider implements CompletionProvider {
 
+    private static final M4BuiltinMacro macroNames[] = M4BuiltinMacro.values();
+
     @Override
     public CompletionTask createTask(int queryType, JTextComponent jtc) {
         if (queryType != CompletionProvider.COMPLETION_QUERY_TYPE) {
@@ -63,6 +65,7 @@ public class M4CompletionProvider implements CompletionProvider {
                     // Extract the text in the caret line.
                     final int lineStartOffset = getRowFirstNonWhite(bDoc, caretOffset);
                     final char[] line = bDoc.getText(lineStartOffset, caretOffset - lineStartOffset).toCharArray();
+
                     // Find the beginning of the token being written.
                     // Beware that this token is not the same token as seen by
                     // the lexer, but just the string after the last separator
@@ -84,6 +87,17 @@ public class M4CompletionProvider implements CompletionProvider {
                     for (String macroName : macroDefs) {
                         completionResultSet.addItem(new M4CompletionItem(macroName, startOffset, caretOffset));
                     }
+
+                    // Add builtin M4 macros
+                    for (M4BuiltinMacro macro : macroNames) {
+                        final String text = macro.getText();
+
+                        // Filter out names which do not start with the
+                        // current token text.
+                        if (!text.equals("") && text.startsWith(filter)) {
+                            completionResultSet.addItem(new M4CompletionItem(text, startOffset, caretOffset));
+                        }
+                    }
                 } catch (BadLocationException ex) {
                     Exceptions.printStackTrace(ex);
                 } finally {
@@ -93,7 +107,7 @@ public class M4CompletionProvider implements CompletionProvider {
 
             private Set<String> extractMacroDefs(AbstractDocument doc, int caretOffset, String filter) {
                 Set<String> macroDefs = new HashSet<>();
-                
+
                 doc.readLock();
 
                 try {
@@ -104,20 +118,21 @@ public class M4CompletionProvider implements CompletionProvider {
                         Token t = ts.token();
                         System.out.println(t);
 
-                            // Only add macros defined before the current
+                        // Only add macros defined before the current
                         // caret position.
                         if (t.offset(ti) >= caretOffset - t.length()) {
                             continue;
                         }
 
                         final String currentTokenText = t.text().toString();
-                            // Filter out names which do not start with the
+
+                        // Filter out names which do not start with the
                         // current token text.
                         if (currentTokenText.equals("") || !currentTokenText.startsWith(filter)) {
                             continue;
                         }
 
-                            // Ignore tokens which are not our instances
+                        // Ignore tokens which are not our instances
                         // (used only as a cast safeguard).
                         if (!(t.id() instanceof M4TokenId)) {
                             continue;
@@ -132,7 +147,7 @@ public class M4CompletionProvider implements CompletionProvider {
                 } finally {
                     doc.readUnlock();
                 }
-                
+
                 return macroDefs;
             }
         }, jtc);
