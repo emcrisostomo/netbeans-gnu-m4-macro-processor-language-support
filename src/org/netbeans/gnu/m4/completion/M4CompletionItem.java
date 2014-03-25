@@ -42,6 +42,7 @@ import org.openide.util.ImageUtilities;
  */
 public class M4CompletionItem implements CompletionItem {
 
+    private final M4BuiltinMacro macro;
     private final String text;
     private final int startOffset;
     private static final ImageIcon fieldIcon = new ImageIcon(ImageUtilities.loadImage("org/netbeans/gnu/m4/resources/red_dot.png"));
@@ -49,7 +50,15 @@ public class M4CompletionItem implements CompletionItem {
     private final int caretOffset;
 
     public M4CompletionItem(String text, int startOffset, int caretOffset) {
+        this.macro = null;
         this.text = text;
+        this.startOffset = startOffset;
+        this.caretOffset = caretOffset;
+    }
+    
+    public M4CompletionItem(M4BuiltinMacro macro, int startOffset, int caretOffset) {
+        this.macro = macro;
+        this.text = macro.getText();
         this.startOffset = startOffset;
         this.caretOffset = caretOffset;
     }

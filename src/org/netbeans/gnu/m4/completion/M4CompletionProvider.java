@@ -95,7 +95,7 @@ public class M4CompletionProvider implements CompletionProvider {
                         // Filter out names which do not start with the
                         // current token text.
                         if (!text.equals("") && text.startsWith(filter)) {
-                            completionResultSet.addItem(new M4CompletionItem(text, startOffset, caretOffset));
+                            completionResultSet.addItem(new M4CompletionItem(macro, startOffset, caretOffset));
                         }
                     }
                 } catch (BadLocationException ex) {
