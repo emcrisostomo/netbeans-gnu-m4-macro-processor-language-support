@@ -179,7 +179,7 @@ public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
             new M4TokenId("M4EXIT", "m4-builtin-macro", regExCounter++),
             new M4TokenId("FATAL_ERROR", "m4-builtin-macro", regExCounter++),
             // m4 macros
-            new M4TokenId("M4_MACRO", "m4-macro", regExCounter++),
+            new M4TokenId("M4_MACRO", "m4-macro", regExCounter++, true),
             new M4TokenId("MACRO_NAME", "m4-macro", regExCounter++),
             new M4TokenId("M4_MACRO_INVOCATION", "m4-macro-invocation", regExCounter++),
             //  Literals
