@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Dnl</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Dnl">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Dnl">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Input-Control.html#Input-Control" rel="up" title="Input Control">
+        <link href="Changequote.html#Changequote" rel="next" title="Changequote">
+        <link href="Input-Control.html#Input-Control" rel="previous" title="Input Control">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Dnl"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Changequote.html#Changequote" accesskey="n" rel="next">Changequote</a>, Up: <a href="Input-Control.html#Input-Control" accesskey="u" rel="up">Input Control</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Deleting-whitespace-in-input"></a>
+        <h3 class="section">8.1 Deleting whitespace in input</h3>
+
+        <a name="index-deleting-whitespace-in-input"></a>
+        <a name="index-discarding-input-1"></a>
+        <a name="index-input_002c-discarding-1"></a>
+        <p>The builtin <code>dnl</code> stands for &ldquo;Discard to Next Line&rdquo;:
+        </p>
+        <dl>
+            <dt><a name="index-dnl"></a>Builtin: <strong>dnl</strong></dt>
+            <dd><p>All characters, up to and including the next newline, are discarded
+                    without performing any macro expansion.  A warning is issued if the end
+                    of the file is encountered without a newline.
+                </p>
+                <p>The expansion of <code>dnl</code> is void.
+                </p></dd></dl>
+
+        <p>It is often used in connection with <code>define</code>, to remove the
+            newline that follows the call to <code>define</code>.  Thus
+        </p>
+        <div class="example">
+            <pre class="example">define(`foo', `Macro `foo'.')dnl A very simple macro, indeed.
+foo
+&rArr;Macro foo.
+            </pre></div>
+
+        <p>The input up to and including the next newline is discarded, as opposed
+            to the way comments are treated (see <a href="Comments.html#Comments">Comments</a>).
+        </p>
+        <p>Usually, <code>dnl</code> is immediately followed by an end of line or some
+            other whitespace.  GNU <code>m4</code> will produce a warning diagnostic if
+            <code>dnl</code> is followed by an open parenthesis.  In this case, <code>dnl</code>
+            will collect and process all arguments, looking for a matching close
+            parenthesis.  All predictable side effects resulting from this
+            collection will take place.  <code>dnl</code> will return no output.  The
+            input following the matching close parenthesis up to and including the
+            next newline, on whatever line containing it, will still be discarded.
+        </p>
+        <div class="example">
+            <pre class="example">dnl(`args are ignored, but side effects occur',
+define(`foo', `like this')) while this text is ignored: undefine(`foo')
+error&rarr;m4:stdin:1: Warning: excess arguments to builtin `dnl' ignored
+See how `foo' was defined, foo?
+&rArr;See how foo was defined, like this?
+            </pre></div>
+
+        <p>If the end of file is encountered without a newline character, a
+            warning is issued and dnl stops consuming input.
+        </p>
+        <div class="example">
+            <pre class="example">m4wrap(`m4wrap(`2 hi
+')0 hi dnl 1 hi')
+&rArr;
+define(`hi', `HI')
+&rArr;
+^D
+error&rarr;m4:stdin:1: Warning: end of file treated as newline
+&rArr;0 HI 2 HI
+            </pre></div>
+
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Changequote.html#Changequote" accesskey="n" rel="next">Changequote</a>, Up: <a href="Input-Control.html#Input-Control" accesskey="u" rel="up">Input Control</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

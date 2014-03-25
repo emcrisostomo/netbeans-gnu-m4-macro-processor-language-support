@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Changecom</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Changecom">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Changecom">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Input-Control.html#Input-Control" rel="up" title="Input Control">
+        <link href="Changeword.html#Changeword" rel="next" title="Changeword">
+        <link href="Changequote.html#Changequote" rel="previous" title="Changequote">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Changecom"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Changeword.html#Changeword" accesskey="n" rel="next">Changeword</a>, Previous: <a href="Changequote.html#Changequote" accesskey="p" rel="previous">Changequote</a>, Up: <a href="Input-Control.html#Input-Control" accesskey="u" rel="up">Input Control</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Changing-the-comment-delimiters"></a>
+        <h3 class="section">8.3 Changing the comment delimiters</h3>
+
+        <a name="index-changing-comment-delimiters"></a>
+        <a name="index-comment-delimiters_002c-changing"></a>
+        <a name="index-delimiters_002c-changing-1"></a>
+        <p>The default comment delimiters can be changed with the builtin
+            macro <code>changecom</code>:
+        </p>
+        <dl>
+            <dt><a name="index-changecom"></a>Builtin: <strong>changecom</strong> <em>(<span class="roman">[</span><var>start</var><span class="roman">]</span></em></dt>
+            <dd><p>This sets <var>start</var> as the new begin-comment delimiter and <var>end</var>
+                    as the new end-comment delimiter.  If both arguments are missing, or
+                    <var>start</var> is void, then comments are disabled.  Otherwise, if
+                    <var>end</var> is missing or void, the default end-comment delimiter of
+                    newline is used.  The comment delimiters can be of any length.
+                </p>
+                <p>The expansion of <code>changecom</code> is void.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">define(`comment', `COMMENT')
+&rArr;
+# A normal comment
+&rArr;# A normal comment
+changecom(`/*', `*/')
+&rArr;
+# Not a comment anymore
+&rArr;# Not a COMMENT anymore
+But: /* this is a comment now */ while this is not a comment
+&rArr;But: /* this is a comment now */ while this is not a COMMENT
+            </pre></div>
+
+        <a name="index-comments_002c-copied-to-output"></a>
+        <p>Note how comments are copied to the output, much as if they were quoted
+            strings.  If you want the text inside a comment expanded, quote the
+            begin-comment delimiter.
+        </p>
+        <p>Calling <code>changecom</code> without any arguments, or with <var>start</var> as
+            the empty string, will effectively disable the commenting mechanism.  To
+            restore the original comment start of &lsquo;<samp>#</samp>&rsquo;, you must explicitly ask
+            for it.  If <var>start</var> is not empty, then an empty <var>end</var> will use
+            the default end-comment delimiter of newline, as otherwise, it would be
+            impossible to end a comment.  However, this is not portable, as some
+            other <code>m4</code> implementations preserve the previous non-empty
+            delimiters instead.
+        </p>
+        <div class="example">
+            <pre class="example">define(`comment', `COMMENT')
+&rArr;
+changecom
+&rArr;
+# Not a comment anymore
+&rArr;# Not a COMMENT anymore
+changecom(`#', `')
+&rArr;
+# comment again
+&rArr;# comment again
+            </pre></div>
+
+        <p>The comment strings can safely contain eight-bit characters.
+            If no single character is appropriate, <var>start</var> and <var>end</var> can be
+            of any length.  Other implementations cap the delimiter length to five
+            characters, but GNU has no inherent limit.
+        </p>
+        <p>Comments are recognized in preference to macros.  However, this is not
+            compatible with other implementations, where macros and even quoting
+            takes precedence over comments, so it may change in a future release.
+            For portability, this means that <var>start</var> should not begin with a
+            letter, digit, or &lsquo;<samp>_</samp>&rsquo; (underscore), and that neither the
+            start-quote nor the start-comment string should be a prefix of the
+            other.
+        </p>
+        <div class="example">
+            <pre class="example">define(`hi', `HI')
+&rArr;
+define(`hi1hi2', `hello')
+&rArr;
+changecom(`q', `Q')
+&rArr;
+q hi Q hi
+&rArr;q hi Q HI
+changecom(`1', `2')
+&rArr;
+hi1hi2
+&rArr;hello
+hi 1hi2
+&rArr;HI 1hi2
+            </pre></div>
+
+        <p>Comments are recognized in preference to argument collection.  In
+            particular, if <var>start</var> is a single &lsquo;<samp>(</samp>&rsquo;, then argument
+            collection is effectively disabled.  For portability with other
+            implementations, it is a good idea to avoid &lsquo;<samp>(</samp>&rsquo;, &lsquo;<samp>,</samp>&rsquo;, and
+            &lsquo;<samp>)</samp>&rsquo; as the first character in <var>start</var>.
+        </p>
+        <div class="example">
+            <pre class="example">define(`echo', `$#:$*:$@:')
+&rArr;
+define(`hi', `HI')
+&rArr;
+changecom(`(',`)')
+&rArr;
+echo(hi)
+&rArr;0:::(hi)
+changecom
+&rArr;
+changecom(`((', `))')
+&rArr;
+echo(hi)
+&rArr;1:HI:HI:
+echo((hi))
+&rArr;0:::((hi))
+changecom(`,', `)')
+&rArr;
+echo(hi,hi)bye)
+&rArr;1:HI,hi)bye:HI,hi)bye:
+changecom
+&rArr;
+echo(hi,`,`'hi',hi)
+&rArr;3:HI,,HI,HI:HI,,`'hi,HI:
+echo(hi,`,`'hi',hi`'changecom(`,,', `hi'))
+&rArr;3:HI,,`'hi,HI:HI,,`'hi,HI:
+            </pre></div>
+
+        <p>It is an error if the end of file occurs within a comment.
+        </p>
+        <div class="example">
+            <pre class="example">changecom(`/*', `*/')
+&rArr;
+/*dangling comment
+^D
+error&rarr;m4:stdin:2: ERROR: end of file in comment
+            </pre></div>
+
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Changeword.html#Changeword" accesskey="n" rel="next">Changeword</a>, Previous: <a href="Changequote.html#Changequote" accesskey="p" rel="previous">Changequote</a>, Up: <a href="Input-Control.html#Input-Control" accesskey="u" rel="up">Input Control</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

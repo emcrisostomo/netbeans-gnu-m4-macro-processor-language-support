@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Patsubst</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Patsubst">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Patsubst">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Text-handling.html#Text-handling" rel="up" title="Text handling">
+        <link href="Format.html#Format" rel="next" title="Format">
+        <link href="Translit.html#Translit" rel="previous" title="Translit">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Patsubst"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Format.html#Format" accesskey="n" rel="next">Format</a>, Previous: <a href="Translit.html#Translit" accesskey="p" rel="previous">Translit</a>, Up: <a href="Text-handling.html#Text-handling" accesskey="u" rel="up">Text handling</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Substituting-text-by-regular-expression"></a>
+        <h3 class="section">11.6 Substituting text by regular expression</h3>
+
+        <a name="index-basic-regular-expressions-1"></a>
+        <a name="index-regular-expressions-2"></a>
+        <a name="index-expressions_002c-regular-1"></a>
+        <a name="index-pattern-substitution"></a>
+        <a name="index-substitution-by-regular-expression"></a>
+        <a name="index-GNU-extensions-12"></a>
+        <p>Global substitution in a string is done by <code>patsubst</code>:
+        </p>
+        <dl>
+            <dt><a name="index-patsubst"></a>Builtin: <strong>patsubst</strong> <em>(<var>string</var>, <var>regexp</var>, <span class="roman">[</span><var>replacement</var><span class="roman">]</span></em></dt>
+            <dd><p>Searches <var>string</var> for matches of <var>regexp</var>, and substitutes
+                    <var>replacement</var> for each match.  The syntax for regular expressions
+                    is the same as in GNU Emacs (see <a href="Regexp.html#Regexp">Regexp</a>).
+                </p>
+                <p>The parts of <var>string</var> that are not covered by any match of
+                    <var>regexp</var> are copied to the expansion.  Whenever a match is found, the
+                    search proceeds from the end of the match, so a character from
+                    <var>string</var> will never be substituted twice.  If <var>regexp</var> matches a
+                    string of zero length, the start position for the search is incremented,
+                    to avoid infinite loops.
+                </p>
+                <p>When a replacement is to be made, <var>replacement</var> is inserted into
+                    the expansion, with &lsquo;<samp>\<var>n</var></samp>&rsquo; substituted by the text matched by
+                    the <var>n</var>th parenthesized sub-expression of <var>patsubst</var>, for up to
+                    nine sub-expressions.  The escape &lsquo;<samp>\&amp;</samp>&rsquo; is replaced by the text of
+                    the entire regular expression matched.  For all other characters,
+                    &lsquo;<samp>\</samp>&rsquo; treats the next character literally.  A warning is issued if
+                    there were fewer sub-expressions than the &lsquo;<samp>\<var>n</var></samp>&rsquo; requested, or
+                    if there is a trailing &lsquo;<samp>\</samp>&rsquo;.
+                </p>
+                <p>The <var>replacement</var> argument can be omitted, in which case the text
+                    matched by <var>regexp</var> is deleted.
+                </p>
+                <p>The macro <code>patsubst</code> is recognized only with parameters.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">patsubst(`GNUs not Unix', `^', `OBS: ')
+&rArr;OBS: GNUs not Unix
+patsubst(`GNUs not Unix', `\&lt;', `OBS: ')
+&rArr;OBS: GNUs OBS: not OBS: Unix
+patsubst(`GNUs not Unix', `\w*', `(\&amp;)')
+&rArr;(GNUs)() (not)() (Unix)()
+patsubst(`GNUs not Unix', `\w+', `(\&amp;)')
+&rArr;(GNUs) (not) (Unix)
+patsubst(`GNUs not Unix', `[A-Z][a-z]+')
+&rArr;GN not <!-- /@w -->
+patsubst(`GNUs not Unix', `not', `NOT\')
+error&rarr;m4:stdin:6: Warning: trailing \ ignored in replacement
+&rArr;GNUs NOT Unix
+            </pre></div>
+
+        <p>Here is a slightly more realistic example, which capitalizes individual
+            words or whole sentences, by substituting calls of the macros
+            <code>upcase</code> and <code>downcase</code> into the strings.
+        </p>
+        <dl>
+            <dt><a name="index-upcase"></a>Composite: <strong>upcase</strong> <em>(<var>text</var>)</em></dt>
+            <dt><a name="index-downcase"></a>Composite: <strong>downcase</strong> <em>(<var>text</var>)</em></dt>
+            <dt><a name="index-capitalize"></a>Composite: <strong>capitalize</strong> <em>(<var>text</var>)</em></dt>
+            <dd><p>Expand to <var>text</var>, but with capitalization changed: <code>upcase</code>
+                    changes all letters to upper case, <code>downcase</code> changes all letters
+                    to lower case, and <code>capitalize</code> changes the first character of each
+                    word to upper case and the remaining characters to lower case.
+                </p></dd></dl>
+
+        <p>First, an example of their usage, using implementations distributed in
+            <samp>m4-1.4.17/examples/capitalize.m4</samp>.
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -I examples</kbd>
+include(`capitalize.m4')
+&rArr;
+upcase(`GNUs not Unix')
+&rArr;GNUS NOT UNIX
+downcase(`GNUs not Unix')
+&rArr;gnus not unix
+capitalize(`GNUs not Unix')
+&rArr;Gnus Not Unix
+            </pre></div>
+
+        <p>Now for the implementation.  There is a helper macro <code>_capitalize</code>
+            which puts only its first word in mixed case.  Then <code>capitalize</code>
+            merely parses out the words, and replaces them with an invocation of
+            <code>_capitalize</code>.  (As presented here, the <code>capitalize</code> macro has
+            some subtle flaws.  You should try to see if you can find and correct
+            them; or see <a href="Improved-capitalize.html#Improved-capitalize">Answers</a>).
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -I examples</kbd>
+undivert(`capitalize.m4')dnl
+&rArr;divert(`-1')
+&rArr;# upcase(text)
+&rArr;# downcase(text)
+&rArr;# capitalize(text)
+&rArr;#   change case of text, simple version
+&rArr;define(`upcase', `translit(`$*', `a-z', `A-Z')')
+&rArr;define(`downcase', `translit(`$*', `A-Z', `a-z')')
+&rArr;define(`_capitalize',
+&rArr;       `regexp(`$1', `^\(\w\)\(\w*\)',
+&rArr;               `upcase(`\1')`'downcase(`\2')')')
+&rArr;define(`capitalize', `patsubst(`$1', `\w+', `_$0(`\&amp;')')')
+&rArr;divert`'dnl
+            </pre></div>
+
+        <p>While <code>regexp</code> replaces the whole input with the replacement as
+            soon as there is a match, <code>patsubst</code> replaces each
+            <em>occurrence</em> of a match and preserves non-matching pieces:
+        </p>
+        <div class="example">
+            <pre class="example">define(`patreg',
+`patsubst($@)
+regexp($@)')dnl
+patreg(`bar foo baz Foo', `foo\|Foo', `FOO')
+&rArr;bar FOO baz FOO
+&rArr;FOO
+patreg(`aba abb 121', `\(.\)\(.\)\1', `\2\1\2')
+&rArr;bab abb 212
+&rArr;bab
+            </pre></div>
+
+        <p>Omitting <var>regexp</var> evokes a warning, but still produces output;
+            contrast this with an empty <var>regexp</var> argument.
+        </p>
+        <div class="example">
+            <pre class="example">patsubst(`abc')
+error&rarr;m4:stdin:1: Warning: too few arguments to builtin `patsubst'
+&rArr;abc
+patsubst(`abc', `')
+&rArr;abc
+patsubst(`abc', `', `\\-')
+&rArr;\-a\-b\-c\-
+            </pre></div>
+
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Format.html#Format" accesskey="n" rel="next">Format</a>, Previous: <a href="Translit.html#Translit" accesskey="p" rel="previous">Translit</a>, Up: <a href="Text-handling.html#Text-handling" accesskey="u" rel="up">Text handling</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Platform macros</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Platform macros">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Platform macros">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Shell-commands.html#Shell-commands" rel="up" title="Shell commands">
+        <link href="Syscmd.html#Syscmd" rel="next" title="Syscmd">
+        <link href="Shell-commands.html#Shell-commands" rel="previous" title="Shell commands">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Platform-macros"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Syscmd.html#Syscmd" accesskey="n" rel="next">Syscmd</a>, Up: <a href="Shell-commands.html#Shell-commands" accesskey="u" rel="up">Shell commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Determining-the-platform"></a>
+        <h3 class="section">13.1 Determining the platform</h3>
+
+        <a name="index-platform-macros"></a>
+        <p>Sometimes it is desirable for an input file to know which platform
+            <code>m4</code> is running on.  GNU <code>m4</code> provides several
+            macros that are predefined to expand to the empty string; checking for
+            their existence will confirm platform details.
+        </p>
+        <dl>
+            <dt><a name="index-_005f_005fgnu_005f_005f"></a>Optional builtin: <strong>__gnu__</strong></dt>
+            <dt><a name="index-_005f_005fos2_005f_005f"></a>Optional builtin: <strong>__os2__</strong></dt>
+            <dt><a name="index-os2"></a>Optional builtin: <strong>os2</strong></dt>
+            <dt><a name="index-_005f_005funix_005f_005f"></a>Optional builtin: <strong>__unix__</strong></dt>
+            <dt><a name="index-unix"></a>Optional builtin: <strong>unix</strong></dt>
+            <dt><a name="index-_005f_005fwindows_005f_005f"></a>Optional builtin: <strong>__windows__</strong></dt>
+            <dt><a name="index-windows"></a>Optional builtin: <strong>windows</strong></dt>
+            <dd><p>Each of these macros is conditionally defined as needed to describe the
+                    environment of <code>m4</code>.  If defined, each macro expands to the empty
+                    string.  For now, these macros silently ignore all arguments, but in a
+                    future release of M4, they might warn if arguments are present.
+                </p></dd></dl>
+
+        <p>When GNU extensions are in effect (that is, when you did not
+            use the <samp>-G</samp> option, see <a href="Limits-control.html#Limits-control">Invoking m4</a>),
+            GNU <code>m4</code> will define the macro <code><span class="nolinebreak">__gnu__</span><!-- /@w --></code> to
+            expand to the empty string.
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4</kbd>
+__gnu__
+&rArr;
+__gnu__(`ignored')
+&rArr;
+Extensions are ifdef(`__gnu__', `active', `inactive')
+&rArr;Extensions are active
+            </pre></div>
+
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -G</kbd>
+__gnu__
+&rArr;__gnu__
+__gnu__(`ignored')
+&rArr;__gnu__(ignored)
+Extensions are ifdef(`__gnu__', `active', `inactive')
+&rArr;Extensions are inactive
+            </pre></div>
+
+        <p>On UNIX systems, GNU <code>m4</code> will define <code><span class="nolinebreak">__unix__</span><!-- /@w --></code>
+            by default, or <code>unix</code> when the <samp>-G</samp> option is specified.
+        </p>
+        <p>On native Windows systems, GNU <code>m4</code> will define
+            <code><span class="nolinebreak">__windows__</span><!-- /@w --></code> by default, or <code>windows</code> when the
+            <samp>-G</samp> option is specified.
+        </p>
+        <p>On OS/2 systems, GNU <code>m4</code> will define <code><span class="nolinebreak">__os2__</span><!-- /@w --></code>
+            by default, or <code>os2</code> when the <samp>-G</samp> option is specified.
+        </p>
+        <p>If GNU <code>m4</code> does not provide a platform macro for your system,
+            please report that as a bug.
+        </p>
+        <div class="example">
+            <pre class="example">define(`provided', `0')
+&rArr;
+ifdef(`__unix__', `define(`provided', incr(provided))')
+&rArr;
+ifdef(`__windows__', `define(`provided', incr(provided))')
+&rArr;
+ifdef(`__os2__', `define(`provided', incr(provided))')
+&rArr;
+provided
+&rArr;1
+            </pre></div>
+
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Syscmd.html#Syscmd" accesskey="n" rel="next">Syscmd</a>, Up: <a href="Shell-commands.html#Shell-commands" accesskey="u" rel="up">Shell commands</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

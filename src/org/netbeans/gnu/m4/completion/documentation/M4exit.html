@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: M4exit</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: M4exit">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: M4exit">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Miscellaneous.html#Miscellaneous" rel="up" title="Miscellaneous">
+        <link href="Frozen-files.html#Frozen-files" rel="next" title="Frozen files">
+        <link href="Location.html#Location" rel="previous" title="Location">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="M4exit"></a>
+        <div class="header">
+            <p>
+                Previous: <a href="Location.html#Location" accesskey="p" rel="previous">Location</a>, Up: <a href="Miscellaneous.html#Miscellaneous" accesskey="u" rel="up">Miscellaneous</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Exiting-from-m4"></a>
+        <h3 class="section">14.3 Exiting from <code>m4</code></h3>
+
+        <a name="index-exiting-from-m4"></a>
+        <a name="index-status_002c-setting-m4-exit"></a>
+        <p>If you need to exit from <code>m4</code> before the entire input has been
+            read, you can use <code>m4exit</code>:
+        </p>
+        <dl>
+            <dt><a name="index-m4exit"></a>Builtin: <strong>m4exit</strong> <em>(<span class="roman">[</span><var>code</var> = &lsquo;<samp>0</samp>&rsquo;<span class="roman">]</span></em></dt>
+            <dd><p>Causes <code>m4</code> to exit, with exit status <var>code</var>.  If <var>code</var> is
+                    left out, the exit status is zero.  If <var>code</var> cannot be parsed, or
+                    is outside the range of 0 to 255, the exit status is one.  No further
+                    input is read, and all wrapped and diverted text is discarded.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">m4wrap(`This text is lost due to `m4exit'.')
+&rArr;
+divert(`1') So is this.
+divert
+&rArr;
+m4exit And this is never read.
+            </pre></div>
+
+        <p>A common use of this is to abort processing:
+        </p>
+        <dl>
+            <dt><a name="index-fatal_005ferror"></a>Composite: <strong>fatal_error</strong> <em>(<var>message</var>)</em></dt>
+            <dd><p>Abort processing with an error message and non-zero status.  Prefix
+                    <var>message</var> with details about where the error occurred, and print the
+                    resulting string to standard error.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">define(`fatal_error',
+       `errprint(__program__:__file__:__line__`: fatal error: $*
+')m4exit(`1')')
+&rArr;
+fatal_error(`this is a BAD one, buster')
+error&rarr;m4:stdin:4: fatal error: this is a BAD one, buster
+            </pre></div>
+
+        <p>After this macro call, <code>m4</code> will exit with exit status 1.  This macro
+            is only intended for error exits, since the normal exit procedures are
+            not followed, i.e., diverted text is not undiverted, and saved text
+            (see <a href="M4wrap.html#M4wrap">M4wrap</a>) is not reread.  (This macro could be made more robust
+            to earlier versions of <code>m4</code>.  You should try to see if you can find
+            weaknesses and correct them; or see <a href="Improved-fatal_005ferror.html#Improved-fatal_005ferror">Answers</a>).
+        </p>
+        <p>Note that it is still possible for the exit status to be different than
+            what was requested by <code>m4exit</code>.  If <code>m4</code> detects some other
+            error, such as a write error on standard output, the exit status will be
+            non-zero even if <code>m4exit</code> requested zero.
+        </p>
+        <p>If standard input is seekable, then the file will be positioned at the
+            next unread character.  If it is a pipe or other non-seekable file,
+            then there are no guarantees how much data <code>m4</code> might have read
+            into buffers, and thus discarded.
+        </p>
+        <hr>
+        <div class="header">
+            <p>
+                Previous: <a href="Location.html#Location" accesskey="p" rel="previous">Location</a>, Up: <a href="Miscellaneous.html#Miscellaneous" accesskey="u" rel="up">Miscellaneous</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

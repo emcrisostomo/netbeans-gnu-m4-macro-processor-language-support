@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Debug Levels</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Debug Levels">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Debug Levels">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Debugging.html#Debugging" rel="up" title="Debugging">
+        <link href="Debug-Output.html#Debug-Output" rel="next" title="Debug Output">
+        <link href="Trace.html#Trace" rel="previous" title="Trace">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Debug-Levels"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Debug-Output.html#Debug-Output" accesskey="n" rel="next">Debug Output</a>, Previous: <a href="Trace.html#Trace" accesskey="p" rel="previous">Trace</a>, Up: <a href="Debugging.html#Debugging" accesskey="u" rel="up">Debugging</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Controlling-debugging-output"></a>
+        <h3 class="section">7.3 Controlling debugging output</h3>
+
+        <a name="index-controlling-debugging-output"></a>
+        <a name="index-debugging-output_002c-controlling"></a>
+        <p>The <samp>-d</samp> option to <code>m4</code> (or <samp>--debug</samp>,
+            see <a href="Debugging-options.html#Debugging-options">Invoking m4</a>) controls the amount of details
+            presented in three
+            categories of output.  Trace output is requested by <code>traceon</code>
+            (see <a href="Trace.html#Trace">Trace</a>), and each line is prefixed by &lsquo;<samp>m4trace:</samp>&rsquo; in
+            relation to a macro invocation.  Debug output tracks useful events not
+            associated with a macro invocation, and each line is prefixed by
+            &lsquo;<samp>m4debug:</samp>&rsquo;.  Finally, <code>dumpdef</code> (see <a href="Dumpdef.html#Dumpdef">Dumpdef</a>) output is
+            affected, with no prefix added to the output lines.
+        </p>
+        <p>The <var>flags</var> following the option can be one or more of the
+            following:
+        </p>
+        <dl compact="compact">
+            <dt><code>a</code></dt>
+            <dd><p>In trace output, show the actual arguments that were collected before
+                    invoking the macro.  This applies to all macro calls if the &lsquo;<samp>t</samp>&rsquo;
+                    flag is used, otherwise only the macros covered by calls of
+                    <code>traceon</code>.  Arguments are subject to length truncation specified by
+                    the command line option <samp>--arglength</samp> (or <samp>-l</samp>).
+                </p>
+            </dd>
+            <dt><code>c</code></dt>
+            <dd><p>In trace output, show several trace lines for each macro call.  A line
+                    is shown when the macro is seen, but before the arguments are collected;
+                    a second line when the arguments have been collected and a third line
+                    after the call has completed.
+                </p>
+            </dd>
+            <dt><code>e</code></dt>
+            <dd><p>In trace output, show the expansion of each macro call, if it is not
+                    void.  This applies to all macro calls if the &lsquo;<samp>t</samp>&rsquo; flag is used,
+                    otherwise only the macros covered by calls of <code>traceon</code>.  The
+                    expansion is subject to length truncation specified by the command line
+                    option <samp>--arglength</samp> (or <samp>-l</samp>).
+                </p>
+            </dd>
+            <dt><code>f</code></dt>
+            <dd><p>In debug and trace output, include the name of the current input file in
+                    the output line.
+                </p>
+            </dd>
+            <dt><code>i</code></dt>
+            <dd><p>In debug output, print a message each time the current input file is
+                    changed.
+                </p>
+            </dd>
+            <dt><code>l</code></dt>
+            <dd><p>In debug and trace output, include the current input line number in the
+                    output line.
+                </p>
+            </dd>
+            <dt><code>p</code></dt>
+            <dd><p>In debug output, print a message when a named file is found through the
+                    path search mechanism (see <a href="Search-Path.html#Search-Path">Search Path</a>), giving the actual file name
+                    used.
+                </p>
+            </dd>
+            <dt><code>q</code></dt>
+            <dd><p>In trace and dumpdef output, quote actual arguments and macro expansions
+                    in the display with the current quotes.  This is useful in connection
+                    with the &lsquo;<samp>a</samp>&rsquo; and &lsquo;<samp>e</samp>&rsquo; flags above.
+                </p>
+            </dd>
+            <dt><code>t</code></dt>
+            <dd><p>In trace output, trace all macro calls made in this invocation of
+                    <code>m4</code>, regardless of the settings of <code>traceon</code>.
+                </p>
+            </dd>
+            <dt><code>x</code></dt>
+            <dd><p>In trace output, add a unique &lsquo;macro call id&rsquo; to each line of the trace
+                    output.  This is useful in connection with the &lsquo;<samp>c</samp>&rsquo; flag above.
+                </p>
+            </dd>
+            <dt><code>V</code></dt>
+            <dd><p>A shorthand for all of the above flags.
+                </p></dd>
+        </dl>
+
+        <p>If no flags are specified with the <samp>-d</samp> option, the default is
+            &lsquo;<samp>aeq</samp>&rsquo;.  The examples throughout this manual assume the default
+            flags.
+        </p>
+        <a name="index-GNU-extensions-5"></a>
+        <p>There is a builtin macro <code>debugmode</code>, which allows on-the-fly control of
+            the debugging output format:
+        </p>
+        <dl>
+            <dt><a name="index-debugmode"></a>Builtin: <strong>debugmode</strong> <em>(<span class="roman">[</span><var>flags</var><span class="roman">]</span></em></dt>
+            <dd><p>The argument <var>flags</var> should be a subset of the letters listed above.
+                    As special cases, if the argument starts with a &lsquo;<samp>+</samp>&rsquo;, the flags are
+                    added to the current debug flags, and if it starts with a &lsquo;<samp>-</samp>&rsquo;, they
+                    are removed.  If no argument is present, all debugging flags are cleared
+                    (as if no <samp>-d</samp> was given), and with an empty argument the flags
+                    are reset to the default of &lsquo;<samp>aeq</samp>&rsquo;.
+                </p>
+                <p>The expansion of <code>debugmode</code> is void.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">$ <kbd>m4</kbd>
+define(`foo', `FOO')
+&rArr;
+traceon(`foo')
+&rArr;
+debugmode()
+&rArr;
+foo
+error&rarr;m4trace: -1- foo -&gt; `FOO'
+&rArr;FOO
+debugmode
+&rArr;
+foo
+error&rarr;m4trace: -1- foo
+&rArr;FOO
+debugmode(`+l')
+&rArr;
+foo
+error&rarr;m4trace:8: -1- foo
+&rArr;FOO
+            </pre></div>
+
+        <p>The following example demonstrates the behavior of length truncation,
+            when specified on the command line.  Note that each argument and the
+            final result are individually truncated.  Also, the special tokens for
+            builtin functions are not truncated.
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -d -l 6</kbd>
+define(`echo', `$@')debugmode(`+t')
+&rArr;
+echo(`1', `long string')
+error&rarr;m4trace: -1- echo(`1', `long s...') -&gt; ``1',`l...'
+&rArr;1,long string
+indir(`echo', defn(`changequote'))
+error&rarr;m4trace: -2- defn(`change...')
+error&rarr;m4trace: -1- indir(`echo', &lt;changequote&gt;) -&gt; ``''
+&rArr;
+            </pre></div>
+
+        <p>This example shows the effects of the debug flags that are not related
+            to macro tracing.
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -dip -I examples</kbd>
+error&rarr;m4debug: input read from stdin
+include(`foo')dnl
+error&rarr;m4debug: path search for `foo' found `examples/foo'
+error&rarr;m4debug: input read from examples/foo
+&rArr;bar
+error&rarr;m4debug: input reverted to stdin, line 1
+^D
+error&rarr;m4debug: input exhausted
+            </pre></div>
+
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Debug-Output.html#Debug-Output" accesskey="n" rel="next">Debug Output</a>, Previous: <a href="Trace.html#Trace" accesskey="p" rel="previous">Trace</a>, Up: <a href="Debugging.html#Debugging" accesskey="u" rel="up">Debugging</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

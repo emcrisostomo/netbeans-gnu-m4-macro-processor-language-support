@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Changeword</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Changeword">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Changeword">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Input-Control.html#Input-Control" rel="up" title="Input Control">
+        <link href="M4wrap.html#M4wrap" rel="next" title="M4wrap">
+        <link href="Changecom.html#Changecom" rel="previous" title="Changecom">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Changeword"></a>
+        <div class="header">
+            <p>
+                Next: <a href="M4wrap.html#M4wrap" accesskey="n" rel="next">M4wrap</a>, Previous: <a href="Changecom.html#Changecom" accesskey="p" rel="previous">Changecom</a>, Up: <a href="Input-Control.html#Input-Control" accesskey="u" rel="up">Input Control</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Changing-the-lexical-structure-of-words"></a>
+        <h3 class="section">8.4 Changing the lexical structure of words</h3>
+
+        <a name="index-lexical-structure-of-words"></a>
+        <a name="index-words_002c-lexical-structure-of"></a>
+        <a name="index-syntax_002c-changing"></a>
+        <a name="index-changing-syntax"></a>
+        <a name="index-regular-expressions"></a>
+        <blockquote>
+            <p>The macro <code>changeword</code> and all associated functionality is
+                experimental.  It is only available if the <samp>--enable-changeword</samp>
+                option was given to <code>configure</code>, at GNU <code>m4</code>
+                installation
+                time.  The functionality will go away in the future, to be replaced by
+                other new features that are more efficient at providing the same
+                capabilities.  <em>Do not rely on it</em>.  Please direct your comments
+                about it the same way you would do for bugs.
+            </p></blockquote>
+
+        <p>A file being processed by <code>m4</code> is split into quoted strings, words
+            (potential macro names) and simple tokens (any other single character).
+            Initially a word is defined by the following regular expression:
+        </p>
+        <div class="example">
+            <pre class="example">[_a-zA-Z][_a-zA-Z0-9]*
+            </pre></div>
+
+        <p>Using <code>changeword</code>, you can change this regular expression:
+        </p>
+        <dl>
+            <dt><a name="index-changeword"></a>Optional builtin: <strong>changeword</strong> <em>(<var>regex</var>)</em></dt>
+            <dd><p>Changes the regular expression for recognizing macro names to be
+                    <var>regex</var>.  If <var>regex</var> is empty, use
+                    &lsquo;<samp>[_a-zA-Z][_a-zA-Z0-9]*</samp>&rsquo;.  <var>regex</var> must obey the constraint
+                    that every prefix of the desired final pattern is also accepted by the
+                    regular expression.  If <var>regex</var> contains grouping parentheses, the
+                    macro invoked is the portion that matched the first group, rather than
+                    the entire matching string.
+                </p>
+                <p>The expansion of <code>changeword</code> is void.
+                    The macro <code>changeword</code> is recognized only with parameters.
+                </p></dd></dl>
+
+        <p>Relaxing the lexical rules of <code>m4</code> might be useful (for example) if
+            you wanted to apply translations to a file of numbers:
+        </p>
+        <div class="example">
+            <pre class="example">ifdef(`changeword', `', `errprint(` skipping: no changeword support
+')m4exit(`77')')dnl
+changeword(`[_a-zA-Z0-9]+')
+&rArr;
+define(`1', `0')1
+&rArr;0
+            </pre></div>
+
+        <p>Tightening the lexical rules is less useful, because it will generally
+            make some of the builtins unavailable.  You could use it to prevent
+            accidental call of builtins, for example:
+        </p>
+        <div class="example">
+            <pre class="example">ifdef(`changeword', `', `errprint(` skipping: no changeword support
+')m4exit(`77')')dnl
+define(`_indir', defn(`indir'))
+&rArr;
+changeword(`_[_a-zA-Z0-9]*')
+&rArr;
+esyscmd(`foo')
+&rArr;esyscmd(foo)
+_indir(`esyscmd', `echo hi')
+&rArr;hi
+&rArr;
+            </pre></div>
+
+        <p>Because <code>m4</code> constructs its words a character at a time, there
+            is a restriction on the regular expressions that may be passed to
+            <code>changeword</code>.  This is that if your regular expression accepts
+            &lsquo;<samp>foo</samp>&rsquo;, it must also accept &lsquo;<samp>f</samp>&rsquo; and &lsquo;<samp>fo</samp>&rsquo;.
+        </p>
+        <div class="example">
+            <pre class="example">ifdef(`changeword', `', `errprint(` skipping: no changeword support
+')m4exit(`77')')dnl
+define(`foo
+', `bar
+')
+&rArr;
+dnl This example wants to recognize changeword, dnl, and `foo\n'.
+dnl First, we check that our regexp will match.
+regexp(`changeword', `[cd][a-z]*\|foo[
+]')
+&rArr;0
+regexp(`foo
+', `[cd][a-z]*\|foo[
+]')
+&rArr;0
+regexp(`f', `[cd][a-z]*\|foo[
+]')
+&rArr;-1
+foo
+&rArr;foo
+changeword(`[cd][a-z]*\|foo[
+]')
+&rArr;
+dnl Even though `foo\n' matches, we forgot to allow `f'.
+foo
+&rArr;foo
+changeword(`[cd][a-z]*\|fo*[
+]?')
+&rArr;
+dnl Now we can call `foo\n'.
+foo
+&rArr;bar
+            </pre></div>
+
+
+        <p><code>changeword</code> has another function.  If the regular expression
+            supplied contains any grouped subexpressions, then text outside
+            the first of these is discarded before symbol lookup.  So:
+        </p>
+        <div class="example">
+            <pre class="example">ifdef(`changeword', `', `errprint(` skipping: no changeword support
+')m4exit(`77')')dnl
+ifdef(`__unix__', ,
+      `errprint(` skipping: syscmd does not have unix semantics
+')m4exit(`77')')dnl
+changecom(`/*', `*/')dnl
+define(`foo', `bar')dnl
+changeword(`#\([_a-zA-Z0-9]*\)')
+&rArr;
+#esyscmd(`echo foo \#foo')
+&rArr;foo bar
+&rArr;
+            </pre></div>
+
+        <p><code>m4</code> now requires a &lsquo;<samp>#</samp>&rsquo; mark at the beginning of every
+            macro invocation, so one can use <code>m4</code> to preprocess plain
+            text without losing various words like &lsquo;<samp>divert</samp>&rsquo;.
+        </p>
+        <p>In <code>m4</code>, macro substitution is based on text, while in TeX, it
+            is based on tokens.  <code>changeword</code> can throw this difference into
+            relief.  For example, here is the same idea represented in TeX and
+            <code>m4</code>.  First, the TeX version:
+        </p>
+        <div class="example">
+            <pre class="example">\def\a{\message{Hello}}
+\catcode`\@=0
+\catcode`\\=12
+@a
+@bye
+&rArr;Hello
+            </pre></div>
+
+        <p>Then, the <code>m4</code> version:
+        </p>
+        <div class="example">
+            <pre class="example">ifdef(`changeword', `', `errprint(` skipping: no changeword support
+')m4exit(`77')')dnl
+define(`a', `errprint(`Hello')')dnl
+changeword(`@\([_a-zA-Z0-9]*\)')
+&rArr;
+@a
+&rArr;errprint(Hello)
+            </pre></div>
+
+        <p>In the TeX example, the first line defines a macro <code>a</code> to
+            print the message &lsquo;<samp>Hello</samp>&rsquo;.  The second line defines <tt class="key">@</tt> to
+            be usable instead of <tt class="key">\</tt> as an escape character.  The third line
+            defines <tt class="key">\</tt> to be a normal printing character, not an escape.
+            The fourth line invokes the macro <code>a</code>.  So, when TeX is run
+            on this file, it displays the message &lsquo;<samp>Hello</samp>&rsquo;.
+        </p>
+        <p>When the <code>m4</code> example is passed through <code>m4</code>, it outputs
+            &lsquo;<samp>errprint(Hello)</samp>&rsquo;.  The reason for this is that TeX does
+            lexical analysis of macro definition when the macro is <em>defined</em>.
+            <code>m4</code> just stores the text, postponing the lexical analysis until
+            the macro is <em>used</em>.
+        </p>
+        <p>You should note that using <code>changeword</code> will slow <code>m4</code> down
+            by a factor of about seven, once it is changed to something other
+            than the default regular expression.  You can invoke <code>changeword</code>
+            with the empty string to restore the default word definition, and regain
+            the parsing speed.
+        </p>
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="M4wrap.html#M4wrap" accesskey="n" rel="next">M4wrap</a>, Previous: <a href="Changecom.html#Changecom" accesskey="p" rel="previous">Changecom</a>, Up: <a href="Input-Control.html#Input-Control" accesskey="u" rel="up">Input Control</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

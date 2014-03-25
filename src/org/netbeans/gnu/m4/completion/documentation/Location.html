@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Location</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Location">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Location">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Miscellaneous.html#Miscellaneous" rel="up" title="Miscellaneous">
+        <link href="M4exit.html#M4exit" rel="next" title="M4exit">
+        <link href="Errprint.html#Errprint" rel="previous" title="Errprint">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Location"></a>
+        <div class="header">
+            <p>
+                Next: <a href="M4exit.html#M4exit" accesskey="n" rel="next">M4exit</a>, Previous: <a href="Errprint.html#Errprint" accesskey="p" rel="previous">Errprint</a>, Up: <a href="Miscellaneous.html#Miscellaneous" accesskey="u" rel="up">Miscellaneous</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Printing-current-location"></a>
+        <h3 class="section">14.2 Printing current location</h3>
+
+        <a name="index-location_002c-input-1"></a>
+        <a name="index-input-location-1"></a>
+        <p>To make it possible to specify the location of an error, three
+            utility builtins exist:
+        </p>
+        <dl>
+            <dt><a name="index-_005f_005ffile_005f_005f"></a>Builtin: <strong>__file__</strong></dt>
+            <dt><a name="index-_005f_005fline_005f_005f"></a>Builtin: <strong>__line__</strong></dt>
+            <dt><a name="index-_005f_005fprogram_005f_005f"></a>Builtin: <strong>__program__</strong></dt>
+            <dd><p>Expand to the quoted name of the current input file, the
+                    current input line number in that file, and the quoted name of the
+                    current invocation of <code>m4</code>.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">errprint(__program__:__file__:__line__: `input error
+')
+error&rarr;m4:stdin:1: input error
+&rArr;
+            </pre></div>
+
+        <p>Line numbers start at 1 for each file.  If the file was found due to the
+            <samp>-I</samp> option or <code>M4PATH</code> environment variable, that is
+            reflected in the file name.  The syncline option (<samp>-s</samp>,
+            see <a href="Preprocessor-features.html#Preprocessor-features">Invoking m4</a>), and the
+            &lsquo;<samp>f</samp>&rsquo; and &lsquo;<samp>l</samp>&rsquo; flags of <code>debugmode</code> (see <a href="Debug-Levels.html#Debug-Levels">Debug Levels</a>),
+            also use this notion of current file and line.  Redefining the three
+            location macros has no effect on syncline, debug, warning, or error
+            message output.
+        </p>
+        <p>This example reuses the file <samp>incl.m4</samp> mentioned earlier
+            (see <a href="Include.html#Include">Include</a>):
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -I examples</kbd>
+define(`foo', ``$0' called at __file__:__line__')
+&rArr;
+foo
+&rArr;foo called at stdin:2
+include(`incl.m4')
+&rArr;Include file start
+&rArr;foo called at examples/incl.m4:2
+&rArr;Include file end
+&rArr;
+            </pre></div>
+
+        <p>The location of macros invoked during the rescanning of macro expansion
+            text corresponds to the location in the file where the expansion was
+            triggered, regardless of how many newline characters the expansion text
+            contains.  As of GNU M4 1.4.8, the location of text wrapped
+            with <code>m4wrap</code> (see <a href="M4wrap.html#M4wrap">M4wrap</a>) is the point at which the
+            <code>m4wrap</code> was invoked.  Previous versions, however, behaved as
+            though wrapped text came from line 0 of the file &ldquo;&rdquo;.
+        </p>
+        <div class="example">
+            <pre class="example">define(`echo', `$@')
+&rArr;
+define(`foo', `echo(__line__
+__line__)')
+&rArr;
+echo(__line__
+__line__)
+&rArr;4
+&rArr;5
+m4wrap(`foo
+')
+&rArr;
+foo(errprint(__line__
+__line__
+))
+error&rarr;8
+error&rarr;9
+&rArr;8
+&rArr;8
+__line__
+&rArr;11
+m4wrap(`__line__
+')
+&rArr;
+^D
+&rArr;12
+&rArr;6
+&rArr;6
+            </pre></div>
+
+        <p>The <code><span class="nolinebreak">__program__</span><!-- /@w --></code> macro behaves like &lsquo;<samp>$0</samp>&rsquo; in shell
+            terminology.  If you invoke <code>m4</code> through an absolute path or a link
+            with a different spelling, rather than by relying on a <code>PATH</code> search
+            for plain &lsquo;<samp>m4</samp>&rsquo;, it will affect how <code><span class="nolinebreak">__program__</span><!-- /@w --></code> expands.
+            The intent is that you can use it to produce error messages with the
+            same formatting that <code>m4</code> produces internally.  It can also be used
+            within <code>syscmd</code> (see <a href="Syscmd.html#Syscmd">Syscmd</a>) to pick the same version of
+            <code>m4</code> that is currently running, rather than whatever version of
+            <code>m4</code> happens to be first in <code>PATH</code>.  It was first introduced in
+            GNU M4 1.4.6.
+        </p>
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="M4exit.html#M4exit" accesskey="n" rel="next">M4exit</a>, Previous: <a href="Errprint.html#Errprint" accesskey="p" rel="previous">Errprint</a>, Up: <a href="Miscellaneous.html#Miscellaneous" accesskey="u" rel="up">Miscellaneous</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

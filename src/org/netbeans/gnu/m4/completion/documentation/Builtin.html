@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Builtin</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Builtin">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Builtin">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Definitions.html#Definitions" rel="up" title="Definitions">
+        <link href="Conditionals.html#Conditionals" rel="next" title="Conditionals">
+        <link href="Indir.html#Indir" rel="previous" title="Indir">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Builtin"></a>
+        <div class="header">
+            <p>
+                Previous: <a href="Indir.html#Indir" accesskey="p" rel="previous">Indir</a>, Up: <a href="Definitions.html#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Indirect-call-of-builtins"></a>
+        <h3 class="section">5.8 Indirect call of builtins</h3>
+
+        <a name="index-indirect-call-of-builtins"></a>
+        <a name="index-call-of-builtins_002c-indirect"></a>
+        <a name="index-builtins_002c-indirect-call-of"></a>
+        <a name="index-GNU-extensions-4"></a>
+        <p>Builtin macros can be called indirectly with <code>builtin</code>:
+        </p>
+        <dl>
+            <dt><a name="index-builtin"></a>Builtin: <strong>builtin</strong> <em>(<var>name</var>, <span class="roman">[</span><var>args&hellip;</var><span class="roman">]</span></em></dt>
+            <dd><p>Results in a call to the builtin <var>name</var>, which is passed the
+                    rest of the arguments <var>args</var>.  If <var>name</var> does not name a
+                    builtin, an error message is printed, and the expansion is void.
+                </p>
+                <p>The macro <code>builtin</code> is recognized only with parameters.
+                </p></dd></dl>
+
+        <p>This can be used even if <var>name</var> has been given another definition
+            that has covered the original, or been undefined so that no macro
+            maps to the builtin.
+        </p>
+        <div class="example">
+            <pre class="example">pushdef(`define', `hidden')
+&rArr;
+undefine(`undefine')
+&rArr;
+define(`foo', `bar')
+&rArr;hidden
+foo
+&rArr;foo
+builtin(`define', `foo', defn(`divnum'))
+&rArr;
+foo
+&rArr;0
+builtin(`define', `foo', `BAR')
+&rArr;
+foo
+&rArr;BAR
+undefine(`foo')
+&rArr;undefine(foo)
+foo
+&rArr;BAR
+builtin(`undefine', `foo')
+&rArr;
+foo
+&rArr;foo
+            </pre></div>
+
+        <p>The <var>name</var> argument only matches the original name of the builtin,
+            even when the <samp>--prefix-builtins</samp> option (or <samp>-P</samp>,
+            see <a href="Operation-modes.html#Operation-modes">Invoking m4</a>) is in effect.  This is different
+            from <code>indir</code>, which only tracks current macro names.
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -P</kbd>
+m4_builtin(`divnum')
+&rArr;0
+m4_builtin(`m4_divnum')
+error&rarr;m4:stdin:2: undefined builtin `m4_divnum'
+&rArr;
+m4_indir(`divnum')
+error&rarr;m4:stdin:3: undefined macro `divnum'
+&rArr;
+m4_indir(`m4_divnum')
+&rArr;0
+            </pre></div>
+
+        <p>Note that <code>indir</code> and <code>builtin</code> can be used to invoke builtins
+            without arguments, even when they normally require parameters to be
+            recognized; but it will provoke a warning, and result in a void expansion.
+        </p>
+        <div class="example">
+            <pre class="example">builtin
+&rArr;builtin
+builtin()
+error&rarr;m4:stdin:2: undefined builtin `'
+&rArr;
+builtin(`builtin')
+error&rarr;m4:stdin:3: Warning: too few arguments to builtin `builtin'
+&rArr;
+builtin(`builtin',)
+error&rarr;m4:stdin:4: undefined builtin `'
+&rArr;
+builtin(`builtin', ``'
+')
+error&rarr;m4:stdin:5: undefined builtin ``'
+error&rarr;'
+&rArr;
+indir(`index')
+error&rarr;m4:stdin:7: Warning: too few arguments to builtin `index'
+&rArr;
+            </pre></div>
+
+
+        <hr>
+        <div class="header">
+            <p>
+                Previous: <a href="Indir.html#Indir" accesskey="p" rel="previous">Indir</a>, Up: <a href="Definitions.html#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

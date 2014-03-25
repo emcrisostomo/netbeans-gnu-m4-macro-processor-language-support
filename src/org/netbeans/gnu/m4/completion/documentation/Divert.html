@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Divert</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Divert">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Divert">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Diversions.html#Diversions" rel="up" title="Diversions">
+        <link href="Undivert.html#Undivert" rel="next" title="Undivert">
+        <link href="Diversions.html#Diversions" rel="previous" title="Diversions">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Divert"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Undivert.html#Undivert" accesskey="n" rel="next">Undivert</a>, Up: <a href="Diversions.html#Diversions" accesskey="u" rel="up">Diversions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Diverting-output"></a>
+        <h3 class="section">10.1 Diverting output</h3>
+
+        <a name="index-diverting-output-to-files"></a>
+        <a name="index-output_002c-diverting-to-files"></a>
+        <a name="index-files_002c-diverting-output-to"></a>
+        <p>Output is diverted using <code>divert</code>:
+        </p>
+        <dl>
+            <dt><a name="index-divert"></a>Builtin: <strong>divert</strong> <em>(<span class="roman">[</span><var>number</var> = &lsquo;<samp>0</samp>&rsquo;<span class="roman">]</span></em></dt>
+            <dd><p>The current diversion is changed to <var>number</var>.  If <var>number</var> is left
+                    out or empty, it is assumed to be zero.  If <var>number</var> cannot be
+                    parsed, the diversion is unchanged.
+                </p>
+                <p>The expansion of <code>divert</code> is void.
+                </p></dd></dl>
+
+        <p>When all the <code>m4</code> input will have been processed, all existing
+            diversions are automatically undiverted, in numerical order.
+        </p>
+        <div class="example">
+            <pre class="example">divert(`1')
+This text is diverted.
+divert
+&rArr;
+This text is not diverted.
+&rArr;This text is not diverted.
+^D
+&rArr;
+&rArr;This text is diverted.
+            </pre></div>
+
+        <p>Several calls of <code>divert</code> with the same argument do not overwrite
+            the previous diverted text, but append to it.  Diversions are printed
+            after any wrapped text is expanded.
+        </p>
+        <div class="example">
+            <pre class="example">define(`text', `TEXT')
+&rArr;
+divert(`1')`diverted text.'
+divert
+&rArr;
+m4wrap(`Wrapped text precedes ')
+&rArr;
+^D
+&rArr;Wrapped TEXT precedes diverted text.
+            </pre></div>
+
+        <a name="index-discarding-input-2"></a>
+        <a name="index-input_002c-discarding-2"></a>
+        <p>If output is diverted to a negative diversion, it is simply discarded.
+            This can be used to suppress unwanted output.  A common example of
+            unwanted output is the trailing newlines after macro definitions.  Here
+            is a common programming idiom in <code>m4</code> for avoiding them.
+        </p>
+        <div class="example">
+            <pre class="example">divert(`-1')
+define(`foo', `Macro `foo'.')
+define(`bar', `Macro `bar'.')
+divert
+&rArr;
+            </pre></div>
+
+        <a name="index-GNU-extensions-8"></a>
+        <p>Traditional implementations only supported ten diversions.  But as a
+            GNU extension, diversion numbers can be as large as positive
+            integers will allow, rather than treating a multi-digit diversion number
+            as a request to discard text.
+        </p>
+        <div class="example">
+            <pre class="example">divert(eval(`1&lt;&lt;28'))world
+divert(`2')hello
+^D
+&rArr;hello
+&rArr;world
+            </pre></div>
+
+        <p>Note that <code>divert</code> is an English word, but also an active macro
+            without arguments.  When processing plain text, the word might appear in
+            normal text and be unintentionally swallowed as a macro invocation.  One
+            way to avoid this is to use the <samp>-P</samp> option to rename all
+            builtins (see <a href="Operation-modes.html#Operation-modes">Invoking m4</a>).  Another is to write
+            a wrapper that requires a parameter to be recognized.
+        </p>
+        <div class="example">
+            <pre class="example">We decided to divert the stream for irrigation.
+&rArr;We decided to  the stream for irrigation.
+define(`divert', `ifelse(`$#', `0', ``$0'', `builtin(`$0', $@)')')
+&rArr;
+divert(`-1')
+Ignored text.
+divert(`0')
+&rArr;
+We decided to divert the stream for irrigation.
+&rArr;We decided to divert the stream for irrigation.
+            </pre></div>
+
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Undivert.html#Undivert" accesskey="n" rel="next">Undivert</a>, Up: <a href="Diversions.html#Diversions" accesskey="u" rel="up">Diversions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Define</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Define">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Define">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Definitions.html#Definitions" rel="up" title="Definitions">
+        <link href="Arguments.html#Arguments" rel="next" title="Arguments">
+        <link href="Definitions.html#Definitions" rel="previous" title="Definitions">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Define"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Arguments.html#Arguments" accesskey="n" rel="next">Arguments</a>, Up: <a href="Definitions.html#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Defining-a-macro"></a>
+        <h3 class="section">5.1 Defining a macro</h3>
+
+        <p>The normal way to define or redefine macros is to use the builtin
+            <code>define</code>:
+        </p>
+        <dl>
+            <dt><a name="index-define"></a>Builtin: <strong>define</strong> <em>(<var>name</var>, <span class="roman">[</span><var>expansion</var><span class="roman">]</span></em></dt>
+            <dd><p>Defines <var>name</var> to expand to <var>expansion</var>.  If
+                    <var>expansion</var> is not given, it is taken to be empty.
+                </p>
+                <p>The expansion of <code>define</code> is void.
+                    The macro <code>define</code> is recognized only with parameters.
+                </p></dd></dl>
+
+        <p>The following example defines the macro <var>foo</var> to expand to the text
+            &lsquo;<samp>Hello World.</samp>&rsquo;.
+        </p>
+        <div class="example">
+            <pre class="example">define(`foo', `Hello world.')
+&rArr;
+foo
+&rArr;Hello world.
+            </pre></div>
+
+        <p>The empty line in the output is there because the newline is not
+            a part of the macro definition, and it is consequently copied to
+            the output.  This can be avoided by use of the macro <code>dnl</code>.
+            See <a href="Dnl.html#Dnl">Dnl</a>, for details.
+        </p>
+        <p>The first argument to <code>define</code> should be quoted; otherwise, if the
+            macro is already defined, you will be defining a different macro.  This
+            example shows the problems with underquoting, since we did not want to
+            redefine <code>one</code>:
+        </p>
+        <div class="example">
+            <pre class="example">define(foo, one)
+&rArr;
+define(foo, two)
+&rArr;
+one
+&rArr;two
+            </pre></div>
+
+        <a name="index-GNU-extensions-1"></a>
+        <p>GNU <code>m4</code> normally replaces only the <em>topmost</em>
+            definition of a macro if it has several definitions from <code>pushdef</code>
+            (see <a href="Pushdef.html#Pushdef">Pushdef</a>).  Some other implementations of <code>m4</code> replace all
+            definitions of a macro with <code>define</code>.  See <a href="Incompatibilities.html#Incompatibilities">Incompatibilities</a>,
+            for more details.
+        </p>
+        <p>As a GNU extension, the first argument to <code>define</code> does
+            not have to be a simple word.
+            It can be any text string, even the empty string.  A macro with a
+            non-standard name cannot be invoked in the normal way, as the name is
+            not recognized.  It can only be referenced by the builtins <code>indir</code>
+            (see <a href="Indir.html#Indir">Indir</a>) and <code>defn</code> (see <a href="Defn.html#Defn">Defn</a>).
+        </p>
+        <a name="index-arrays"></a>
+        <p>Arrays and associative arrays can be simulated by using non-standard
+            macro names.
+        </p>
+        <dl>
+            <dt><a name="index-array"></a>Composite: <strong>array</strong> <em>(<var>index</var>)</em></dt>
+            <dt><a name="index-array_005fset"></a>Composite: <strong>array_set</strong> <em>(<var>index</var>, <span class="roman">[</span><var>value</var><span class="roman">]</span></em></dt>
+            <dd><p>Provide access to entries within an array.  <code>array</code> reads the entry
+                    at location <var>index</var>, and <code>array_set</code> assigns <var>value</var> to
+                    location <var>index</var>.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">define(`array', `defn(format(``array[%d]'', `$1'))')
+&rArr;
+define(`array_set', `define(format(``array[%d]'', `$1'), `$2')')
+&rArr;
+array_set(`4', `array element no. 4')
+&rArr;
+array_set(`17', `array element no. 17')
+&rArr;
+array(`4')
+&rArr;array element no. 4
+array(eval(`10 + 7'))
+&rArr;array element no. 17
+            </pre></div>
+
+        <p>Change the &lsquo;<samp>%d</samp>&rsquo; to &lsquo;<samp>%s</samp>&rsquo; and it is an associative array.
+        </p>
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Arguments.html#Arguments" accesskey="n" rel="next">Arguments</a>, Up: <a href="Definitions.html#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

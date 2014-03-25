@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Shift</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Shift">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Shift">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Conditionals.html#Conditionals" rel="up" title="Conditionals">
+        <link href="Forloop.html#Forloop" rel="next" title="Forloop">
+        <link href="Ifelse.html#Ifelse" rel="previous" title="Ifelse">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Shift"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Forloop.html#Forloop" accesskey="n" rel="next">Forloop</a>, Previous: <a href="Ifelse.html#Ifelse" accesskey="p" rel="previous">Ifelse</a>, Up: <a href="Conditionals.html#Conditionals" accesskey="u" rel="up">Conditionals</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Recursion-in-m4"></a>
+        <h3 class="section">6.3 Recursion in <code>m4</code></h3>
+
+        <a name="index-recursive-macros"></a>
+        <a name="index-macros_002c-recursive"></a>
+        <p>There is no direct support for loops in <code>m4</code>, but macros can be
+            recursive.  There is no limit on the number of recursion levels, other
+            than those enforced by your hardware and operating system.
+        </p>
+        <a name="index-loops"></a>
+        <p>Loops can be programmed using recursion and the conditionals described
+            previously.
+        </p>
+        <p>There is a builtin macro, <code>shift</code>, which can, among other things,
+            be used for iterating through the actual arguments to a macro:
+        </p>
+        <dl>
+            <dt><a name="index-shift"></a>Builtin: <strong>shift</strong> <em>(<var>arg1</var>, &hellip;)</em></dt>
+            <dd><p>Takes any number of arguments, and expands to all its arguments except
+                    <var>arg1</var>, separated by commas, with each argument quoted.
+                </p>
+                <p>The macro <code>shift</code> is recognized only with parameters.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">shift
+&rArr;shift
+shift(`bar')
+&rArr;
+shift(`foo', `bar', `baz')
+&rArr;bar,baz
+            </pre></div>
+
+        <p>An example of the use of <code>shift</code> is this macro:
+        </p>
+        <a name="index-reversing-arguments"></a>
+        <a name="index-arguments_002c-reversing"></a>
+        <dl>
+            <dt><a name="index-reverse"></a>Composite: <strong>reverse</strong> <em>(&hellip;)</em></dt>
+            <dd><p>Takes any number of arguments, and reverses their order.
+                </p></dd></dl>
+
+        <p>It is implemented as:
+        </p>
+        <div class="example">
+            <pre class="example">define(`reverse', `ifelse(`$#', `0', , `$#', `1', ``$1'',
+                          `reverse(shift($@)), `$1'')')
+&rArr;
+reverse
+&rArr;
+reverse(`foo')
+&rArr;foo
+reverse(`foo', `bar', `gnats', `and gnus')
+&rArr;and gnus, gnats, bar, foo
+            </pre></div>
+
+        <p>While not a very interesting macro, it does show how simple loops can be
+            made with <code>shift</code>, <code>ifelse</code> and recursion.  It also shows
+            that <code>shift</code> is usually used with &lsquo;<samp>$@</samp>&rsquo;.  Another example of
+            this is an implementation of a short-circuiting conditional operator.
+        </p>
+        <a name="index-short_002dcircuiting-conditional"></a>
+        <a name="index-conditional_002c-short_002dcircuiting"></a>
+        <dl>
+            <dt><a name="index-cond"></a>Composite: <strong>cond</strong> <em>(<var>test-1</var>, <var>string-1</var>, <var>equal-1</var>,   <span class="roman">[</span><var>test-2</var><span class="roman">]</span></em></dt>
+            <dd><p>Similar to <code>ifelse</code>, where an equal comparison between the first
+                    two strings results in the third, otherwise the first three arguments
+                    are discarded and the process repeats.  The difference is that each
+                    <var>test-&lt;n&gt;</var> is expanded only when it is encountered.  This means that
+                    every third argument to <code>cond</code> is normally given one more level of
+                    quoting than the corresponding argument to <code>ifelse</code>.
+                </p></dd></dl>
+
+        <p>Here is the implementation of <code>cond</code>, along with a demonstration of
+            how it can short-circuit the side effects in <code>side</code>.  Notice how
+            all the unquoted side effects happen regardless of how many comparisons
+            are made with <code>ifelse</code>, compared with only the relevant effects
+            with <code>cond</code>.
+        </p>
+        <div class="example">
+            <pre class="example">define(`cond',
+`ifelse(`$#', `1', `$1',
+        `ifelse($1, `$2', `$3',
+                `$0(shift(shift(shift($@))))')')')dnl
+define(`side', `define(`counter', incr(counter))$1')dnl
+define(`example1',
+`define(`counter', `0')dnl
+ifelse(side(`$1'), `yes', `one comparison: ',
+       side(`$1'), `no', `two comparisons: ',
+       side(`$1'), `maybe', `three comparisons: ',
+       `side(`default answer: ')')counter')dnl
+define(`example2',
+`define(`counter', `0')dnl
+cond(`side(`$1')', `yes', `one comparison: ',
+     `side(`$1')', `no', `two comparisons: ',
+     `side(`$1')', `maybe', `three comparisons: ',
+     `side(`default answer: ')')counter')dnl
+example1(`yes')
+&rArr;one comparison: 3
+example1(`no')
+&rArr;two comparisons: 3
+example1(`maybe')
+&rArr;three comparisons: 3
+example1(`feeling rather indecisive today')
+&rArr;default answer: 4
+example2(`yes')
+&rArr;one comparison: 1
+example2(`no')
+&rArr;two comparisons: 2
+example2(`maybe')
+&rArr;three comparisons: 3
+example2(`feeling rather indecisive today')
+&rArr;default answer: 4
+            </pre></div>
+
+        <a name="index-joining-arguments"></a>
+        <a name="index-arguments_002c-joining"></a>
+        <a name="index-concatenating-arguments"></a>
+        <p>Another common task that requires iteration is joining a list of
+            arguments into a single string.
+        </p>
+        <dl>
+            <dt><a name="index-join"></a>Composite: <strong>join</strong> <em>(<span class="roman">[</span><var>separator</var><span class="roman">]</span></em></dt>
+            <dt><a name="index-joinall"></a>Composite: <strong>joinall</strong> <em>(<span class="roman">[</span><var>separator</var><span class="roman">]</span></em></dt>
+            <dd><p>Generate a single-quoted string, consisting of each <var>arg</var> separated
+                    by <var>separator</var>.  While <code>joinall</code> always outputs a
+                    <var>separator</var> between arguments, <code>join</code> avoids the
+                    <var>separator</var> for an empty <var>arg</var>.
+                </p></dd></dl>
+
+        <p>Here are some examples of its usage, based on the implementation
+            <samp>m4-1.4.17/examples/join.m4</samp> distributed in this
+            package:
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -I examples</kbd>
+include(`join.m4')
+&rArr;
+join,join(`-'),join(`-', `'),join(`-', `', `')
+&rArr;,,,
+joinall,joinall(`-'),joinall(`-', `'),joinall(`-', `', `')
+&rArr;,,,-
+join(`-', `1')
+&rArr;1
+join(`-', `1', `2', `3')
+&rArr;1-2-3
+join(`', `1', `2', `3')
+&rArr;123
+join(`-', `', `1', `', `', `2', `')
+&rArr;1-2
+joinall(`-', `', `1', `', `', `2', `')
+&rArr;-1---2-
+join(`,', `1', `2', `3')
+&rArr;1,2,3
+define(`nargs', `$#')dnl
+nargs(join(`,', `1', `2', `3'))
+&rArr;1
+            </pre></div>
+
+        <p>Examining the implementation shows some interesting points about several
+            m4 programming idioms.
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -I examples</kbd>
+undivert(`join.m4')dnl
+&rArr;divert(`-1')
+&rArr;# join(sep, args) - join each non-empty ARG into a single
+&rArr;# string, with each element separated by SEP
+&rArr;define(`join',
+&rArr;`ifelse(`$#', `2', ``$2'',
+&rArr;  `ifelse(`$2', `', `', ``$2'_')$0(`$1', shift(shift($@)))')')
+&rArr;define(`_join',
+&rArr;`ifelse(`$#$2', `2', `',
+&rArr;  `ifelse(`$2', `', `', ``$1$2'')$0(`$1', shift(shift($@)))')')
+&rArr;# joinall(sep, args) - join each ARG, including empty ones,
+&rArr;# into a single string, with each element separated by SEP
+&rArr;define(`joinall', ``$2'_$0(`$1', shift($@))')
+&rArr;define(`_joinall',
+&rArr;`ifelse(`$#', `2', `', ``$1$3'$0(`$1', shift(shift($@)))')')
+&rArr;divert`'dnl
+            </pre></div>
+
+        <p>First, notice that this implementation creates helper macros
+            <code>_join</code> and <code>_joinall</code>.  This division of labor makes it
+            easier to output the correct number of <var>separator</var> instances:
+            <code>join</code> and <code>joinall</code> are responsible for the first argument,
+            without a separator, while <code>_join</code> and <code>_joinall</code> are
+            responsible for all remaining arguments, always outputting a separator
+            when outputting an argument.
+        </p>
+        <p>Next, observe how <code>join</code> decides to iterate to itself, because the
+            first <var>arg</var> was empty, or to output the argument and swap over to
+            <code>_join</code>.  If the argument is non-empty, then the nested
+            <code>ifelse</code> results in an unquoted &lsquo;<samp>_</samp>&rsquo;, which is concatenated
+            with the &lsquo;<samp>$0</samp>&rsquo; to form the next macro name to invoke.  The
+            <code>joinall</code> implementation is simpler since it does not have to
+            suppress empty <var>arg</var>; it always executes once then defers to
+            <code>_joinall</code>.
+        </p>
+        <p>Another important idiom is the idea that <var>separator</var> is reused for
+            each iteration.  Each iteration has one less argument, but rather than
+            discarding &lsquo;<samp>$1</samp>&rsquo; by iterating with <code>$0(shift($@))</code>, the macro
+            discards &lsquo;<samp>$2</samp>&rsquo; by using <code>$0(`$1', shift(shift($@)))</code>.
+        </p>
+        <p>Next, notice that it is possible to compare more than one condition in a
+            single <code>ifelse</code> test.  The test of &lsquo;<samp>$#$2</samp>&rsquo; against &lsquo;<samp>2</samp>&rsquo;
+            allows <code>_join</code> to iterate for two separate reasons&mdash;either there
+            are still more than two arguments, or there are exactly two arguments
+            but the last argument is not empty.
+        </p>
+        <p>Finally, notice that these macros require exactly two arguments to
+            terminate recursion, but that they still correctly result in empty
+            output when given no <var>args</var> (i.e., zero or one macro argument).  On
+            the first pass when there are too few arguments, the <code>shift</code>
+            results in no output, but leaves an empty string to serve as the
+            required second argument for the second pass.  Put another way,
+            &lsquo;<samp>`$1', shift($@)</samp>&rsquo; is not the same as &lsquo;<samp>$@</samp>&rsquo;, since only the
+            former guarantees at least two arguments.
+        </p>
+        <a name="index-quote-manipulation"></a>
+        <a name="index-manipulating-quotes"></a>
+        <p>Sometimes, a recursive algorithm requires adding quotes to each element,
+            or treating multiple arguments as a single element:
+        </p>
+        <dl>
+            <dt><a name="index-quote"></a>Composite: <strong>quote</strong> <em>(&hellip;)</em></dt>
+            <dt><a name="index-dquote"></a>Composite: <strong>dquote</strong> <em>(&hellip;)</em></dt>
+            <dt><a name="index-dquote_005felt"></a>Composite: <strong>dquote_elt</strong> <em>(&hellip;)</em></dt>
+            <dd><p>Takes any number of arguments, and adds quoting.  With <code>quote</code>,
+                    only one level of quoting is added, effectively removing whitespace
+                    after commas and turning multiple arguments into a single string.  With
+                    <code>dquote</code>, two levels of quoting are added, one around each element,
+                    and one around the list.  And with <code>dquote_elt</code>, two levels of
+                    quoting are added around each element.
+                </p></dd></dl>
+
+        <p>An actual implementation of these three macros is distributed as
+            <samp>m4-1.4.17/examples/quote.m4</samp> in this package.  First,
+            let&rsquo;s examine their usage:
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -I examples</kbd>
+include(`quote.m4')
+&rArr;
+-quote-dquote-dquote_elt-
+&rArr;----
+-quote()-dquote()-dquote_elt()-
+&rArr;--`'-`'-
+-quote(`1')-dquote(`1')-dquote_elt(`1')-
+&rArr;-1-`1'-`1'-
+-quote(`1', `2')-dquote(`1', `2')-dquote_elt(`1', `2')-
+&rArr;-1,2-`1',`2'-`1',`2'-
+define(`n', `$#')dnl
+-n(quote(`1', `2'))-n(dquote(`1', `2'))-n(dquote_elt(`1', `2'))-
+&rArr;-1-1-2-
+dquote(dquote_elt(`1', `2'))
+&rArr;``1'',``2''
+dquote_elt(dquote(`1', `2'))
+&rArr;``1',`2''
+            </pre></div>
+
+        <p>The last two lines show that when given two arguments, <code>dquote</code>
+            results in one string, while <code>dquote_elt</code> results in two.  Now,
+            examine the implementation.  Note that <code>quote</code> and
+            <code>dquote_elt</code> make decisions based on their number of arguments, so
+            that when called without arguments, they result in nothing instead of a
+            quoted empty string; this is so that it is possible to distinguish
+            between no arguments and an empty first argument.  <code>dquote</code>, on the
+            other hand, results in a string no matter what, since it is still
+            possible to tell whether it was invoked without arguments based on the
+            resulting string.
+        </p>
+        <div class="example">
+            <pre class="example">$ <kbd>m4 -I examples</kbd>
+undivert(`quote.m4')dnl
+&rArr;divert(`-1')
+&rArr;# quote(args) - convert args to single-quoted string
+&rArr;define(`quote', `ifelse(`$#', `0', `', ``$*'')')
+&rArr;# dquote(args) - convert args to quoted list of quoted strings
+&rArr;define(`dquote', ``$@'')
+&rArr;# dquote_elt(args) - convert args to list of double-quoted strings
+&rArr;define(`dquote_elt', `ifelse(`$#', `0', `', `$#', `1', ```$1''',
+&rArr;                             ```$1'',$0(shift($@))')')
+&rArr;divert`'dnl
+            </pre></div>
+
+        <p>It is worth pointing out that &lsquo;<samp>quote(<var>args</var>)</samp>&rsquo; is more efficient
+            than &lsquo;<samp>joinall(`,', <var>args</var>)</samp>&rsquo; for producing the same output.
+        </p>
+        <a name="index-nine-arguments_002c-more-than-1"></a>
+        <a name="index-more-than-nine-arguments-1"></a>
+        <a name="index-arguments_002c-more-than-nine-1"></a>
+        <p>One more useful macro based on <code>shift</code> allows portably selecting
+            an arbitrary argument (usually greater than the ninth argument), without
+            relying on the GNU extension of multi-digit arguments
+            (see <a href="Arguments.html#Arguments">Arguments</a>).
+        </p>
+        <dl>
+            <dt><a name="index-argn"></a>Composite: <strong>argn</strong> <em>(<var>n</var>, &hellip;)</em></dt>
+            <dd><p>Expands to argument <var>n</var> out of the remaining arguments.  <var>n</var>
+                    must be a positive number.  Usually invoked as
+                    &lsquo;<samp>argn(`<var>n</var>',$@)</samp>&rsquo;.
+                </p></dd></dl>
+
+        <p>It is implemented as:
+        </p>
+        <div class="example">
+            <pre class="example">define(`argn', `ifelse(`$1', 1, ``$2'',
+  `argn(decr(`$1'), shift(shift($@)))')')
+&rArr;
+argn(`1', `a')
+&rArr;a
+define(`foo', `argn(`11', $@)')
+&rArr;
+foo(`a', `b', `c', `d', `e', `f', `g', `h', `i', `j', `k', `l')
+&rArr;k
+            </pre></div>
+
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Forloop.html#Forloop" accesskey="n" rel="next">Forloop</a>, Previous: <a href="Ifelse.html#Ifelse" accesskey="p" rel="previous">Ifelse</a>, Up: <a href="Conditionals.html#Conditionals" accesskey="u" rel="up">Conditionals</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

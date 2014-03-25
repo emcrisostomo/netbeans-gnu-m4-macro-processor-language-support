@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Changequote</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Changequote">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Changequote">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Input-Control.html#Input-Control" rel="up" title="Input Control">
+        <link href="Changecom.html#Changecom" rel="next" title="Changecom">
+        <link href="Dnl.html#Dnl" rel="previous" title="Dnl">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Changequote"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Changecom.html#Changecom" accesskey="n" rel="next">Changecom</a>, Previous: <a href="Dnl.html#Dnl" accesskey="p" rel="previous">Dnl</a>, Up: <a href="Input-Control.html#Input-Control" accesskey="u" rel="up">Input Control</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Changing-the-quote-characters"></a>
+        <h3 class="section">8.2 Changing the quote characters</h3>
+
+        <a name="index-changing-quote-delimiters"></a>
+        <a name="index-quote-delimiters_002c-changing"></a>
+        <a name="index-delimiters_002c-changing"></a>
+        <p>The default quote delimiters can be changed with the builtin
+            <code>changequote</code>:
+        </p>
+        <dl>
+            <dt><a name="index-changequote"></a>Builtin: <strong>changequote</strong> <em>(<span class="roman">[</span><var>start</var> = &lsquo;<samp>`</samp>&rsquo;<span class="roman">]</span></em></dt>
+            <dd><p>This sets <var>start</var> as the new begin-quote delimiter and <var>end</var> as
+                    the new end-quote delimiter.  If both arguments are missing, the default
+                    quotes (<code>`</code> and <code>'</code>) are used.  If <var>start</var> is void, then
+                    quoting is disabled.  Otherwise, if <var>end</var> is missing or void, the
+                    default end-quote delimiter (<code>'</code>) is used.  The quote delimiters
+                    can be of any length.
+                </p>
+                <p>The expansion of <code>changequote</code> is void.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">changequote(`[', `]')
+&rArr;
+define([foo], [Macro [foo].])
+&rArr;
+foo
+&rArr;Macro foo.
+            </pre></div>
+
+        <p>The quotation strings can safely contain eight-bit characters.
+            If no single character is appropriate, <var>start</var> and <var>end</var> can be
+            of any length.  Other implementations cap the delimiter length to five
+            characters, but GNU has no inherent limit.
+        </p>
+        <div class="example">
+            <pre class="example">changequote(`[[[', `]]]')
+&rArr;
+define([[[foo]]], [[[Macro [[[[[foo]]]]].]]])
+&rArr;
+foo
+&rArr;Macro [[foo]].
+            </pre></div>
+
+        <p>Calling <code>changequote</code> with <var>start</var> as the empty string will
+            effectively disable the quoting mechanism, leaving no way to quote text.
+            However, using an empty string is not portable, as some other
+            implementations of <code>m4</code> revert to the default quoting, while others
+            preserve the prior non-empty delimiter.  If <var>start</var> is not empty,
+            then an empty <var>end</var> will use the default end-quote delimiter of
+            &lsquo;<samp>'</samp>&rsquo;, as otherwise, it would be impossible to end a quoted string.
+            Again, this is not portable, as some other <code>m4</code> implementations
+            reuse <var>start</var> as the end-quote delimiter, while others preserve the
+            previous non-empty value.  Omitting both arguments restores the default
+            begin-quote and end-quote delimiters; fortunately this behavior is
+            portable to all implementations of <code>m4</code>.
+        </p>
+        <div class="example">
+            <pre class="example">define(`foo', `Macro `FOO'.')
+&rArr;
+changequote(`', `')
+&rArr;
+foo
+&rArr;Macro `FOO'.
+`foo'
+&rArr;`Macro `FOO'.'
+changequote(`,)
+&rArr;
+foo
+&rArr;Macro FOO.
+            </pre></div>
+
+        <p>There is no way in <code>m4</code> to quote a string containing an unmatched
+            begin-quote, except using <code>changequote</code> to change the current
+            quotes.
+        </p>
+        <p>If the quotes should be changed from, say, &lsquo;<samp>[</samp>&rsquo; to &lsquo;<samp>[[</samp>&rsquo;,
+            temporary quote characters have to be defined.  To achieve this, two
+            calls of <code>changequote</code> must be made, one for the temporary quotes
+            and one for the new quotes.
+        </p>
+        <p>Macros are recognized in preference to the begin-quote string, so if a
+            prefix of <var>start</var> can be recognized as part of a potential macro
+            name, the quoting mechanism is effectively disabled.  Unless you use
+            <code>changeword</code> (see <a href="Changeword.html#Changeword">Changeword</a>), this means that <var>start</var>
+            should not begin with a letter, digit, or &lsquo;<samp>_</samp>&rsquo; (underscore).
+            However, even though quoted strings are not recognized, the quote
+            characters can still be discerned in macro expansion and in trace
+            output.
+        </p>
+        <div class="example">
+            <pre class="example">define(`echo', `$@')
+&rArr;
+define(`hi', `HI')
+&rArr;
+changequote(`q', `Q')
+&rArr;
+q hi Q hi
+&rArr;q HI Q HI
+echo(hi)
+&rArr;qHIQ
+changequote
+&rArr;
+changequote(`-', `EOF')
+&rArr;
+- hi EOF hi
+&rArr; hi  HI
+changequote
+&rArr;
+changequote(`1', `2')
+&rArr;
+hi1hi2
+&rArr;hi1hi2
+hi 1hi2
+&rArr;HI hi
+            </pre></div>
+
+        <p>Quotes are recognized in preference to argument collection.  In
+            particular, if <var>start</var> is a single &lsquo;<samp>(</samp>&rsquo;, then argument
+            collection is effectively disabled.  For portability with other
+            implementations, it is a good idea to avoid &lsquo;<samp>(</samp>&rsquo;, &lsquo;<samp>,</samp>&rsquo;, and
+            &lsquo;<samp>)</samp>&rsquo; as the first character in <var>start</var>.
+        </p>
+        <div class="example">
+            <pre class="example">define(`echo', `$#:$@:')
+&rArr;
+define(`hi', `HI')
+&rArr;
+changequote(`(',`)')
+&rArr;
+echo(hi)
+&rArr;0::hi
+changequote
+&rArr;
+changequote(`((', `))')
+&rArr;
+echo(hi)
+&rArr;1:HI:
+echo((hi))
+&rArr;0::hi
+changequote
+&rArr;
+changequote(`,', `)')
+&rArr;
+echo(hi,hi)bye)
+&rArr;1:HIhibye:
+            </pre></div>
+
+        <p>However, if you are not worried about portability, using &lsquo;<samp>(</samp>&rsquo; and
+            &lsquo;<samp>)</samp>&rsquo; as quoting characters has an interesting property&mdash;you can use
+            it to compute a quoted string containing the expansion of any quoted
+            text, as long as the expansion results in both balanced quotes and
+            balanced parentheses.  The trick is realizing <code>expand</code> uses
+            &lsquo;<samp>$1</samp>&rsquo; unquoted, to trigger its expansion using the normal quoting
+            characters, but uses extra parentheses to group unquoted commas that
+            occur in the expansion without consuming whitespace following those
+            commas.  Then <code>_expand</code> uses <code>changequote</code> to convert the
+            extra parentheses back into quoting characters.  Note that it takes two
+            more <code>changequote</code> invocations to restore the original quotes.
+            Contrast the behavior on whitespace when using &lsquo;<samp>$*</samp>&rsquo;, via
+            <code>quote</code>, to attempt the same task.
+        </p>
+        <div class="example">
+            <pre class="example">changequote(`[', `]')dnl
+define([a], [1, (b)])dnl
+define([b], [2])dnl
+define([quote], [[$*]])dnl
+define([expand], [_$0(($1))])dnl
+define([_expand],
+  [changequote([(], [)])$1changequote`'changequote(`[', `]')])dnl
+expand([a, a, [a, a], [[a, a]]])
+&rArr;1, (2), 1, (2), a, a, [a, a]
+quote(a, a, [a, a], [[a, a]])
+&rArr;1,(2),1,(2),a, a,[a, a]
+            </pre></div>
+
+        <p>If <var>end</var> is a prefix of <var>start</var>, the end-quote will be
+            recognized in preference to a nested begin-quote.  In particular,
+            changing the quotes to have the same string for <var>start</var> and
+            <var>end</var> disables nesting of quotes.  When quote nesting is disabled,
+            it is impossible to double-quote strings across macro expansions, so
+            using the same string is not done very often.
+        </p>
+        <div class="example">
+            <pre class="example">define(`hi', `HI')
+&rArr;
+changequote(`&quot;&quot;', `&quot;')
+&rArr;
+&quot;&quot;hi&quot;&quot;&quot;hi&quot;
+&rArr;hihi
+&quot;&quot;hi&quot; &quot;&quot;hi&quot;
+&rArr;hi hi
+&quot;&quot;hi&quot;&quot; &quot;hi&quot;
+&rArr;hi&quot; &quot;HI&quot;
+changequote
+&rArr;
+`hi`hi'hi'
+&rArr;hi`hi'hi
+changequote(`&quot;', `&quot;')
+&rArr;
+&quot;hi&quot;hi&quot;hi&quot;
+&rArr;hiHIhi
+            </pre></div>
+
+
+        <p>It is an error if the end of file occurs within a quoted string.
+        </p>
+        <div class="example">
+            <pre class="example">`hello world'
+&rArr;hello world
+`dangling quote
+^D
+error&rarr;m4:stdin:2: ERROR: end of file in string
+            </pre></div>
+
+        <div class="example">
+            <pre class="example">ifelse(`dangling quote
+^D
+error&rarr;m4:stdin:1: ERROR: end of file in string
+            </pre></div>
+
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Changecom.html#Changecom" accesskey="n" rel="next">Changecom</a>, Previous: <a href="Dnl.html#Dnl" accesskey="p" rel="previous">Dnl</a>, Up: <a href="Input-Control.html#Input-Control" accesskey="u" rel="up">Input Control</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>

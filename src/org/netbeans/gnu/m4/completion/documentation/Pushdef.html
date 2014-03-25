@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <!-- 
+    This manual (22 September 2013) is for GNU M4 (version
+    1.4.17), a package containing an implementation of the m4 macro
+    language.
+    
+    Copyright (C) 1989-1994, 2004-2013 Free Software Foundation,
+    Inc.
+    
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License,
+    Version 1.3 or any later version published by the Free Software
+    Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+    Back-Cover Texts.  A copy of the license is included in the section
+    entitled "GNU Free Documentation License." -->
+    <!-- Created by GNU Texinfo 5.1, http://www.gnu.org/software/texinfo/ -->
+    <head>
+        <title>GNU M4 1.4.17 macro processor: Pushdef</title>
+
+        <meta name="description" content="GNU M4 1.4.17 macro processor: Pushdef">
+        <meta name="keywords" content="GNU M4 1.4.17 macro processor: Pushdef">
+        <meta name="resource-type" content="document">
+        <meta name="distribution" content="global">
+        <meta name="Generator" content="makeinfo">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="index.html#Top" rel="start" title="Top">
+        <link href="Indices.html#Indices" rel="index" title="Indices">
+        <link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+        <link href="Definitions.html#Definitions" rel="up" title="Definitions">
+        <link href="Indir.html#Indir" rel="next" title="Indir">
+        <link href="Defn.html#Defn" rel="previous" title="Defn">
+        <style type="text/css">
+            <!--
+            a.summary-letter {text-decoration: none}
+            blockquote.smallquotation {font-size: smaller}
+            div.display {margin-left: 3.2em}
+            div.example {margin-left: 3.2em}
+            div.indentedblock {margin-left: 3.2em}
+            div.lisp {margin-left: 3.2em}
+            div.smalldisplay {margin-left: 3.2em}
+            div.smallexample {margin-left: 3.2em}
+            div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+            div.smalllisp {margin-left: 3.2em}
+            kbd {font-style:oblique}
+            pre.display {font-family: inherit}
+            pre.format {font-family: inherit}
+            pre.menu-comment {font-family: serif}
+            pre.menu-preformatted {font-family: serif}
+            pre.smalldisplay {font-family: inherit; font-size: smaller}
+            pre.smallexample {font-size: smaller}
+            pre.smallformat {font-family: inherit; font-size: smaller}
+            pre.smalllisp {font-size: smaller}
+            span.nocodebreak {white-space:nowrap}
+            span.nolinebreak {white-space:nowrap}
+            span.roman {font-family:serif; font-weight:normal}
+            span.sansserif {font-family:sans-serif; font-weight:normal}
+            ul.no-bullet {list-style: none}
+            -->
+        </style>
+
+
+    </head>
+
+    <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+        <a name="Pushdef"></a>
+        <div class="header">
+            <p>
+                Next: <a href="Indir.html#Indir" accesskey="n" rel="next">Indir</a>, Previous: <a href="Defn.html#Defn" accesskey="p" rel="previous">Defn</a>, Up: <a href="Definitions.html#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+        <hr>
+        <a name="Temporarily-redefining-macros"></a>
+        <h3 class="section">5.6 Temporarily redefining macros</h3>
+
+        <a name="index-macros_002c-temporary-redefinition-of"></a>
+        <a name="index-temporary-redefinition-of-macros"></a>
+        <a name="index-redefinition-of-macros_002c-temporary"></a>
+        <a name="index-definition-stack"></a>
+        <a name="index-pushdef-stack"></a>
+        <a name="index-stack_002c-macro-definition"></a>
+        <p>It is possible to redefine a macro temporarily, reverting to the
+            previous definition at a later time.  This is done with the builtins
+            <code>pushdef</code> and <code>popdef</code>:
+        </p>
+        <dl>
+            <dt><a name="index-pushdef"></a>Builtin: <strong>pushdef</strong> <em>(<var>name</var>, <span class="roman">[</span><var>expansion</var><span class="roman">]</span></em></dt>
+            <dt><a name="index-popdef"></a>Builtin: <strong>popdef</strong> <em>(<var>name</var>&hellip;)</em></dt>
+            <dd><p>Analogous to <code>define</code> and <code>undefine</code>.
+                </p>
+                <p>These macros work in a stack-like fashion.  A macro is temporarily
+                    redefined with <code>pushdef</code>, which replaces an existing definition of
+                    <var>name</var>, while saving the previous definition, before the new one is
+                    installed.  If there is no previous definition, <code>pushdef</code> behaves
+                    exactly like <code>define</code>.
+                </p>
+                <p>If a macro has several definitions (of which only one is accessible),
+                    the topmost definition can be removed with <code>popdef</code>.  If there is
+                    no previous definition, <code>popdef</code> behaves like <code>undefine</code>.
+                </p>
+                <p>The expansion of both <code>pushdef</code> and <code>popdef</code> is void.
+                    The macros <code>pushdef</code> and <code>popdef</code> are recognized only with
+                    parameters.
+                </p></dd></dl>
+
+        <div class="example">
+            <pre class="example">define(`foo', `Expansion one.')
+&rArr;
+foo
+&rArr;Expansion one.
+pushdef(`foo', `Expansion two.')
+&rArr;
+foo
+&rArr;Expansion two.
+pushdef(`foo', `Expansion three.')
+&rArr;
+pushdef(`foo', `Expansion four.')
+&rArr;
+popdef(`foo')
+&rArr;
+foo
+&rArr;Expansion three.
+popdef(`foo', `foo')
+&rArr;
+foo
+&rArr;Expansion one.
+popdef(`foo')
+&rArr;
+foo
+&rArr;foo
+            </pre></div>
+
+        <p>If a macro with several definitions is redefined with <code>define</code>, the
+            topmost definition is <em>replaced</em> with the new definition.  If it is
+            removed with <code>undefine</code>, <em>all</em> the definitions are removed,
+            and not only the topmost one.  However, POSIX allows other
+            implementations that treat <code>define</code> as replacing an entire stack
+            of definitions with a single new definition, so to be portable to other
+            implementations, it may be worth explicitly using <code>popdef</code> and
+            <code>pushdef</code> rather than relying on the GNU behavior of
+            <code>define</code>.
+        </p>
+        <div class="example">
+            <pre class="example">define(`foo', `Expansion one.')
+&rArr;
+foo
+&rArr;Expansion one.
+pushdef(`foo', `Expansion two.')
+&rArr;
+foo
+&rArr;Expansion two.
+define(`foo', `Second expansion two.')
+&rArr;
+foo
+&rArr;Second expansion two.
+undefine(`foo')
+&rArr;
+foo
+&rArr;foo
+            </pre></div>
+
+        <a name="index-local-variables"></a>
+        <a name="index-variables_002c-local"></a>
+        <p>Local variables within macros are made with <code>pushdef</code> and
+            <code>popdef</code>.  At the start of the macro a new definition is pushed,
+            within the macro it is manipulated and at the end it is popped,
+            revealing the former definition.
+        </p>
+        <p>It is possible to temporarily redefine a builtin with <code>pushdef</code>
+            and <code>defn</code>.
+        </p>
+        <hr>
+        <div class="header">
+            <p>
+                Next: <a href="Indir.html#Indir" accesskey="n" rel="next">Indir</a>, Previous: <a href="Defn.html#Defn" accesskey="p" rel="previous">Defn</a>, Up: <a href="Definitions.html#Definitions" accesskey="u" rel="up">Definitions</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Indices.html#Indices" title="Index" rel="index">Index</a>]</p>
+        </div>
+
+
+
+    </body>
+</html>
