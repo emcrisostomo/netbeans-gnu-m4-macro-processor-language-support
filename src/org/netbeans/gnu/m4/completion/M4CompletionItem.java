@@ -85,7 +85,7 @@ public class M4CompletionItem implements CompletionItem {
     public int getPreferredWidth(Graphics graphics, Font font) {
         return CompletionUtilities.getPreferredWidth(
                 getCompletionItemText(),
-                null,
+                (macro.isObsolete() ? "Obsolete" : null), 
                 graphics,
                 font);
     }
@@ -96,7 +96,7 @@ public class M4CompletionItem implements CompletionItem {
         CompletionUtilities.renderHtml(
                 fieldIcon,
                 getCompletionItemText(),
-                null,
+                (macro.isObsolete() ? "Obsolete" : null),
                 g,
                 defaultFont,
                 (selected ? Color.white : fieldColor),
@@ -107,7 +107,13 @@ public class M4CompletionItem implements CompletionItem {
 
     @Override
     public CompletionTask createDocumentationTask() {
-        return null;
+        return new AsyncCompletionTask(new AsyncCompletionQuery() {
+            @Override
+            protected void query(CompletionResultSet completionResultSet, Document document, int i) {
+                completionResultSet.setDocumentation(new M4CompletionDocumentation(M4CompletionItem.this));
+                completionResultSet.finish();
+            }
+        });
     }
 
     @Override
@@ -144,6 +150,22 @@ public class M4CompletionItem implements CompletionItem {
     }
 
     private String getCompletionItemText() {
-        return this.text;
+        StringBuilder sb = new StringBuilder();
+        
+        if (macro.isObsolete()) {
+            sb.append("<s>");
+        }
+
+        sb.append(text);
+
+        if (macro.isObsolete()) {
+            sb.append("</s>");
+        }
+
+        return sb.toString();
+    }
+    
+    /* package */ M4BuiltinMacro getMacro() {
+        return this.macro;
     }
 }
