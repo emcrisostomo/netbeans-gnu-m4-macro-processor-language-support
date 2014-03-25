@@ -209,7 +209,6 @@ TOKEN :
 TOKEN :
 {
   < DEFINE:             "define" >
-| < NARGS:              "nargs" >
 | < UNDEFINE:           "undefine" >
 | < DEFN:               "defn" >
 | < PUSHDEF:            "pushdef" >
@@ -219,23 +218,6 @@ TOKEN :
 | < IFDEF:              "ifdef" >
 | < IFELSE:             "ifelse" >
 | < SHIFT:              "shift" >
-| < REVERSE:            "reverse" >
-| < COND:               "cond" >
-| < JOIN:               "join" >
-| < JOINALL:            "joinall" >
-| < QUOTE:              "quote" >
-| < DQUOTE:             "dquote" >
-| < DQUOTE_ELT:         "dquote_elt" >
-| < ARGN:               "argn" >
-| < FORLOOP:            "forloop" >
-| < FOREACH:            "foreach" >
-| < FOREACHQ:           "foreachq" >
-| < STACK_FOREACH:      "stack_foreach" >
-| < STACK_FOREACH_LIFO: "stack_foreach_lifo" >
-| < DEFINE_BLIND:       "define_blind" >
-| < CURRY:              "curry" >
-| < COPY:               "copy" >
-| < RENAME:             "rename" >
 | < DUMPDEF:            "dumpdef" >
 | < TRACEON:            "traceon" >
 | < TRACEOFF:           "traceoff" >
@@ -250,16 +232,12 @@ TOKEN :
 | < DIVERT:             "divert" >
 | < UNDIVERT:           "undivert" >
 | < DIVNUM:             "divnum" >
-| < CLEARDIVERT:        "cleardivert" >
 | < LEN:                "len" >
 | < INDEX:              "index" >
 | < REGEXP:             "regexp" >
 | < SUBSTR:             "substr" >
 | < TRANSLIT:           "translit" >
 | < PATSUBST:           "patsubst" >
-| < UPCASE:             "upcase" >
-| < DOWNCASE:           "downcase" >
-| < CAPITALIZE:         "capitalize" >
 | < FORMAT:             "format" >
 | < INCR:               "incr" >
 | < DECR:               "decr" >
@@ -280,7 +258,6 @@ TOKEN :
 | < __LINE__:           "__line__" >
 | < __PROGRAM__:        "__program__" >
 | < M4EXIT:             "m4exit" >
-| < FATAL_ERROR:        "fatal_error" >
 }
 
 /* M4 Macros */

@@ -44,6 +44,7 @@ public class M4CompletionItem implements CompletionItem {
 
     private final M4BuiltinMacro macro;
     private final boolean itemObsolete;
+    private final boolean optional;
     private final String text;
     private final int startOffset;
     private static final ImageIcon fieldIcon = new ImageIcon(ImageUtilities.loadImage("org/netbeans/gnu/m4/resources/red_dot.png"));
@@ -53,6 +54,7 @@ public class M4CompletionItem implements CompletionItem {
     public M4CompletionItem(String text, int startOffset, int caretOffset) {
         this.macro = null;
         this.itemObsolete = false;
+        this.optional = false;
         this.text = text;
         this.startOffset = startOffset;
         this.caretOffset = caretOffset;
@@ -61,6 +63,7 @@ public class M4CompletionItem implements CompletionItem {
     public M4CompletionItem(M4BuiltinMacro macro, int startOffset, int caretOffset) {
         this.macro = macro;
         this.itemObsolete = this.macro.isObsolete();
+        this.optional = this.macro.isOptional();
         this.text = macro.getText();
         this.startOffset = startOffset;
         this.caretOffset = caretOffset;
@@ -88,7 +91,7 @@ public class M4CompletionItem implements CompletionItem {
     public int getPreferredWidth(Graphics graphics, Font font) {
         return CompletionUtilities.getPreferredWidth(
                 getCompletionItemText(),
-                (itemObsolete ? "Obsolete" : null),
+                (itemObsolete ? "Obsolete" : (optional ? "Optional" : null)),
                 graphics,
                 font);
     }
@@ -99,7 +102,7 @@ public class M4CompletionItem implements CompletionItem {
         CompletionUtilities.renderHtml(
                 fieldIcon,
                 getCompletionItemText(),
-                (itemObsolete ? "Obsolete" : null),
+                (itemObsolete ? "Obsolete" : (optional ? "Optional" : null)),
                 g,
                 defaultFont,
                 (selected ? Color.white : fieldColor),
