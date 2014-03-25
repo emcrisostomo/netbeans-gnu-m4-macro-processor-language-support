@@ -55,28 +55,26 @@ public class M4CompletionProvider implements CompletionProvider {
                     Document document,
                     int caretOffset) {
 
-                String filter = null;
-                int startOffset = caretOffset - 1;
-
                 try {
                     final StyledDocument bDoc = (StyledDocument) document;
 
                     final int lineStartOffset = getRowFirstNonWhite(bDoc, caretOffset);
                     final char[] line = bDoc.getText(lineStartOffset, caretOffset - lineStartOffset).toCharArray();
                     final int whiteOffset = indexOfWhite(line);
-                    filter = new String(line, whiteOffset + 1, line.length - whiteOffset - 1);
+                    final String filter = new String(line, whiteOffset + 1, line.length - whiteOffset - 1);
 
+                    int startOffset;
                     if (whiteOffset > 0) {
                         startOffset = lineStartOffset + whiteOffset + 1;
                     } else {
                         startOffset = lineStartOffset;
                     }
 
-                    final AbstractDocument doc = (AbstractDocument) document;
-                    doc.readLock();
-
                     // macro definitions
                     Set<String> macroDefs = new HashSet<>();
+                    
+                    final AbstractDocument doc = (AbstractDocument) document;
+                    doc.readLock();
 
                     try {
                         TokenHierarchy ti = TokenHierarchy.get(doc);
@@ -87,6 +85,10 @@ public class M4CompletionProvider implements CompletionProvider {
                             System.out.println(t);
 
                             if (t.offset(ti) >= caretOffset - t.length()) {
+                                continue;
+                            }
+
+                            if (t.text().equals("") || !t.text().toString().startsWith(filter)) {
                                 continue;
                             }
 
@@ -105,8 +107,9 @@ public class M4CompletionProvider implements CompletionProvider {
                     }
                 } catch (BadLocationException ex) {
                     Exceptions.printStackTrace(ex);
+                } finally {
+                    completionResultSet.finish();
                 }
-                completionResultSet.finish();
             }
         }, jtc);
     }
