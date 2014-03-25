@@ -43,6 +43,7 @@ import org.openide.util.ImageUtilities;
 public class M4CompletionItem implements CompletionItem {
 
     private final M4BuiltinMacro macro;
+    private final boolean itemObsolete;
     private final String text;
     private final int startOffset;
     private static final ImageIcon fieldIcon = new ImageIcon(ImageUtilities.loadImage("org/netbeans/gnu/m4/resources/red_dot.png"));
@@ -51,13 +52,15 @@ public class M4CompletionItem implements CompletionItem {
 
     public M4CompletionItem(String text, int startOffset, int caretOffset) {
         this.macro = null;
+        this.itemObsolete = false;
         this.text = text;
         this.startOffset = startOffset;
         this.caretOffset = caretOffset;
     }
-    
+
     public M4CompletionItem(M4BuiltinMacro macro, int startOffset, int caretOffset) {
         this.macro = macro;
+        this.itemObsolete = this.macro.isObsolete();
         this.text = macro.getText();
         this.startOffset = startOffset;
         this.caretOffset = caretOffset;
@@ -85,7 +88,7 @@ public class M4CompletionItem implements CompletionItem {
     public int getPreferredWidth(Graphics graphics, Font font) {
         return CompletionUtilities.getPreferredWidth(
                 getCompletionItemText(),
-                (macro.isObsolete() ? "Obsolete" : null), 
+                (itemObsolete ? "Obsolete" : null),
                 graphics,
                 font);
     }
@@ -96,7 +99,7 @@ public class M4CompletionItem implements CompletionItem {
         CompletionUtilities.renderHtml(
                 fieldIcon,
                 getCompletionItemText(),
-                (macro.isObsolete() ? "Obsolete" : null),
+                (itemObsolete ? "Obsolete" : null),
                 g,
                 defaultFont,
                 (selected ? Color.white : fieldColor),
@@ -107,13 +110,17 @@ public class M4CompletionItem implements CompletionItem {
 
     @Override
     public CompletionTask createDocumentationTask() {
-        return new AsyncCompletionTask(new AsyncCompletionQuery() {
-            @Override
-            protected void query(CompletionResultSet completionResultSet, Document document, int i) {
-                completionResultSet.setDocumentation(new M4CompletionDocumentation(M4CompletionItem.this));
-                completionResultSet.finish();
-            }
-        });
+        if (macro == null) {
+            return null;
+        } else {
+            return new AsyncCompletionTask(new AsyncCompletionQuery() {
+                @Override
+                protected void query(CompletionResultSet completionResultSet, Document document, int i) {
+                    completionResultSet.setDocumentation(new M4CompletionDocumentation(M4CompletionItem.this));
+                    completionResultSet.finish();
+                }
+            });
+        }
     }
 
     @Override
@@ -151,20 +158,20 @@ public class M4CompletionItem implements CompletionItem {
 
     private String getCompletionItemText() {
         StringBuilder sb = new StringBuilder();
-        
-        if (macro.isObsolete()) {
+
+        if (itemObsolete) {
             sb.append("<s>");
         }
 
         sb.append(text);
 
-        if (macro.isObsolete()) {
+        if (itemObsolete) {
             sb.append("</s>");
         }
 
         return sb.toString();
     }
-    
+
     /* package */ M4BuiltinMacro getMacro() {
         return this.macro;
     }
