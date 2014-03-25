@@ -29,7 +29,7 @@ import org.netbeans.modules.csl.spi.LanguageRegistration;
 public class M4Language extends DefaultLanguageConfig {
 
     @Override
-    public Language getLexerLanguage() {
+    public Language<M4TokenId> getLexerLanguage() {
         return M4TokenId.getLanguage();
     }
 

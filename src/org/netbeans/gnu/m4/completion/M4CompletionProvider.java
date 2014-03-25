@@ -27,6 +27,7 @@ import javax.swing.text.StyledDocument;
 import org.netbeans.api.editor.mimelookup.MimeRegistration;
 import org.netbeans.api.lexer.Token;
 import org.netbeans.api.lexer.TokenHierarchy;
+import org.netbeans.api.lexer.TokenId;
 import org.netbeans.api.lexer.TokenSequence;
 import org.netbeans.gnu.m4.lexer.M4TokenId;
 import org.netbeans.gnu.m4.lexer.javacc.M4Character;
@@ -111,11 +112,11 @@ public class M4CompletionProvider implements CompletionProvider {
                 doc.readLock();
 
                 try {
-                    TokenHierarchy ti = TokenHierarchy.get(doc);
-                    TokenSequence ts = ti.tokenSequence();
+                    TokenHierarchy<AbstractDocument> ti = TokenHierarchy.get(doc);
+                    TokenSequence<? extends TokenId> ts = ti.tokenSequence();
 
                     while (ts.moveNext()) {
-                        Token t = ts.token();
+                        Token<? extends TokenId> t = ts.token();
                         System.out.println(t);
 
                         // Only add macros defined before the current
