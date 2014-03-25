@@ -67,12 +67,12 @@ public class M4CompletionProvider implements CompletionProvider {
                     // Beware that this token is not the same token as seen by
                     // the lexer, but just the string after the last separator
                     // character.
-                    final int whiteOffset = findTokenBeginning(line);
-                    final String filter = new String(line, whiteOffset + 1, line.length - whiteOffset - 1);
+                    final int tokenBeginning = findTokenBeginning(line);
+                    final String filter = new String(line, tokenBeginning + 1, line.length - tokenBeginning - 1);
                     
                     int startOffset;
-                    if (whiteOffset > 0) {
-                        startOffset = lineStartOffset + whiteOffset + 1;
+                    if (tokenBeginning > 0) {
+                        startOffset = lineStartOffset + tokenBeginning + 1;
                     } else {
                         startOffset = lineStartOffset;
                     }

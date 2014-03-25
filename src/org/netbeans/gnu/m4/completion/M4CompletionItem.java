@@ -43,14 +43,14 @@ import org.openide.util.ImageUtilities;
 public class M4CompletionItem implements CompletionItem {
 
     private final String text;
-    private final int dotOffset;
+    private final int startOffset;
     private static final ImageIcon fieldIcon = new ImageIcon(ImageUtilities.loadImage("org/netbeans/gnu/m4/resources/red_dot.png"));
     private static final Color fieldColor = Color.decode("0x0000B2");
     private final int caretOffset;
 
-    public M4CompletionItem(String text, int dotOffset, int caretOffset) {
+    public M4CompletionItem(String text, int startOffset, int caretOffset) {
         this.text = text;
-        this.dotOffset = dotOffset;
+        this.startOffset = startOffset;
         this.caretOffset = caretOffset;
     }
 
@@ -60,8 +60,8 @@ public class M4CompletionItem implements CompletionItem {
             StyledDocument doc = (StyledDocument) component.getDocument();
             // Here we remove the characters starting at the start offset
             // and ending at the point where the caret is currently found:
-            doc.remove(dotOffset, caretOffset - dotOffset);
-            doc.insertString(dotOffset, text, null);
+            doc.remove(startOffset, caretOffset - startOffset);
+            doc.insertString(startOffset, text, null);
             Completion.get().hideAll();
         } catch (BadLocationException ex) {
             Exceptions.printStackTrace(ex);
