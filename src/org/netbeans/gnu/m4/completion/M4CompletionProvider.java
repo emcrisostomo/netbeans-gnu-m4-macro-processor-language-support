@@ -28,6 +28,8 @@ import org.netbeans.api.editor.mimelookup.MimeRegistration;
 import org.netbeans.api.lexer.Token;
 import org.netbeans.api.lexer.TokenHierarchy;
 import org.netbeans.api.lexer.TokenSequence;
+import org.netbeans.gnu.m4.lexer.M4TokenId;
+import org.netbeans.gnu.m4.lexer.javacc.M4Character;
 import org.netbeans.spi.editor.completion.CompletionProvider;
 import org.netbeans.spi.editor.completion.CompletionResultSet;
 import org.netbeans.spi.editor.completion.CompletionTask;
@@ -58,11 +60,16 @@ public class M4CompletionProvider implements CompletionProvider {
                 try {
                     final StyledDocument bDoc = (StyledDocument) document;
 
+                    // Extract the text in the caret line.
                     final int lineStartOffset = getRowFirstNonWhite(bDoc, caretOffset);
                     final char[] line = bDoc.getText(lineStartOffset, caretOffset - lineStartOffset).toCharArray();
-                    final int whiteOffset = indexOfWhite(line);
+                    // Find the beginning of the token being written.
+                    // Beware that this token is not the same token as seen by
+                    // the lexer, but just the string after the last separator
+                    // character.
+                    final int whiteOffset = findTokenBeginning(line);
                     final String filter = new String(line, whiteOffset + 1, line.length - whiteOffset - 1);
-
+                    
                     int startOffset;
                     if (whiteOffset > 0) {
                         startOffset = lineStartOffset + whiteOffset + 1;
@@ -72,7 +79,7 @@ public class M4CompletionProvider implements CompletionProvider {
 
                     // macro definitions
                     Set<String> macroDefs = new HashSet<>();
-                    
+
                     final AbstractDocument doc = (AbstractDocument) document;
                     doc.readLock();
 
@@ -84,17 +91,29 @@ public class M4CompletionProvider implements CompletionProvider {
                             Token t = ts.token();
                             System.out.println(t);
 
+                            // Only add macros defined before the current
+                            // caret position.
                             if (t.offset(ti) >= caretOffset - t.length()) {
                                 continue;
                             }
 
-                            if (t.text().equals("") || !t.text().toString().startsWith(filter)) {
+                            final String currentTokenText = t.text().toString();
+                            // Filter out names which do not start with the
+                            // current token text.
+                            if (currentTokenText.equals("") || !currentTokenText.startsWith(filter)) {
                                 continue;
                             }
 
-                            // TODO: put method in token id
-                            if (t.id().name().equals("M4_MACRO")) {
-                                macroDefs.add(t.text().toString());
+                            // Ignore tokens which are not our instances
+                            // (used only as a cast safeguard).
+                            if (!(t.id() instanceof M4TokenId)) {
+                                continue;
+                            }
+
+                            M4TokenId m4Token = (M4TokenId) t.id();
+                            
+                            if (m4Token.isMacroName()) {
+                                macroDefs.add(currentTokenText);
                             }
                         }
                     } finally {
@@ -141,16 +160,16 @@ public class M4CompletionProvider implements CompletionProvider {
         return start;
     }
 
-    private static int indexOfWhite(char[] line) {
+    private static int findTokenBeginning(char[] line) {
         int i = line.length;
 
         while (--i > -1) {
             final char c = line[i];
-            if (Character.isWhitespace(c)) {
+            if (Character.isWhitespace(c) || M4Character.isSeparator(c)) {
                 return i;
             }
         }
-
+        
         return -1;
     }
 }
