@@ -31,12 +31,15 @@ Installation
 
 To install this plugin you must perform the following operations.
 
-  * Download the latest release from this project web page.
+  * Download the [latest release][m4p] from the [NetBeans Plugin Portal][npp].
   * In NetBeans, choose the *Tools/Plugins* menu item.
   * Navigate to the *Downloaded* tab.
   * Click the *Add Plugins...* button.
   * Navigate to the location of the nbm file you downloaded.
   * Select it and finish.
+
+[m4p]: http://plugins.netbeans.org/plugin/53875/gnu-m4-macro-processor-language-support
+[npp]: http://plugins.netbeans.org
 
 No other software packages or dependencies are required to configure and
 install this package.
