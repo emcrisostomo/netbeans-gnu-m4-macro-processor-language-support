@@ -32,6 +32,6 @@ public class M4SemanticHighlighterFactory extends TaskFactory {
 
     @Override
     public Collection<? extends SchedulerTask> create(Snapshot snapshot) {
-        return Collections.singleton(new M4SemanticHighlighter(snapshot.getSource().getFileObject()));
+        return Collections.singleton(new M4SemanticHighlighter());
     }
 }

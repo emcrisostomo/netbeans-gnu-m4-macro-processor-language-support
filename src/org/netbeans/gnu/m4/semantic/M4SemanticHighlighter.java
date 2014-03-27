@@ -35,11 +35,8 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
     private static final boolean isVerbose = Boolean.valueOf(System.getProperty(VERBOSE_PROPERTY));
     private static final Logger logger = Logger.getLogger(M4Lexer.class.getName());
 
-    private final FileObject file;
-
-    M4SemanticHighlighter(FileObject file) {
+    M4SemanticHighlighter() {
         super(TaskIndexingMode.ALLOWED_DURING_SCAN);
-        this.file = file;
     }
 
     @Override
