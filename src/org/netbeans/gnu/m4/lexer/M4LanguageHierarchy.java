@@ -31,7 +31,7 @@ import org.netbeans.spi.lexer.LexerRestartInfo;
  *
  * @author Enrico M. Crisostomo
  */
-public class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
+public final class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
 
     private static List<M4TokenId> tokens;
     private static Map<Integer, M4TokenId> idToToken;

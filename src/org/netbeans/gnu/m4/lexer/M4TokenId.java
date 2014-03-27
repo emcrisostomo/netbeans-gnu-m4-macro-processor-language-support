@@ -23,20 +23,22 @@ import org.netbeans.api.lexer.TokenId;
  *
  * @author Enrico M. Crisostomo
  */
-public class M4TokenId implements TokenId {
+public final class M4TokenId implements TokenId {
 
+    private static final Language<M4TokenId> language = new M4LanguageHierarchy().language();
+    
     private final String name;
     private final String primaryCategory;
     private final int id;
     private boolean macroName = false;
 
-    public M4TokenId(String name, String primaryCategory, int id) {
+    M4TokenId(String name, String primaryCategory, int id) {
         this.name = name;
         this.primaryCategory = primaryCategory;
         this.id = id;
     }
 
-    public M4TokenId(String name, String primaryCategory, int id, boolean macroName) {
+    M4TokenId(String name, String primaryCategory, int id, boolean macroName) {
         this.name = name;
         this.primaryCategory = primaryCategory;
         this.id = id;
@@ -63,6 +65,6 @@ public class M4TokenId implements TokenId {
     }
     
     public static Language<M4TokenId> getLanguage() {
-        return new M4LanguageHierarchy().language();
+        return language;
     }
 }
