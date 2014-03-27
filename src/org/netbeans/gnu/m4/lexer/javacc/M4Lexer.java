@@ -18,6 +18,7 @@ package org.netbeans.gnu.m4.lexer.javacc;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.netbeans.gnu.m4.Constants.isVerbose;
 import org.netbeans.gnu.m4.lexer.M4LanguageHierarchy;
 import org.netbeans.gnu.m4.lexer.M4TokenId;
 import org.netbeans.spi.lexer.Lexer;
@@ -29,8 +30,6 @@ import org.netbeans.spi.lexer.LexerRestartInfo;
  */
 public class M4Lexer implements Lexer<M4TokenId> {
 
-    public static final String VERBOSE_PROPERTY = M4Lexer.class.getName() + ".verbose";
-    private static final boolean isVerbose = Boolean.valueOf(System.getProperty(VERBOSE_PROPERTY));
     private static final Logger logger = Logger.getLogger(M4Lexer.class.getName());
 
     private final LexerRestartInfo<M4TokenId> info;
@@ -67,7 +66,7 @@ public class M4Lexer implements Lexer<M4TokenId> {
 
     @Override
     public Object state() {
-        if (isVerbose) {
+        if (isVerbose()) {
             logger.log(Level.INFO, "Lexer state: {0}", javaParserTokenManager.curLexState);
             logger.log(Level.INFO, "Lexer nesting depth: {0}", javaParserTokenManager.m4NestingDepth);
         }

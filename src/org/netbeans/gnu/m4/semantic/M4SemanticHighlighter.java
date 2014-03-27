@@ -31,6 +31,7 @@ import org.netbeans.api.lexer.Token;
 import org.netbeans.api.lexer.TokenHierarchy;
 import org.netbeans.api.lexer.TokenId;
 import org.netbeans.api.lexer.TokenSequence;
+import static org.netbeans.gnu.m4.Constants.isVerbose;
 import org.netbeans.gnu.m4.lexer.M4TokenId;
 import org.netbeans.gnu.m4.lexer.javacc.M4Lexer;
 import org.netbeans.gnu.m4.semantic.M4ColoringAttributes.Coloring;
@@ -48,8 +49,6 @@ import org.netbeans.spi.editor.hints.ErrorDescription;
  */
 class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
-    public static final String VERBOSE_PROPERTY = M4Lexer.class.getName() + ".verbose";
-    private static final boolean isVerbose = Boolean.valueOf(System.getProperty(VERBOSE_PROPERTY));
     private static final Logger logger = Logger.getLogger(M4Lexer.class.getName());
 
     M4SemanticHighlighter() {
@@ -58,7 +57,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
     @Override
     public void run(Result result, SchedulerEvent event) {
-        if (isVerbose) {
+        if (isVerbose()) {
             logger.info("Running.");
         }
 
