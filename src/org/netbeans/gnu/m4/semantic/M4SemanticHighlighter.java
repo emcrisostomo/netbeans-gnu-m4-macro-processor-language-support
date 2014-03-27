@@ -16,6 +16,8 @@
  */
 package org.netbeans.gnu.m4.semantic;
 
+import java.util.logging.Logger;
+import org.netbeans.gnu.m4.lexer.javacc.M4Lexer;
 import org.netbeans.modules.parsing.spi.IndexingAwareParserResultTask;
 import org.netbeans.modules.parsing.spi.Parser.Result;
 import org.netbeans.modules.parsing.spi.Scheduler;
@@ -29,6 +31,10 @@ import org.openide.filesystems.FileObject;
  */
 class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
+    public static final String VERBOSE_PROPERTY = M4Lexer.class.getName() + ".verbose";
+    private static final boolean isVerbose = Boolean.valueOf(System.getProperty(VERBOSE_PROPERTY));
+    private static final Logger logger = Logger.getLogger(M4Lexer.class.getName());
+
     private final FileObject file;
 
     M4SemanticHighlighter(FileObject file) {
@@ -38,7 +44,9 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
     @Override
     public void run(Result result, SchedulerEvent event) {
-        System.out.println("M4SemanticHighlighter is running.");
+        if (isVerbose) {
+            logger.info("Running.");
+        }
     }
 
     @Override
