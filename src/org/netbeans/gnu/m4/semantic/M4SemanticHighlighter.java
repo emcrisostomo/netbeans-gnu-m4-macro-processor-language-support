@@ -16,14 +16,31 @@
  */
 package org.netbeans.gnu.m4.semantic;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.Document;
+import org.netbeans.api.lexer.Token;
+import org.netbeans.api.lexer.TokenHierarchy;
+import org.netbeans.api.lexer.TokenId;
+import org.netbeans.api.lexer.TokenSequence;
+import org.netbeans.gnu.m4.lexer.M4TokenId;
 import org.netbeans.gnu.m4.lexer.javacc.M4Lexer;
+import org.netbeans.gnu.m4.semantic.M4ColoringAttributes.Coloring;
 import org.netbeans.modules.parsing.spi.IndexingAwareParserResultTask;
 import org.netbeans.modules.parsing.spi.Parser.Result;
 import org.netbeans.modules.parsing.spi.Scheduler;
 import org.netbeans.modules.parsing.spi.SchedulerEvent;
 import org.netbeans.modules.parsing.spi.TaskIndexingMode;
-import org.openide.filesystems.FileObject;
+import org.netbeans.spi.editor.highlighting.support.OffsetsBag;
+import org.netbeans.spi.editor.hints.ErrorDescription;
 
 /**
  *
@@ -44,6 +61,64 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
         if (isVerbose) {
             logger.info("Running.");
         }
+
+        final Document doc = result.getSnapshot().getSource().getDocument(false);
+
+        process(doc);
+    }
+
+    static Coloring collection2Coloring(Collection<M4ColoringAttributes> attr) {
+        Coloring c = M4ColoringAttributes.empty();
+
+        for (M4ColoringAttributes a : attr) {
+            c = M4ColoringAttributes.add(c, a);
+        }
+
+        return c;
+    }
+
+    private void process(final Document document) {
+        Map<Token, Coloring> newColoring = new IdentityHashMap<>();
+        Map<Token, Coloring> oldColors = M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, document).getColorings();
+        Map<Token, Coloring> removedTokens = new IdentityHashMap<>(oldColors);
+        Set<Token> addedTokens = new HashSet<>();
+
+        AbstractDocument doc = (AbstractDocument) document;
+
+        doc.readLock();
+
+        try {
+            TokenHierarchy<AbstractDocument> ti = TokenHierarchy.get(doc);
+            TokenSequence<? extends TokenId> ts = ti.tokenSequence();
+
+            while (ts.moveNext()) {
+                Token<? extends TokenId> t = ts.token();
+
+                // Ignore tokens which are not our instances
+                // (used only as a cast safeguard).
+                if (!(t.id() instanceof M4TokenId)) {
+                    continue;
+                }
+
+                List<M4ColoringAttributes> spec = new ArrayList<>();
+                spec.add(M4ColoringAttributes.M4_MACRO);
+                spec.add(M4ColoringAttributes.DECLARATION);
+                
+                Coloring c = collection2Coloring(spec);
+
+                newColoring.put(t, c);
+
+                Coloring oldColoring = removedTokens.remove(t);
+
+                if (oldColoring == null || !oldColoring.equals(c)) {
+                    addedTokens.add(t);
+                }
+            }
+        } finally {
+            doc.readUnlock();
+        }
+
+        ERROR_DESCRIPTION_SETTER.setColorings(doc, newColoring, addedTokens);
     }
 
     @Override
@@ -60,4 +135,39 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
     public void cancel() {
         // no op
     }
+
+    public static interface ErrorDescriptionSetter {
+
+        public void setErrors(Document doc, List<ErrorDescription> errors);
+
+        public void setHighlights(Document doc, OffsetsBag highlights);
+
+        public void setColorings(Document doc, Map<Token, Coloring> colorings, Set<Token> addedTokens);
+    }
+
+    private static final ErrorDescriptionSetter ERROR_DESCRIPTION_SETTER = new ErrorDescriptionSetter() {
+        @Override
+        public void setErrors(Document doc, List<ErrorDescription> errors) {
+        }
+
+        @Override
+        public void setHighlights(final Document doc, final OffsetsBag highlights) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+        }
+
+        @Override
+        public void setColorings(final Document doc, final Map<Token, Coloring> colorings, final Set<Token> addedTokens) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, doc).setColorings(colorings, addedTokens);
+                }
+            });
+        }
+    };
 }

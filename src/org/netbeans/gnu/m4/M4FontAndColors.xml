@@ -16,6 +16,9 @@
     <fontcolor name="separator" default="separator"/>
     <fontcolor name="m4-builtin-macro" default="keyword"/>
     <fontcolor name="m4-macro" default="identifier"/>
+    <fontcolor name="m4-macro-declaration" default="identifier">
+        <font style="bold" />
+    </fontcolor>
     <fontcolor name="m4-macro-invocation" default="keyword">
         <font style="bold" />
     </fontcolor>
