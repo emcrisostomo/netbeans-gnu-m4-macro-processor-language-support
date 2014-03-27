@@ -16,10 +16,21 @@
  */
 package org.netbeans.gnu.m4;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.event.ChangeListener;
 import org.netbeans.api.lexer.Language;
 import org.netbeans.gnu.m4.lexer.M4TokenId;
+import org.netbeans.modules.csl.api.Error;
 import org.netbeans.modules.csl.spi.DefaultLanguageConfig;
 import org.netbeans.modules.csl.spi.LanguageRegistration;
+import org.netbeans.modules.csl.spi.ParserResult;
+import org.netbeans.modules.parsing.api.Snapshot;
+import org.netbeans.modules.parsing.api.Task;
+import org.netbeans.modules.parsing.spi.ParseException;
+import org.netbeans.modules.parsing.spi.Parser;
+import org.netbeans.modules.parsing.spi.Parser.Result;
+import org.netbeans.modules.parsing.spi.SourceModificationEvent;
 
 /**
  *
@@ -34,7 +45,50 @@ public class M4Language extends DefaultLanguageConfig {
     }
 
     @Override
+    public Parser getParser() {
+        return new Parser() {
+
+            private Snapshot snapshot;
+            
+            @Override
+            public void parse(Snapshot snapshot, Task task, SourceModificationEvent event) throws ParseException {
+                this.snapshot = snapshot;
+            }
+
+            @Override
+            public Result getResult(Task task) throws ParseException {
+                return new M4ParserResult(this.snapshot);
+            }
+
+            @Override
+            public void addChangeListener(ChangeListener changeListener) {
+            }
+
+            @Override
+            public void removeChangeListener(ChangeListener changeListener) {
+            }
+        };
+    }    
+
+    @Override
     public String getDisplayName() {
         return "M4";
+    }
+
+    public static class M4ParserResult extends ParserResult {
+
+        public M4ParserResult(Snapshot snapshot) {
+            super(snapshot);
+        }
+
+        @Override
+        protected void invalidate() {
+
+        }
+
+        @Override
+        public List<? extends Error> getDiagnostics() {
+            return new ArrayList<>();
+        }
     }
 }
