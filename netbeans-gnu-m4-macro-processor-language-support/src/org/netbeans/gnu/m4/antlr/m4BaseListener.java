@@ -19,6 +19,19 @@ public class m4BaseListener implements m4Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterQtext(@NotNull m4Parser.QtextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQtext(@NotNull m4Parser.QtextContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMacroName(@NotNull m4Parser.MacroNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -104,6 +117,19 @@ public class m4BaseListener implements m4Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitQuotedText(@NotNull m4Parser.QuotedTextContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVerbatimQuotedText(@NotNull m4Parser.VerbatimQuotedTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVerbatimQuotedText(@NotNull m4Parser.VerbatimQuotedTextContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

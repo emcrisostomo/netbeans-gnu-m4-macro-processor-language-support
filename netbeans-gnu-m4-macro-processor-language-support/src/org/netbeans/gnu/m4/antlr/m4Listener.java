@@ -11,6 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface m4Listener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link m4Parser#qtext}.
+	 * @param ctx the parse tree
+	 */
+	void enterQtext(@NotNull m4Parser.QtextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#qtext}.
+	 * @param ctx the parse tree
+	 */
+	void exitQtext(@NotNull m4Parser.QtextContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link m4Parser#macroName}.
 	 * @param ctx the parse tree
 	 */
@@ -86,6 +97,17 @@ public interface m4Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitQuotedText(@NotNull m4Parser.QuotedTextContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link m4Parser#verbatimQuotedText}.
+	 * @param ctx the parse tree
+	 */
+	void enterVerbatimQuotedText(@NotNull m4Parser.VerbatimQuotedTextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#verbatimQuotedText}.
+	 * @param ctx the parse tree
+	 */
+	void exitVerbatimQuotedText(@NotNull m4Parser.VerbatimQuotedTextContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link m4Parser#verbatimText}.

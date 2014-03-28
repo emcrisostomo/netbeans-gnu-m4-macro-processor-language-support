@@ -27,8 +27,16 @@ text
     : (verbatimText | quotedText | macroInvocation | macroName)
     ;
 
+verbatimQuotedText
+    : LBRACK (.|verbatimQuotedText)+? RBRACK
+    ;
+
+qtext
+    : (verbatimText | macroInvocation | macroName | verbatimQuotedText)
+    ;
+
 quotedText
-    : LBRACK (text)*? RBRACK
+    : LBRACK qtext+ RBRACK
     ;
 
 macroName   
@@ -40,7 +48,7 @@ macroInvocation
     ;
 
 parameter
-    : (macroInvocation | text)
+    : text+
     ;
 
 verbatimText
