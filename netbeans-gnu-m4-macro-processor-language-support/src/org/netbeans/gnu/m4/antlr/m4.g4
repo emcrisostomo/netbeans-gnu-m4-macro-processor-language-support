@@ -59,10 +59,6 @@ verbatimText
       |
         RPAREN
       |
-        LBRACK
-      |
-        RBRACK
-      |
         COMMA
       )+
     ;

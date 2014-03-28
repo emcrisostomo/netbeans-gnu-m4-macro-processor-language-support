@@ -106,7 +106,7 @@ public class m4Parser extends Parser {
 			setState(24);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << LPAREN) | (1L << RPAREN) | (1L << LBRACK) | (1L << RBRACK) | (1L << COMMA) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << LPAREN) | (1L << RPAREN) | (1L << LBRACK) | (1L << COMMA) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0)) {
 				{
 				setState(22);
 				switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
@@ -239,30 +239,24 @@ public class m4Parser extends Parser {
 	public final QuotedTextContext quotedText() throws RecognitionException {
 		QuotedTextContext _localctx = new QuotedTextContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_quotedText);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(35); match(LBRACK);
 			setState(37); 
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
+			_la = _input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					setState(36); qtext();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				setState(36); qtext();
+				}
 				}
 				setState(39); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
-			} while ( _alt!=2 && _alt!=-1 );
+				_la = _input.LA(1);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << LPAREN) | (1L << RPAREN) | (1L << LBRACK) | (1L << COMMA) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0) );
 			setState(41); match(RBRACK);
 			}
 		}
@@ -663,9 +657,6 @@ public class m4Parser extends Parser {
 	}
 
 	public static class VerbatimTextContext extends ParserRuleContext {
-		public TerminalNode RBRACK(int i) {
-			return getToken(m4Parser.RBRACK, i);
-		}
 		public TerminalNode RPAREN(int i) {
 			return getToken(m4Parser.RPAREN, i);
 		}
@@ -675,15 +666,10 @@ public class m4Parser extends Parser {
 			return getToken(m4Parser.VERBATIM_TEXT, i);
 		}
 		public List<TerminalNode> RPAREN() { return getTokens(m4Parser.RPAREN); }
-		public TerminalNode LBRACK(int i) {
-			return getToken(m4Parser.LBRACK, i);
-		}
-		public List<TerminalNode> RBRACK() { return getTokens(m4Parser.RBRACK); }
 		public List<TerminalNode> VERBATIM_TEXT() { return getTokens(m4Parser.VERBATIM_TEXT); }
 		public TerminalNode LPAREN(int i) {
 			return getToken(m4Parser.LPAREN, i);
 		}
-		public List<TerminalNode> LBRACK() { return getTokens(m4Parser.LBRACK); }
 		public TerminalNode COMMA(int i) {
 			return getToken(m4Parser.COMMA, i);
 		}
@@ -719,7 +705,7 @@ public class m4Parser extends Parser {
 					{
 					setState(81);
 					_la = _input.LA(1);
-					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAREN) | (1L << RPAREN) | (1L << LBRACK) | (1L << RBRACK) | (1L << COMMA) | (1L << VERBATIM_TEXT))) != 0)) ) {
+					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << VERBATIM_TEXT))) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					consume();
@@ -844,9 +830,9 @@ public class m4Parser extends Parser {
 		"\3\4\6\4(\n\4\r\4\16\4)\3\4\3\4\3\5\3\5\3\5\3\5\5\5\62\n\5\3\6\3\6\3\6"+
 		"\6\6\67\n\6\r\6\16\68\3\6\3\6\3\7\3\7\5\7?\n\7\3\b\3\b\3\b\3\b\3\b\7\b"+
 		"F\n\b\f\b\16\bI\13\b\5\bK\n\b\3\b\3\b\3\t\6\tP\n\t\r\t\16\tQ\3\n\6\nU"+
-		"\n\n\r\n\16\nV\3\13\3\13\3\13\38\2\f\2\4\6\b\n\f\16\20\22\24\2\4\4\28"+
-		"<>>\3\2\3\64`\2\32\3\2\2\2\4#\3\2\2\2\6%\3\2\2\2\b\61\3\2\2\2\n\63\3\2"+
-		"\2\2\f>\3\2\2\2\16@\3\2\2\2\20O\3\2\2\2\22T\3\2\2\2\24X\3\2\2\2\26\31"+
+		"\n\n\r\n\16\nV\3\13\3\13\3\13\38\2\f\2\4\6\b\n\f\16\20\22\24\2\4\5\28"+
+		"9<<>>\3\2\3\64`\2\32\3\2\2\2\4#\3\2\2\2\6%\3\2\2\2\b\61\3\2\2\2\n\63\3"+
+		"\2\2\2\f>\3\2\2\2\16@\3\2\2\2\20O\3\2\2\2\22T\3\2\2\2\24X\3\2\2\2\26\31"+
 		"\5\4\3\2\27\31\5\16\b\2\30\26\3\2\2\2\30\27\3\2\2\2\31\34\3\2\2\2\32\30"+
 		"\3\2\2\2\32\33\3\2\2\2\33\35\3\2\2\2\34\32\3\2\2\2\35\36\7\2\2\3\36\3"+
 		"\3\2\2\2\37$\5\22\n\2 $\5\16\b\2!$\5\f\7\2\"$\5\6\4\2#\37\3\2\2\2# \3"+
