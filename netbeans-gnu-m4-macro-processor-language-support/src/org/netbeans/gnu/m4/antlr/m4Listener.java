@@ -11,6 +11,39 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface m4Listener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link m4Parser#parenthesizedText}.
+	 * @param ctx the parse tree
+	 */
+	void enterParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#parenthesizedText}.
+	 * @param ctx the parse tree
+	 */
+	void exitParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link m4Parser#macroInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterMacroInvocation(@NotNull m4Parser.MacroInvocationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#macroInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitMacroInvocation(@NotNull m4Parser.MacroInvocationContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link m4Parser#pText}.
+	 * @param ctx the parse tree
+	 */
+	void enterPText(@NotNull m4Parser.PTextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#pText}.
+	 * @param ctx the parse tree
+	 */
+	void exitPText(@NotNull m4Parser.PTextContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link m4Parser#qtext}.
 	 * @param ctx the parse tree
 	 */
@@ -55,15 +88,15 @@ public interface m4Listener extends ParseTreeListener {
 	void exitCompilationUnit(@NotNull m4Parser.CompilationUnitContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link m4Parser#macroInvocation}.
+	 * Enter a parse tree produced by {@link m4Parser#parameterText}.
 	 * @param ctx the parse tree
 	 */
-	void enterMacroInvocation(@NotNull m4Parser.MacroInvocationContext ctx);
+	void enterParameterText(@NotNull m4Parser.ParameterTextContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link m4Parser#macroInvocation}.
+	 * Exit a parse tree produced by {@link m4Parser#parameterText}.
 	 * @param ctx the parse tree
 	 */
-	void exitMacroInvocation(@NotNull m4Parser.MacroInvocationContext ctx);
+	void exitParameterText(@NotNull m4Parser.ParameterTextContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link m4Parser#parameter}.
@@ -75,6 +108,17 @@ public interface m4Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParameter(@NotNull m4Parser.ParameterContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link m4Parser#verbatimParameterText}.
+	 * @param ctx the parse tree
+	 */
+	void enterVerbatimParameterText(@NotNull m4Parser.VerbatimParameterTextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#verbatimParameterText}.
+	 * @param ctx the parse tree
+	 */
+	void exitVerbatimParameterText(@NotNull m4Parser.VerbatimParameterTextContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link m4Parser#text}.

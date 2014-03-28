@@ -27,8 +27,21 @@ text
     : (verbatimText | macroInvocation | macroName | quotedText)
     ;
 
+parameterText
+    : (verbatimParameterText | macroInvocation | macroName | quotedText | parenthesizedText)
+    ;
+
+parenthesizedText
+    :
+        LPAREN pText* RPAREN
+    ;
+
+pText
+    : (parenthesizedText | parameterText)
+    ;
+
 quotedText
-    : LBRACK qtext+ RBRACK
+    : LBRACK qtext* RBRACK
     ;
 
 qtext
@@ -48,7 +61,7 @@ macroInvocation
     ;
 
 parameter
-    : text+
+    : parameterText+
     ;
 
 verbatimText
@@ -60,6 +73,16 @@ verbatimText
         RPAREN
       |
         COMMA
+      |
+        WHITESPACE
+      )+
+    ;
+
+verbatimParameterText
+    : (
+         VERBATIM_TEXT
+       |
+         WHITESPACE
       )+
     ;
 
@@ -168,7 +191,6 @@ builtinMacro
         )
     ;
         
-
 /* Lexer */
 
 DEFINE:             'define' ;
@@ -223,7 +245,7 @@ PROGRAM__:          '__program__' ;
 M4EXIT:             'm4exit' ;
 
 WHITESPACE
-    : [ \t\n\r\f\u000c]+ -> skip
+    : [ \t\n\r\f\u000c]+
     ;
 
 SINGLE_LINE_COMMENT

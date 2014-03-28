@@ -41,12 +41,14 @@ public class m4Parser extends Parser {
 		"']'", "','", "IDENTIFIER", "VERBATIM_TEXT"
 	};
 	public static final int
-		RULE_compilationUnit = 0, RULE_text = 1, RULE_quotedText = 2, RULE_qtext = 3, 
-		RULE_verbatimQuotedText = 4, RULE_macroName = 5, RULE_macroInvocation = 6, 
-		RULE_parameter = 7, RULE_verbatimText = 8, RULE_builtinMacro = 9;
+		RULE_compilationUnit = 0, RULE_text = 1, RULE_parameterText = 2, RULE_parenthesizedText = 3, 
+		RULE_pText = 4, RULE_quotedText = 5, RULE_qtext = 6, RULE_verbatimQuotedText = 7, 
+		RULE_macroName = 8, RULE_macroInvocation = 9, RULE_parameter = 10, RULE_verbatimText = 11, 
+		RULE_verbatimParameterText = 12, RULE_builtinMacro = 13;
 	public static final String[] ruleNames = {
-		"compilationUnit", "text", "quotedText", "qtext", "verbatimQuotedText", 
-		"macroName", "macroInvocation", "parameter", "verbatimText", "builtinMacro"
+		"compilationUnit", "text", "parameterText", "parenthesizedText", "pText", 
+		"quotedText", "qtext", "verbatimQuotedText", "macroName", "macroInvocation", 
+		"parameter", "verbatimText", "verbatimParameterText", "builtinMacro"
 	};
 
 	@Override
@@ -103,31 +105,31 @@ public class m4Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(32);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << LPAREN) | (1L << RPAREN) | (1L << LBRACK) | (1L << COMMA) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << WHITESPACE) | (1L << LPAREN) | (1L << RPAREN) | (1L << LBRACK) | (1L << COMMA) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0)) {
 				{
-				setState(22);
+				setState(30);
 				switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 				case 1:
 					{
-					setState(20); text();
+					setState(28); text();
 					}
 					break;
 
 				case 2:
 					{
-					setState(21); macroInvocation();
+					setState(29); macroInvocation();
 					}
 					break;
 				}
 				}
-				setState(26);
+				setState(34);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(27); match(EOF);
+			setState(35); match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -174,29 +176,222 @@ public class m4Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(33);
+			setState(41);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				{
-				setState(29); verbatimText();
+				setState(37); verbatimText();
 				}
 				break;
 
 			case 2:
 				{
-				setState(30); macroInvocation();
+				setState(38); macroInvocation();
 				}
 				break;
 
 			case 3:
 				{
-				setState(31); macroName();
+				setState(39); macroName();
 				}
 				break;
 
 			case 4:
 				{
-				setState(32); quotedText();
+				setState(40); quotedText();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ParameterTextContext extends ParserRuleContext {
+		public ParenthesizedTextContext parenthesizedText() {
+			return getRuleContext(ParenthesizedTextContext.class,0);
+		}
+		public VerbatimParameterTextContext verbatimParameterText() {
+			return getRuleContext(VerbatimParameterTextContext.class,0);
+		}
+		public MacroInvocationContext macroInvocation() {
+			return getRuleContext(MacroInvocationContext.class,0);
+		}
+		public QuotedTextContext quotedText() {
+			return getRuleContext(QuotedTextContext.class,0);
+		}
+		public MacroNameContext macroName() {
+			return getRuleContext(MacroNameContext.class,0);
+		}
+		public ParameterTextContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_parameterText; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterParameterText(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitParameterText(this);
+		}
+	}
+
+	public final ParameterTextContext parameterText() throws RecognitionException {
+		ParameterTextContext _localctx = new ParameterTextContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_parameterText);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(48);
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			case 1:
+				{
+				setState(43); verbatimParameterText();
+				}
+				break;
+
+			case 2:
+				{
+				setState(44); macroInvocation();
+				}
+				break;
+
+			case 3:
+				{
+				setState(45); macroName();
+				}
+				break;
+
+			case 4:
+				{
+				setState(46); quotedText();
+				}
+				break;
+
+			case 5:
+				{
+				setState(47); parenthesizedText();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ParenthesizedTextContext extends ParserRuleContext {
+		public PTextContext pText(int i) {
+			return getRuleContext(PTextContext.class,i);
+		}
+		public TerminalNode LPAREN() { return getToken(m4Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(m4Parser.RPAREN, 0); }
+		public List<PTextContext> pText() {
+			return getRuleContexts(PTextContext.class);
+		}
+		public ParenthesizedTextContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_parenthesizedText; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterParenthesizedText(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitParenthesizedText(this);
+		}
+	}
+
+	public final ParenthesizedTextContext parenthesizedText() throws RecognitionException {
+		ParenthesizedTextContext _localctx = new ParenthesizedTextContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_parenthesizedText);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(50); match(LPAREN);
+			setState(54);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << WHITESPACE) | (1L << LPAREN) | (1L << LBRACK) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0)) {
+				{
+				{
+				setState(51); pText();
+				}
+				}
+				setState(56);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(57); match(RPAREN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class PTextContext extends ParserRuleContext {
+		public ParameterTextContext parameterText() {
+			return getRuleContext(ParameterTextContext.class,0);
+		}
+		public ParenthesizedTextContext parenthesizedText() {
+			return getRuleContext(ParenthesizedTextContext.class,0);
+		}
+		public PTextContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_pText; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterPText(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitPText(this);
+		}
+	}
+
+	public final PTextContext pText() throws RecognitionException {
+		PTextContext _localctx = new PTextContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_pText);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(61);
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			case 1:
+				{
+				setState(59); parenthesizedText();
+				}
+				break;
+
+			case 2:
+				{
+				setState(60); parameterText();
 				}
 				break;
 			}
@@ -238,26 +433,26 @@ public class m4Parser extends Parser {
 
 	public final QuotedTextContext quotedText() throws RecognitionException {
 		QuotedTextContext _localctx = new QuotedTextContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_quotedText);
+		enterRule(_localctx, 10, RULE_quotedText);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(35); match(LBRACK);
-			setState(37); 
+			setState(63); match(LBRACK);
+			setState(65); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(36); qtext();
+				setState(64); qtext();
 				}
 				}
-				setState(39); 
+				setState(67); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << LPAREN) | (1L << RPAREN) | (1L << LBRACK) | (1L << COMMA) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0) );
-			setState(41); match(RBRACK);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << WHITESPACE) | (1L << LPAREN) | (1L << RPAREN) | (1L << LBRACK) | (1L << COMMA) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0) );
+			setState(69); match(RBRACK);
 			}
 		}
 		catch (RecognitionException re) {
@@ -300,33 +495,33 @@ public class m4Parser extends Parser {
 
 	public final QtextContext qtext() throws RecognitionException {
 		QtextContext _localctx = new QtextContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_qtext);
+		enterRule(_localctx, 12, RULE_qtext);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(47);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			setState(75);
+			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				{
-				setState(43); verbatimText();
+				setState(71); verbatimText();
 				}
 				break;
 
 			case 2:
 				{
-				setState(44); macroInvocation();
+				setState(72); macroInvocation();
 				}
 				break;
 
 			case 3:
 				{
-				setState(45); macroName();
+				setState(73); macroName();
 				}
 				break;
 
 			case 4:
 				{
-				setState(46); verbatimQuotedText();
+				setState(74); verbatimQuotedText();
 				}
 				break;
 			}
@@ -368,31 +563,31 @@ public class m4Parser extends Parser {
 
 	public final VerbatimQuotedTextContext verbatimQuotedText() throws RecognitionException {
 		VerbatimQuotedTextContext _localctx = new VerbatimQuotedTextContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_verbatimQuotedText);
+		enterRule(_localctx, 14, RULE_verbatimQuotedText);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49); match(LBRACK);
-			setState(52); 
+			setState(77); match(LBRACK);
+			setState(80); 
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
 			do {
 				switch (_alt) {
 				case 1+1:
 					{
-					setState(52);
-					switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+					setState(80);
+					switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 					case 1:
 						{
-						setState(50);
+						setState(78);
 						matchWildcard();
 						}
 						break;
 
 					case 2:
 						{
-						setState(51); verbatimQuotedText();
+						setState(79); verbatimQuotedText();
 						}
 						break;
 					}
@@ -401,11 +596,11 @@ public class m4Parser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(54); 
+				setState(82); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
 			} while ( _alt!=1 && _alt!=-1 );
-			setState(56); match(RBRACK);
+			setState(84); match(RBRACK);
 			}
 		}
 		catch (RecognitionException re) {
@@ -440,15 +635,15 @@ public class m4Parser extends Parser {
 
 	public final MacroNameContext macroName() throws RecognitionException {
 		MacroNameContext _localctx = new MacroNameContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_macroName);
+		enterRule(_localctx, 16, RULE_macroName);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60);
+			setState(88);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				{
-				setState(58); match(IDENTIFIER);
+				setState(86); match(IDENTIFIER);
 				}
 				break;
 			case DEFINE:
@@ -502,7 +697,7 @@ public class m4Parser extends Parser {
 			case PROGRAM__:
 			case M4EXIT:
 				{
-				setState(59); builtinMacro();
+				setState(87); builtinMacro();
 				}
 				break;
 			default:
@@ -553,36 +748,36 @@ public class m4Parser extends Parser {
 
 	public final MacroInvocationContext macroInvocation() throws RecognitionException {
 		MacroInvocationContext _localctx = new MacroInvocationContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_macroInvocation);
+		enterRule(_localctx, 18, RULE_macroInvocation);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(62); macroName();
-			setState(63); match(LPAREN);
-			setState(72);
-			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
-			case 1:
+			setState(90); macroName();
+			setState(91); match(LPAREN);
+			setState(100);
+			_la = _input.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << WHITESPACE) | (1L << LPAREN) | (1L << LBRACK) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0)) {
 				{
-				setState(64); parameter();
-				setState(69);
+				setState(92); parameter();
+				setState(97);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(65); match(COMMA);
-					setState(66); parameter();
+					setState(93); match(COMMA);
+					setState(94); parameter();
 					}
 					}
-					setState(71);
+					setState(99);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
-				break;
 			}
-			setState(74); match(RPAREN);
+
+			setState(102); match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -597,11 +792,11 @@ public class m4Parser extends Parser {
 	}
 
 	public static class ParameterContext extends ParserRuleContext {
-		public List<TextContext> text() {
-			return getRuleContexts(TextContext.class);
+		public List<ParameterTextContext> parameterText() {
+			return getRuleContexts(ParameterTextContext.class);
 		}
-		public TextContext text(int i) {
-			return getRuleContext(TextContext.class,i);
+		public ParameterTextContext parameterText(int i) {
+			return getRuleContext(ParameterTextContext.class,i);
 		}
 		public ParameterContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -619,30 +814,24 @@ public class m4Parser extends Parser {
 
 	public final ParameterContext parameter() throws RecognitionException {
 		ParameterContext _localctx = new ParameterContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_parameter);
+		enterRule(_localctx, 20, RULE_parameter);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(77); 
+			setState(105); 
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
+			_la = _input.LA(1);
 			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					setState(76); text();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				{
+				setState(104); parameterText();
 				}
-				setState(79); 
+				}
+				setState(107); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
-			} while ( _alt!=2 && _alt!=-1 );
+				_la = _input.LA(1);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT) | (1L << WHITESPACE) | (1L << LPAREN) | (1L << LBRACK) | (1L << IDENTIFIER) | (1L << VERBATIM_TEXT))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -662,6 +851,9 @@ public class m4Parser extends Parser {
 		}
 		public List<TerminalNode> LPAREN() { return getTokens(m4Parser.LPAREN); }
 		public List<TerminalNode> COMMA() { return getTokens(m4Parser.COMMA); }
+		public TerminalNode WHITESPACE(int i) {
+			return getToken(m4Parser.WHITESPACE, i);
+		}
 		public TerminalNode VERBATIM_TEXT(int i) {
 			return getToken(m4Parser.VERBATIM_TEXT, i);
 		}
@@ -673,6 +865,7 @@ public class m4Parser extends Parser {
 		public TerminalNode COMMA(int i) {
 			return getToken(m4Parser.COMMA, i);
 		}
+		public List<TerminalNode> WHITESPACE() { return getTokens(m4Parser.WHITESPACE); }
 		public VerbatimTextContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -689,23 +882,23 @@ public class m4Parser extends Parser {
 
 	public final VerbatimTextContext verbatimText() throws RecognitionException {
 		VerbatimTextContext _localctx = new VerbatimTextContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_verbatimText);
+		enterRule(_localctx, 22, RULE_verbatimText);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(82); 
+			setState(110); 
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
 			do {
 				switch (_alt) {
 				case 1:
 					{
 					{
-					setState(81);
+					setState(109);
 					_la = _input.LA(1);
-					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << VERBATIM_TEXT))) != 0)) ) {
+					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << WHITESPACE) | (1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << VERBATIM_TEXT))) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					consume();
@@ -715,9 +908,77 @@ public class m4Parser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(84); 
+				setState(112); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+			} while ( _alt!=2 && _alt!=-1 );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class VerbatimParameterTextContext extends ParserRuleContext {
+		public TerminalNode WHITESPACE(int i) {
+			return getToken(m4Parser.WHITESPACE, i);
+		}
+		public TerminalNode VERBATIM_TEXT(int i) {
+			return getToken(m4Parser.VERBATIM_TEXT, i);
+		}
+		public List<TerminalNode> VERBATIM_TEXT() { return getTokens(m4Parser.VERBATIM_TEXT); }
+		public List<TerminalNode> WHITESPACE() { return getTokens(m4Parser.WHITESPACE); }
+		public VerbatimParameterTextContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_verbatimParameterText; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterVerbatimParameterText(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitVerbatimParameterText(this);
+		}
+	}
+
+	public final VerbatimParameterTextContext verbatimParameterText() throws RecognitionException {
+		VerbatimParameterTextContext _localctx = new VerbatimParameterTextContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_verbatimParameterText);
+		int _la;
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(115); 
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
+			do {
+				switch (_alt) {
+				case 1:
+					{
+					{
+					setState(114);
+					_la = _input.LA(1);
+					if ( !(_la==WHITESPACE || _la==VERBATIM_TEXT) ) {
+					_errHandler.recoverInline(this);
+					}
+					consume();
+					}
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				setState(117); 
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 			} while ( _alt!=2 && _alt!=-1 );
 			}
 		}
@@ -799,12 +1060,12 @@ public class m4Parser extends Parser {
 
 	public final BuiltinMacroContext builtinMacro() throws RecognitionException {
 		BuiltinMacroContext _localctx = new BuiltinMacroContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_builtinMacro);
+		enterRule(_localctx, 26, RULE_builtinMacro);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(86);
+			setState(119);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEFINE) | (1L << UNDEFINE) | (1L << DEFN) | (1L << PUSHDEF) | (1L << POPDEF) | (1L << INDIR) | (1L << BUILTIN) | (1L << IFDEF) | (1L << IFELSE) | (1L << SHIFT) | (1L << DUMPDEF) | (1L << TRACEON) | (1L << TRACEOFF) | (1L << DEBUGMODE) | (1L << DEBUGFILE) | (1L << CHANGEQUOTE) | (1L << CHANGECOM) | (1L << CHANGEWORD) | (1L << M4WRAP) | (1L << INCLUDE) | (1L << SINCLUDE) | (1L << DIVERT) | (1L << UNDIVERT) | (1L << DIVNUM) | (1L << LEN) | (1L << INDEX) | (1L << REGEXP) | (1L << SUBSTR) | (1L << TRANSLIT) | (1L << PATSUBST) | (1L << FORMAT) | (1L << INCR) | (1L << DECR) | (1L << EVAL) | (1L << GNU__) | (1L << OS2__) | (1L << OS2) | (1L << UNIX__) | (1L << WINDOWS__) | (1L << WINDOWS) | (1L << SYSCMD) | (1L << ESYSCMD) | (1L << SYSVAL) | (1L << MKSTEMP) | (1L << MAKETEMP) | (1L << ERRPRINT) | (1L << FILE__) | (1L << LINE__) | (1L << PROGRAM__) | (1L << M4EXIT))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -824,29 +1085,37 @@ public class m4Parser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3>[\4\2\t\2\4\3\t\3"+
-		"\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3\2"+
-		"\3\2\7\2\31\n\2\f\2\16\2\34\13\2\3\2\3\2\3\3\3\3\3\3\3\3\5\3$\n\3\3\4"+
-		"\3\4\6\4(\n\4\r\4\16\4)\3\4\3\4\3\5\3\5\3\5\3\5\5\5\62\n\5\3\6\3\6\3\6"+
-		"\6\6\67\n\6\r\6\16\68\3\6\3\6\3\7\3\7\5\7?\n\7\3\b\3\b\3\b\3\b\3\b\7\b"+
-		"F\n\b\f\b\16\bI\13\b\5\bK\n\b\3\b\3\b\3\t\6\tP\n\t\r\t\16\tQ\3\n\6\nU"+
-		"\n\n\r\n\16\nV\3\13\3\13\3\13\38\2\f\2\4\6\b\n\f\16\20\22\24\2\4\5\28"+
-		"9<<>>\3\2\3\64`\2\32\3\2\2\2\4#\3\2\2\2\6%\3\2\2\2\b\61\3\2\2\2\n\63\3"+
-		"\2\2\2\f>\3\2\2\2\16@\3\2\2\2\20O\3\2\2\2\22T\3\2\2\2\24X\3\2\2\2\26\31"+
-		"\5\4\3\2\27\31\5\16\b\2\30\26\3\2\2\2\30\27\3\2\2\2\31\34\3\2\2\2\32\30"+
-		"\3\2\2\2\32\33\3\2\2\2\33\35\3\2\2\2\34\32\3\2\2\2\35\36\7\2\2\3\36\3"+
-		"\3\2\2\2\37$\5\22\n\2 $\5\16\b\2!$\5\f\7\2\"$\5\6\4\2#\37\3\2\2\2# \3"+
-		"\2\2\2#!\3\2\2\2#\"\3\2\2\2$\5\3\2\2\2%\'\7:\2\2&(\5\b\5\2\'&\3\2\2\2"+
-		"()\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*+\3\2\2\2+,\7;\2\2,\7\3\2\2\2-\62\5\22"+
-		"\n\2.\62\5\16\b\2/\62\5\f\7\2\60\62\5\n\6\2\61-\3\2\2\2\61.\3\2\2\2\61"+
-		"/\3\2\2\2\61\60\3\2\2\2\62\t\3\2\2\2\63\66\7:\2\2\64\67\13\2\2\2\65\67"+
-		"\5\n\6\2\66\64\3\2\2\2\66\65\3\2\2\2\678\3\2\2\289\3\2\2\28\66\3\2\2\2"+
-		"9:\3\2\2\2:;\7;\2\2;\13\3\2\2\2<?\7=\2\2=?\5\24\13\2><\3\2\2\2>=\3\2\2"+
-		"\2?\r\3\2\2\2@A\5\f\7\2AJ\78\2\2BG\5\20\t\2CD\7<\2\2DF\5\20\t\2EC\3\2"+
-		"\2\2FI\3\2\2\2GE\3\2\2\2GH\3\2\2\2HK\3\2\2\2IG\3\2\2\2JB\3\2\2\2JK\3\2"+
-		"\2\2KL\3\2\2\2LM\79\2\2M\17\3\2\2\2NP\5\4\3\2ON\3\2\2\2PQ\3\2\2\2QO\3"+
-		"\2\2\2QR\3\2\2\2R\21\3\2\2\2SU\t\2\2\2TS\3\2\2\2UV\3\2\2\2VT\3\2\2\2V"+
-		"W\3\2\2\2W\23\3\2\2\2XY\t\3\2\2Y\25\3\2\2\2\16\30\32#)\61\668>GJQV";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3>|\4\2\t\2\4\3\t\3"+
+		"\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f"+
+		"\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2\7\2!\n\2\f\2\16\2$\13\2\3\2\3"+
+		"\2\3\3\3\3\3\3\3\3\5\3,\n\3\3\4\3\4\3\4\3\4\3\4\5\4\63\n\4\3\5\3\5\7\5"+
+		"\67\n\5\f\5\16\5:\13\5\3\5\3\5\3\6\3\6\5\6@\n\6\3\7\3\7\6\7D\n\7\r\7\16"+
+		"\7E\3\7\3\7\3\b\3\b\3\b\3\b\5\bN\n\b\3\t\3\t\3\t\6\tS\n\t\r\t\16\tT\3"+
+		"\t\3\t\3\n\3\n\5\n[\n\n\3\13\3\13\3\13\3\13\3\13\7\13b\n\13\f\13\16\13"+
+		"e\13\13\5\13g\n\13\3\13\3\13\3\f\6\fl\n\f\r\f\16\fm\3\r\6\rq\n\r\r\r\16"+
+		"\rr\3\16\6\16v\n\16\r\16\16\16w\3\17\3\17\3\17\3T\2\20\2\4\6\b\n\f\16"+
+		"\20\22\24\26\30\32\34\2\5\6\2\65\6589<<>>\4\2\65\65>>\3\2\3\64\u0084\2"+
+		"\"\3\2\2\2\4+\3\2\2\2\6\62\3\2\2\2\b\64\3\2\2\2\n?\3\2\2\2\fA\3\2\2\2"+
+		"\16M\3\2\2\2\20O\3\2\2\2\22Z\3\2\2\2\24\\\3\2\2\2\26k\3\2\2\2\30p\3\2"+
+		"\2\2\32u\3\2\2\2\34y\3\2\2\2\36!\5\4\3\2\37!\5\24\13\2 \36\3\2\2\2 \37"+
+		"\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#%\3\2\2\2$\"\3\2\2\2%&\7\2\2"+
+		"\3&\3\3\2\2\2\',\5\30\r\2(,\5\24\13\2),\5\22\n\2*,\5\f\7\2+\'\3\2\2\2"+
+		"+(\3\2\2\2+)\3\2\2\2+*\3\2\2\2,\5\3\2\2\2-\63\5\32\16\2.\63\5\24\13\2"+
+		"/\63\5\22\n\2\60\63\5\f\7\2\61\63\5\b\5\2\62-\3\2\2\2\62.\3\2\2\2\62/"+
+		"\3\2\2\2\62\60\3\2\2\2\62\61\3\2\2\2\63\7\3\2\2\2\648\78\2\2\65\67\5\n"+
+		"\6\2\66\65\3\2\2\2\67:\3\2\2\28\66\3\2\2\289\3\2\2\29;\3\2\2\2:8\3\2\2"+
+		"\2;<\79\2\2<\t\3\2\2\2=@\5\b\5\2>@\5\6\4\2?=\3\2\2\2?>\3\2\2\2@\13\3\2"+
+		"\2\2AC\7:\2\2BD\5\16\b\2CB\3\2\2\2DE\3\2\2\2EC\3\2\2\2EF\3\2\2\2FG\3\2"+
+		"\2\2GH\7;\2\2H\r\3\2\2\2IN\5\30\r\2JN\5\24\13\2KN\5\22\n\2LN\5\20\t\2"+
+		"MI\3\2\2\2MJ\3\2\2\2MK\3\2\2\2ML\3\2\2\2N\17\3\2\2\2OR\7:\2\2PS\13\2\2"+
+		"\2QS\5\20\t\2RP\3\2\2\2RQ\3\2\2\2ST\3\2\2\2TU\3\2\2\2TR\3\2\2\2UV\3\2"+
+		"\2\2VW\7;\2\2W\21\3\2\2\2X[\7=\2\2Y[\5\34\17\2ZX\3\2\2\2ZY\3\2\2\2[\23"+
+		"\3\2\2\2\\]\5\22\n\2]f\78\2\2^c\5\26\f\2_`\7<\2\2`b\5\26\f\2a_\3\2\2\2"+
+		"be\3\2\2\2ca\3\2\2\2cd\3\2\2\2dg\3\2\2\2ec\3\2\2\2f^\3\2\2\2fg\3\2\2\2"+
+		"gh\3\2\2\2hi\79\2\2i\25\3\2\2\2jl\5\6\4\2kj\3\2\2\2lm\3\2\2\2mk\3\2\2"+
+		"\2mn\3\2\2\2n\27\3\2\2\2oq\t\2\2\2po\3\2\2\2qr\3\2\2\2rp\3\2\2\2rs\3\2"+
+		"\2\2s\31\3\2\2\2tv\t\3\2\2ut\3\2\2\2vw\3\2\2\2wu\3\2\2\2wx\3\2\2\2x\33"+
+		"\3\2\2\2yz\t\4\2\2z\35\3\2\2\2\22 \"+\628?EMRTZcfmrw";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

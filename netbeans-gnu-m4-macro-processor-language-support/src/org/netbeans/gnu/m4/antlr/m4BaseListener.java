@@ -19,6 +19,45 @@ public class m4BaseListener implements m4Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMacroInvocation(@NotNull m4Parser.MacroInvocationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMacroInvocation(@NotNull m4Parser.MacroInvocationContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPText(@NotNull m4Parser.PTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPText(@NotNull m4Parser.PTextContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterQtext(@NotNull m4Parser.QtextContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -71,13 +110,13 @@ public class m4BaseListener implements m4Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMacroInvocation(@NotNull m4Parser.MacroInvocationContext ctx) { }
+	@Override public void enterParameterText(@NotNull m4Parser.ParameterTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMacroInvocation(@NotNull m4Parser.MacroInvocationContext ctx) { }
+	@Override public void exitParameterText(@NotNull m4Parser.ParameterTextContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -91,6 +130,19 @@ public class m4BaseListener implements m4Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParameter(@NotNull m4Parser.ParameterContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVerbatimParameterText(@NotNull m4Parser.VerbatimParameterTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVerbatimParameterText(@NotNull m4Parser.VerbatimParameterTextContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
