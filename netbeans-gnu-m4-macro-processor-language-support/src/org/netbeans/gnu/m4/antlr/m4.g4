@@ -24,19 +24,19 @@ compilationUnit
     ;
 
 text
-    : (verbatimText | quotedText | macroInvocation | macroName)
+    : (verbatimText | macroInvocation | macroName | quotedText)
     ;
 
-verbatimQuotedText
-    : LBRACK (.|verbatimQuotedText)+? RBRACK
+quotedText
+    : LBRACK qtext+ RBRACK
     ;
 
 qtext
     : (verbatimText | macroInvocation | macroName | verbatimQuotedText)
     ;
 
-quotedText
-    : LBRACK qtext+ RBRACK
+verbatimQuotedText
+    : LBRACK (.|verbatimQuotedText)+? RBRACK
     ;
 
 macroName   
@@ -52,7 +52,19 @@ parameter
     ;
 
 verbatimText
-    : VERBATIM_TEXT+
+    : (
+        VERBATIM_TEXT
+      |
+        LPAREN          
+      |
+        RPAREN
+      |
+        LBRACK
+      |
+        RBRACK
+      |
+        COMMA
+      )+
     ;
 
 builtinMacro
