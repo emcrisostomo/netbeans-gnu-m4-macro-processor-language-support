@@ -49,7 +49,7 @@ qtext
     ;
 
 verbatimQuotedText
-    : LBRACK (.|verbatimQuotedText)+? RBRACK
+    : LBRACK (.|verbatimQuotedText)*? RBRACK
     ;
 
 macroName   
@@ -249,11 +249,11 @@ WHITESPACE
     ;
 
 SINGLE_LINE_COMMENT
-    : '#' ~[\r\n]* ('\n' | '\r' | '\r\n')? -> skip
+    : '#' ~[\r\n]* ('\n' | '\r' | '\r\n')?
     ;
 
 DNL_COMMENT
-    : 'dnl' .*? '\n' -> skip
+    : 'dnl' [ \t\r]+ ~[\r\n]* ('\n')? -> skip
     ;
 
 /* Separators */
