@@ -20,23 +20,27 @@ package org.netbeans.gnu.m4.antlr;
 }
 
 compilationUnit
-    : (macroInvocation | verbatimText)* EOF
+    : (text | macroInvocation)* EOF
     ;
 
-macroName
+text
+    : (verbatimText | quotedText | macroInvocation | macroName)
+    ;
+
+quotedText
+    : LBRACK (text)*? RBRACK
+    ;
+
+macroName   
     : (IDENTIFIER | builtinMacro)
     ;
 
 macroInvocation
     : macroName LPAREN (parameter (COMMA parameter)*)? RPAREN
-    |
-      macroName
     ;
 
 parameter
-    : macroInvocation
-    | 
-      verbatimText
+    : (macroInvocation | text)
     ;
 
 verbatimText
@@ -218,13 +222,9 @@ DNL_COMMENT
 
 LPAREN          : '(';
 RPAREN          : ')';
-LBRACE          : '{';
-RBRACE          : '}';
 LBRACK          : '[';
 RBRACK          : ']';
-SEMI            : ';';
 COMMA           : ',';
-DOT             : '.';
 
 IDENTIFIER
     : M4_LETTER (M4_LETTER_OR_DIGIT)*
