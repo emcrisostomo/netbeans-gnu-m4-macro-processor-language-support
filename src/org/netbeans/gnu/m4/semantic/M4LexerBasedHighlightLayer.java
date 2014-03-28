@@ -37,7 +37,7 @@ import org.netbeans.spi.editor.highlighting.support.AbstractHighlightsContainer;
  */
 public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
 
-    private Map<Token, Coloring> colorings;
+    private Map<Token<? extends TokenId>, Coloring> colorings;
     private final Map<Coloring, AttributeSet> CACHE = new HashMap<>();
     private final Document doc;
 
@@ -46,7 +46,7 @@ public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
         this.colorings = Collections.emptyMap();
     }
 
-    public static M4LexerBasedHighlightLayer getLayer(Class id, Document doc) {
+    public static M4LexerBasedHighlightLayer getLayer(Class<?> id, Document doc) {
         M4LexerBasedHighlightLayer layer = (M4LexerBasedHighlightLayer) doc.getProperty(id);
 
         if (layer == null) {
@@ -62,7 +62,7 @@ public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
             return HighlightsSequence.EMPTY;
         }
 
-        TokenHierarchy th = TokenHierarchy.get(doc);
+        TokenHierarchy<Document> th = TokenHierarchy.get(doc);
         TokenSequence<? extends TokenId> seq = th.tokenSequence();
 
         if (seq == null) { // Null when token hierarchy is inactive
@@ -97,7 +97,7 @@ public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
         }
     }
 
-    public void setColorings(final Map<Token, Coloring> colorings, final Set<Token> addedTokens) {
+    public void setColorings(final Map<Token<? extends TokenId>, Coloring> colorings, final Set<Token<? extends TokenId>> addedTokens) {
         doc.render(new Runnable() {
             @Override
             public void run() {
@@ -105,27 +105,27 @@ public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
                     M4LexerBasedHighlightLayer.this.colorings = colorings;
 
                     if (addedTokens.isEmpty()) {
-                        //need to fire anything here?
-                    } else {
-                        if (addedTokens.size() < 30) {
-                            int startOffset = Integer.MAX_VALUE;
-                            int endOffset = -1;
-                            for (Token t : addedTokens) {
-                                int tOffset = t.offset(null);
-                                startOffset = Math.min(tOffset, startOffset);
-                                endOffset = Math.max(endOffset, tOffset + t.length());
-                            }
-                            fireHighlightsChange(startOffset, endOffset);
-                        } else { // Too many tokens => repaint all
-                            fireHighlightsChange(0, doc.getLength());
+                        return;
+                    }
+                    
+                    if (addedTokens.size() < 30) {
+                        int startOffset = Integer.MAX_VALUE;
+                        int endOffset = -1;
+                        for (Token<? extends TokenId> t : addedTokens) {
+                            int tOffset = t.offset(null);
+                            startOffset = Math.min(tOffset, startOffset);
+                            endOffset = Math.max(endOffset, tOffset + t.length());
                         }
+                        fireHighlightsChange(startOffset, endOffset);
+                    } else { // Too many tokens => repaint all
+                        fireHighlightsChange(0, doc.getLength());
                     }
                 }
             }
         });
     }
 
-    public synchronized Map<Token, Coloring> getColorings() {
+    public synchronized Map<Token<? extends TokenId>, Coloring> getColorings() {
         return colorings;
     }
 

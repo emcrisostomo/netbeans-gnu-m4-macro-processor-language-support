@@ -77,10 +77,10 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
     }
 
     private void process(final Document document) {
-        Map<Token, Coloring> newColoring = new IdentityHashMap<>();
-        Map<Token, Coloring> oldColors = M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, document).getColorings();
-        Map<Token, Coloring> removedTokens = new IdentityHashMap<>(oldColors);
-        Set<Token> addedTokens = new HashSet<>();
+        Map<Token<? extends TokenId>, Coloring> newColoring = new IdentityHashMap<>();
+        Map<Token<? extends TokenId>, Coloring> oldColors = M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, document).getColorings();
+        Map<Token<? extends TokenId>, Coloring> removedTokens = new IdentityHashMap<>(oldColors);
+        Set<Token<? extends TokenId>> addedTokens = new HashSet<>();
 
         AbstractDocument doc = (AbstractDocument) document;
 
@@ -141,7 +141,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
         public void setHighlights(Document doc, OffsetsBag highlights);
 
-        public void setColorings(Document doc, Map<Token, Coloring> colorings, Set<Token> addedTokens);
+        public void setColorings(Document doc, Map<Token<? extends TokenId>, Coloring> colorings, Set<Token<? extends TokenId>> addedTokens);
     }
 
     private static final ErrorDescriptionSetter ERROR_DESCRIPTION_SETTER = new ErrorDescriptionSetter() {
@@ -160,7 +160,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
         }
 
         @Override
-        public void setColorings(final Document doc, final Map<Token, Coloring> colorings, final Set<Token> addedTokens) {
+        public void setColorings(final Document doc, final Map<Token<? extends TokenId>, Coloring> colorings, final Set<Token<? extends TokenId>> addedTokens) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {

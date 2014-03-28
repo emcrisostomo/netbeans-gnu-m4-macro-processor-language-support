@@ -19,6 +19,7 @@ package org.netbeans.gnu.m4.semantic;
 import java.util.Map;
 import javax.swing.text.AttributeSet;
 import org.netbeans.api.lexer.Token;
+import org.netbeans.api.lexer.TokenId;
 import org.netbeans.api.lexer.TokenSequence;
 import org.netbeans.gnu.m4.semantic.M4ColoringAttributes.Coloring;
 import org.netbeans.spi.editor.highlighting.HighlightsSequence;
@@ -30,10 +31,10 @@ import org.netbeans.spi.editor.highlighting.HighlightsSequence;
 class M4LexerBasedHighlightSequence implements HighlightsSequence {
 
     private final M4LexerBasedHighlightLayer layer;
-    private final Map<Token, Coloring> colorings;
-    private final TokenSequence ts;
+    private final Map<Token<? extends TokenId>, Coloring> colorings;
+    private final TokenSequence<? extends TokenId> ts;
 
-    public M4LexerBasedHighlightSequence(M4LexerBasedHighlightLayer layer, TokenSequence ts, Map<Token, Coloring> colorings) {
+    public M4LexerBasedHighlightSequence(M4LexerBasedHighlightLayer layer, TokenSequence<? extends TokenId> ts, Map<Token<? extends TokenId>, Coloring> colorings) {
         this.layer = layer;
         this.ts = ts;
         this.colorings = colorings;
@@ -42,7 +43,7 @@ class M4LexerBasedHighlightSequence implements HighlightsSequence {
     @Override
     public boolean moveNext() {
         while (ts.moveNext()) {
-            Token t = ts.token();
+            Token<? extends TokenId> t = ts.token();
             if (/* t.id() == M4 identifier && */colorings.containsKey(ts.token())) {
                 return true;
             }
