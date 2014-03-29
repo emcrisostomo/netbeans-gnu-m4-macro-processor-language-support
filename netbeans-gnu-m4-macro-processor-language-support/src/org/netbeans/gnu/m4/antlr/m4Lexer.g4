@@ -14,183 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-grammar m4;
+lexer grammar m4Lexer;
+
 @header {
 package org.netbeans.gnu.m4.antlr;
 }
 
-compilationUnit
-    : (text | macroInvocation)* EOF
-    ;
-
-text
-    : (verbatimText | macroInvocation | macroName | quotedText)
-    ;
-
-parameterText
-    : (verbatimParameterText | macroInvocation | macroName | quotedText | parenthesizedText)
-    ;
-
-parenthesizedText
-    :
-        LPAREN pText* RPAREN
-    ;
-
-pText
-    : (parenthesizedText | parameterText)
-    ;
-
-quotedText
-    : LBRACK qtext* RBRACK
-    ;
-
-qtext
-    : (verbatimText | macroInvocation | macroName | verbatimQuotedText)
-    ;
-
-verbatimQuotedText
-    : LBRACK (.|verbatimQuotedText)*? RBRACK
-    ;
-
-macroName   
-    : (IDENTIFIER | builtinMacro)
-    ;
-
-macroInvocation
-    : macroName LPAREN (parameter (COMMA parameter)*)? RPAREN
-    ;
-
-parameter
-    : parameterText+
-    ;
-
-verbatimText
-    : (
-        VERBATIM_TEXT
-      |
-        LPAREN          
-      |
-        RPAREN
-      |
-        COMMA
-      |
-        WHITESPACE
-      )+
-    ;
-
-verbatimParameterText
-    : (
-         VERBATIM_TEXT
-       |
-         WHITESPACE
-      )+
-    ;
-
-builtinMacro
-    :
-        (
-        DEFINE
-        |
-        UNDEFINE
-        |
-        DEFN
-        |
-        PUSHDEF
-        |
-        POPDEF
-        |
-        INDIR
-        |
-        BUILTIN
-        |
-        IFDEF
-        |
-        IFELSE
-        |
-        SHIFT
-        |
-        DUMPDEF
-        |
-        TRACEON
-        |
-        TRACEOFF
-        |
-        DEBUGMODE
-        |
-        DEBUGFILE
-        |
-        CHANGEQUOTE
-        |
-        CHANGECOM
-        |
-        CHANGEWORD
-        |
-        M4WRAP
-        |
-        INCLUDE
-        |
-        SINCLUDE
-        |
-        DIVERT
-        |
-        UNDIVERT
-        |
-        DIVNUM
-        |
-        LEN
-        |
-        INDEX
-        |
-        REGEXP
-        |
-        SUBSTR
-        |
-        TRANSLIT
-        |
-        PATSUBST
-        |
-        FORMAT
-        |
-        INCR
-        |
-        DECR
-        |
-        EVAL
-        |
-        GNU__
-        |
-        OS2__
-        |
-        OS2
-        |
-        UNIX__
-        |
-        WINDOWS__
-        |
-        WINDOWS
-        |
-        SYSCMD
-        |
-        ESYSCMD
-        |
-        SYSVAL
-        |
-        MKSTEMP
-        |
-        MAKETEMP
-        |
-        ERRPRINT
-        |
-        FILE__
-        |
-        LINE__
-        |
-        PROGRAM__
-        |
-        M4EXIT
-        )
-    ;
-        
 /* Lexer */
 
 DEFINE:             'define' ;
@@ -248,21 +77,18 @@ WHITESPACE
     : [ \t\n\r\f\u000c]+
     ;
 
-SINGLE_LINE_COMMENT
-    : '#' ~[\r\n]* ('\n' | '\r' | '\r\n')?
-    ;
-
 DNL_COMMENT
     : 'dnl' [ \t\r]+ ~[\r\n]* ('\n')? -> skip
     ;
 
 /* Separators */
 
-LPAREN          : '(';
-RPAREN          : ')';
-LBRACK          : '[';
-RBRACK          : ']';
-COMMA           : ',';
+LPAREN          : '(' ;
+RPAREN          : ')' ;
+LBRACK          : '[' ;
+RBRACK          : ']' ;
+COMMA           : ',' ;
+BANG            : '#' -> mode(SINGLE_LINE_COMMENT) ;
 
 IDENTIFIER
     : M4_LETTER (M4_LETTER_OR_DIGIT)*
@@ -280,4 +106,14 @@ M4_LETTER_OR_DIGIT
 
 VERBATIM_TEXT
     : (.+?)
+    ;
+
+mode SINGLE_LINE_COMMENT;
+
+C_VERBATIM_TEXT
+    : (.+?)
+    ;
+
+NL
+    : '\n' -> mode(DEFAULT_MODE)
     ;

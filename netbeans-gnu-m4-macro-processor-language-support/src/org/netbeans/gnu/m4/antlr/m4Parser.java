@@ -1,4 +1,4 @@
-// Generated from m4.g4 by ANTLR 4.2.1
+// Generated from m4Parser.g4 by ANTLR 4.2.1
 
 package org.netbeans.gnu.m4.antlr;
 
@@ -17,16 +17,16 @@ public class m4Parser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		DEFINE=1, UNDEFINE=2, DEFN=3, PUSHDEF=4, POPDEF=5, INDIR=6, BUILTIN=7, 
-		IFDEF=8, IFELSE=9, SHIFT=10, DUMPDEF=11, TRACEON=12, TRACEOFF=13, DEBUGMODE=14, 
-		DEBUGFILE=15, CHANGEQUOTE=16, CHANGECOM=17, CHANGEWORD=18, M4WRAP=19, 
-		INCLUDE=20, SINCLUDE=21, DIVERT=22, UNDIVERT=23, DIVNUM=24, LEN=25, INDEX=26, 
-		REGEXP=27, SUBSTR=28, TRANSLIT=29, PATSUBST=30, FORMAT=31, INCR=32, DECR=33, 
-		EVAL=34, GNU__=35, OS2__=36, OS2=37, UNIX__=38, WINDOWS__=39, WINDOWS=40, 
-		SYSCMD=41, ESYSCMD=42, SYSVAL=43, MKSTEMP=44, MAKETEMP=45, ERRPRINT=46, 
-		FILE__=47, LINE__=48, PROGRAM__=49, M4EXIT=50, WHITESPACE=51, SINGLE_LINE_COMMENT=52, 
-		DNL_COMMENT=53, LPAREN=54, RPAREN=55, LBRACK=56, RBRACK=57, COMMA=58, 
-		IDENTIFIER=59, VERBATIM_TEXT=60;
+		DIVERT=22, INDIR=6, ERRPRINT=46, DEBUGMODE=14, FORMAT=31, BUILTIN=7, IFDEF=8, 
+		LINE__=48, TRANSLIT=29, UNIX__=38, DEFN=3, POPDEF=5, WHITESPACE=51, CHANGEQUOTE=16, 
+		INDEX=26, SYSVAL=43, C_VERBATIM_TEXT=61, INCLUDE=20, PROGRAM__=49, SUBSTR=28, 
+		GNU__=35, BANG=58, LPAREN=53, WINDOWS__=39, RPAREN=54, UNDIVERT=23, DECR=33, 
+		RBRACK=56, LBRACK=55, PUSHDEF=4, M4WRAP=19, EVAL=34, PATSUBST=30, MKSTEMP=44, 
+		NL=62, SINCLUDE=21, FILE__=47, M4EXIT=50, DEFINE=1, OS2=37, SHIFT=10, 
+		OS2__=36, VERBATIM_TEXT=60, REGEXP=27, TRACEOFF=13, WINDOWS=40, IFELSE=9, 
+		IDENTIFIER=59, MAKETEMP=45, CHANGEWORD=18, DEBUGFILE=15, COMMA=57, SYSCMD=41, 
+		DIVNUM=24, CHANGECOM=17, DUMPDEF=11, TRACEON=12, ESYSCMD=42, DNL_COMMENT=52, 
+		UNDEFINE=2, LEN=25, INCR=32;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'define'", "'undefine'", "'defn'", "'pushdef'", "'popdef'", 
 		"'indir'", "'builtin'", "'ifdef'", "'ifelse'", "'shift'", "'dumpdef'", 
@@ -37,8 +37,8 @@ public class m4Parser extends Parser {
 		"'eval'", "'__gnu__'", "'__os2__'", "'os2'", "'__unix__'", "'__windows__'", 
 		"'windows'", "'syscmd'", "'esyscmd'", "'sysval'", "'mkstemp'", "'maketemp'", 
 		"'errprint'", "'__file__'", "'__line__'", "'__program__'", "'m4exit'", 
-		"WHITESPACE", "SINGLE_LINE_COMMENT", "DNL_COMMENT", "'('", "')'", "'['", 
-		"']'", "','", "IDENTIFIER", "VERBATIM_TEXT"
+		"WHITESPACE", "DNL_COMMENT", "'('", "')'", "'['", "']'", "','", "'#'", 
+		"IDENTIFIER", "VERBATIM_TEXT", "C_VERBATIM_TEXT", "'\n'"
 	};
 	public static final int
 		RULE_compilationUnit = 0, RULE_text = 1, RULE_parameterText = 2, RULE_parenthesizedText = 3, 
@@ -52,7 +52,7 @@ public class m4Parser extends Parser {
 	};
 
 	@Override
-	public String getGrammarFileName() { return "m4.g4"; }
+	public String getGrammarFileName() { return "m4Parser.g4"; }
 
 	@Override
 	public String[] getTokenNames() { return tokenNames; }
@@ -90,11 +90,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_compilationUnit; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterCompilationUnit(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterCompilationUnit(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitCompilationUnit(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitCompilationUnit(this);
 		}
 	}
 
@@ -162,11 +162,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_text; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitText(this);
 		}
 	}
 
@@ -237,11 +237,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_parameterText; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterParameterText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterParameterText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitParameterText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitParameterText(this);
 		}
 	}
 
@@ -311,11 +311,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_parenthesizedText; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterParenthesizedText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterParenthesizedText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitParenthesizedText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitParenthesizedText(this);
 		}
 	}
 
@@ -367,11 +367,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_pText; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterPText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterPText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitPText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitPText(this);
 		}
 	}
 
@@ -423,11 +423,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_quotedText; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterQuotedText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterQuotedText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitQuotedText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitQuotedText(this);
 		}
 	}
 
@@ -485,11 +485,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_qtext; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterQtext(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterQtext(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitQtext(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitQtext(this);
 		}
 	}
 
@@ -553,11 +553,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_verbatimQuotedText; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterVerbatimQuotedText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterVerbatimQuotedText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitVerbatimQuotedText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitVerbatimQuotedText(this);
 		}
 	}
 
@@ -621,11 +621,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_macroName; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterMacroName(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterMacroName(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitMacroName(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitMacroName(this);
 		}
 	}
 
@@ -734,11 +734,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_macroInvocation; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterMacroInvocation(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterMacroInvocation(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitMacroInvocation(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitMacroInvocation(this);
 		}
 	}
 
@@ -800,11 +800,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_parameter; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterParameter(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterParameter(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitParameter(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitParameter(this);
 		}
 	}
 
@@ -868,11 +868,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_verbatimText; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterVerbatimText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterVerbatimText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitVerbatimText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitVerbatimText(this);
 		}
 	}
 
@@ -936,11 +936,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_verbatimParameterText; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterVerbatimParameterText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterVerbatimParameterText(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitVerbatimParameterText(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitVerbatimParameterText(this);
 		}
 	}
 
@@ -1046,11 +1046,11 @@ public class m4Parser extends Parser {
 		@Override public int getRuleIndex() { return RULE_builtinMacro; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterBuiltinMacro(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).enterBuiltinMacro(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitBuiltinMacro(this);
+			if ( listener instanceof m4ParserListener ) ((m4ParserListener)listener).exitBuiltinMacro(this);
 		}
 	}
 
@@ -1081,7 +1081,7 @@ public class m4Parser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3>~\4\2\t\2\4\3\t\3"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3@~\4\2\t\2\4\3\t\3"+
 		"\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f"+
 		"\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2\7\2!\n\2\f\2\16\2$\13\2\3\2\3"+
 		"\2\3\3\3\3\3\3\3\3\5\3,\n\3\3\4\3\4\3\4\3\4\3\4\5\4\63\n\4\3\5\3\5\7\5"+
@@ -1090,29 +1090,29 @@ public class m4Parser extends Parser {
 		"\tW\13\t\3\t\3\t\3\n\3\n\5\n]\n\n\3\13\3\13\3\13\3\13\3\13\7\13d\n\13"+
 		"\f\13\16\13g\13\13\5\13i\n\13\3\13\3\13\3\f\6\fn\n\f\r\f\16\fo\3\r\6\r"+
 		"s\n\r\r\r\16\rt\3\16\6\16x\n\16\r\16\16\16y\3\17\3\17\3\17\3U\2\20\2\4"+
-		"\6\b\n\f\16\20\22\24\26\30\32\34\2\5\6\2\65\6589<<>>\4\2\65\65>>\3\2\3"+
-		"\64\u0086\2\"\3\2\2\2\4+\3\2\2\2\6\62\3\2\2\2\b\64\3\2\2\2\n?\3\2\2\2"+
-		"\fA\3\2\2\2\16N\3\2\2\2\20P\3\2\2\2\22\\\3\2\2\2\24^\3\2\2\2\26m\3\2\2"+
-		"\2\30r\3\2\2\2\32w\3\2\2\2\34{\3\2\2\2\36!\5\4\3\2\37!\5\24\13\2 \36\3"+
-		"\2\2\2 \37\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#%\3\2\2\2$\"\3\2\2"+
-		"\2%&\7\2\2\3&\3\3\2\2\2\',\5\30\r\2(,\5\24\13\2),\5\22\n\2*,\5\f\7\2+"+
-		"\'\3\2\2\2+(\3\2\2\2+)\3\2\2\2+*\3\2\2\2,\5\3\2\2\2-\63\5\32\16\2.\63"+
+		"\6\b\n\f\16\20\22\24\26\30\32\34\2\5\6\2\65\65\678;;>>\4\2\65\65>>\3\2"+
+		"\3\64\u0086\2\"\3\2\2\2\4+\3\2\2\2\6\62\3\2\2\2\b\64\3\2\2\2\n?\3\2\2"+
+		"\2\fA\3\2\2\2\16N\3\2\2\2\20P\3\2\2\2\22\\\3\2\2\2\24^\3\2\2\2\26m\3\2"+
+		"\2\2\30r\3\2\2\2\32w\3\2\2\2\34{\3\2\2\2\36!\5\4\3\2\37!\5\24\13\2 \36"+
+		"\3\2\2\2 \37\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#%\3\2\2\2$\"\3\2"+
+		"\2\2%&\7\2\2\3&\3\3\2\2\2\',\5\30\r\2(,\5\24\13\2),\5\22\n\2*,\5\f\7\2"+
+		"+\'\3\2\2\2+(\3\2\2\2+)\3\2\2\2+*\3\2\2\2,\5\3\2\2\2-\63\5\32\16\2.\63"+
 		"\5\24\13\2/\63\5\22\n\2\60\63\5\f\7\2\61\63\5\b\5\2\62-\3\2\2\2\62.\3"+
-		"\2\2\2\62/\3\2\2\2\62\60\3\2\2\2\62\61\3\2\2\2\63\7\3\2\2\2\648\78\2\2"+
-		"\65\67\5\n\6\2\66\65\3\2\2\2\67:\3\2\2\28\66\3\2\2\289\3\2\2\29;\3\2\2"+
-		"\2:8\3\2\2\2;<\79\2\2<\t\3\2\2\2=@\5\b\5\2>@\5\6\4\2?=\3\2\2\2?>\3\2\2"+
-		"\2@\13\3\2\2\2AE\7:\2\2BD\5\16\b\2CB\3\2\2\2DG\3\2\2\2EC\3\2\2\2EF\3\2"+
-		"\2\2FH\3\2\2\2GE\3\2\2\2HI\7;\2\2I\r\3\2\2\2JO\5\30\r\2KO\5\24\13\2LO"+
-		"\5\22\n\2MO\5\20\t\2NJ\3\2\2\2NK\3\2\2\2NL\3\2\2\2NM\3\2\2\2O\17\3\2\2"+
-		"\2PU\7:\2\2QT\13\2\2\2RT\5\20\t\2SQ\3\2\2\2SR\3\2\2\2TW\3\2\2\2UV\3\2"+
-		"\2\2US\3\2\2\2VX\3\2\2\2WU\3\2\2\2XY\7;\2\2Y\21\3\2\2\2Z]\7=\2\2[]\5\34"+
-		"\17\2\\Z\3\2\2\2\\[\3\2\2\2]\23\3\2\2\2^_\5\22\n\2_h\78\2\2`e\5\26\f\2"+
-		"ab\7<\2\2bd\5\26\f\2ca\3\2\2\2dg\3\2\2\2ec\3\2\2\2ef\3\2\2\2fi\3\2\2\2"+
-		"ge\3\2\2\2h`\3\2\2\2hi\3\2\2\2ij\3\2\2\2jk\79\2\2k\25\3\2\2\2ln\5\6\4"+
-		"\2ml\3\2\2\2no\3\2\2\2om\3\2\2\2op\3\2\2\2p\27\3\2\2\2qs\t\2\2\2rq\3\2"+
-		"\2\2st\3\2\2\2tr\3\2\2\2tu\3\2\2\2u\31\3\2\2\2vx\t\3\2\2wv\3\2\2\2xy\3"+
-		"\2\2\2yw\3\2\2\2yz\3\2\2\2z\33\3\2\2\2{|\t\4\2\2|\35\3\2\2\2\22 \"+\62"+
-		"8?ENSU\\ehoty";
+		"\2\2\2\62/\3\2\2\2\62\60\3\2\2\2\62\61\3\2\2\2\63\7\3\2\2\2\648\7\67\2"+
+		"\2\65\67\5\n\6\2\66\65\3\2\2\2\67:\3\2\2\28\66\3\2\2\289\3\2\2\29;\3\2"+
+		"\2\2:8\3\2\2\2;<\78\2\2<\t\3\2\2\2=@\5\b\5\2>@\5\6\4\2?=\3\2\2\2?>\3\2"+
+		"\2\2@\13\3\2\2\2AE\79\2\2BD\5\16\b\2CB\3\2\2\2DG\3\2\2\2EC\3\2\2\2EF\3"+
+		"\2\2\2FH\3\2\2\2GE\3\2\2\2HI\7:\2\2I\r\3\2\2\2JO\5\30\r\2KO\5\24\13\2"+
+		"LO\5\22\n\2MO\5\20\t\2NJ\3\2\2\2NK\3\2\2\2NL\3\2\2\2NM\3\2\2\2O\17\3\2"+
+		"\2\2PU\79\2\2QT\13\2\2\2RT\5\20\t\2SQ\3\2\2\2SR\3\2\2\2TW\3\2\2\2UV\3"+
+		"\2\2\2US\3\2\2\2VX\3\2\2\2WU\3\2\2\2XY\7:\2\2Y\21\3\2\2\2Z]\7=\2\2[]\5"+
+		"\34\17\2\\Z\3\2\2\2\\[\3\2\2\2]\23\3\2\2\2^_\5\22\n\2_h\7\67\2\2`e\5\26"+
+		"\f\2ab\7;\2\2bd\5\26\f\2ca\3\2\2\2dg\3\2\2\2ec\3\2\2\2ef\3\2\2\2fi\3\2"+
+		"\2\2ge\3\2\2\2h`\3\2\2\2hi\3\2\2\2ij\3\2\2\2jk\78\2\2k\25\3\2\2\2ln\5"+
+		"\6\4\2ml\3\2\2\2no\3\2\2\2om\3\2\2\2op\3\2\2\2p\27\3\2\2\2qs\t\2\2\2r"+
+		"q\3\2\2\2st\3\2\2\2tr\3\2\2\2tu\3\2\2\2u\31\3\2\2\2vx\t\3\2\2wv\3\2\2"+
+		"\2xy\3\2\2\2yw\3\2\2\2yz\3\2\2\2z\33\3\2\2\2{|\t\4\2\2|\35\3\2\2\2\22"+
+		" \"+\628?ENSU\\ehoty";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

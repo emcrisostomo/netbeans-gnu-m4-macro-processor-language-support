@@ -1,4 +1,4 @@
-// Generated from m4.g4 by ANTLR 4.2.1
+// Generated from m4Parser.g4 by ANTLR 4.2.1
 
 package org.netbeans.gnu.m4.antlr;
 
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  * This interface defines a complete listener for a parse tree produced by
  * {@link m4Parser}.
  */
-public interface m4Listener extends ParseTreeListener {
+public interface m4ParserListener extends ParseTreeListener {
 	/**
 	 * Enter a parse tree produced by {@link m4Parser#parenthesizedText}.
 	 * @param ctx the parse tree

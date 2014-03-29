@@ -1,4 +1,4 @@
-// Generated from m4.g4 by ANTLR 4.2.1
+// Generated from m4Parser.g4 by ANTLR 4.2.1
 
 package org.netbeans.gnu.m4.antlr;
 
@@ -9,11 +9,11 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link m4Listener},
+ * This class provides an empty implementation of {@link m4ParserListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class m4BaseListener implements m4Listener {
+public class m4ParserBaseListener implements m4ParserListener {
 	/**
 	 * {@inheritDoc}
 	 *
