@@ -121,6 +121,17 @@ public interface m4ParserListener extends ParseTreeListener {
 	void exitVerbatimParameterText(@NotNull m4Parser.VerbatimParameterTextContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link m4Parser#ctext}.
+	 * @param ctx the parse tree
+	 */
+	void enterCtext(@NotNull m4Parser.CtextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#ctext}.
+	 * @param ctx the parse tree
+	 */
+	void exitCtext(@NotNull m4Parser.CtextContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link m4Parser#text}.
 	 * @param ctx the parse tree
 	 */

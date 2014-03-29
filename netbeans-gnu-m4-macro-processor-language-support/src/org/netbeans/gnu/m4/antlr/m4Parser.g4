@@ -23,11 +23,15 @@ package org.netbeans.gnu.m4.antlr;
 }
 
 compilationUnit
-    : (text | macroInvocation)* EOF
+    : (macroInvocation | text)* EOF
     ;
 
 text
-    : (verbatimText | macroInvocation | macroName | quotedText)
+    : (macroName | quotedText | ctext | verbatimText)
+    ;
+
+ctext
+    : (BANG | C_VERBATIM_TEXT)
     ;
 
 parameterText
@@ -35,8 +39,7 @@ parameterText
     ;
 
 parenthesizedText
-    :
-        LPAREN pText* RPAREN
+    : LPAREN pText* RPAREN
     ;
 
 pText
@@ -48,7 +51,7 @@ quotedText
     ;
 
 qtext
-    : (verbatimText | macroInvocation | macroName | verbatimQuotedText)
+    : (verbatimText | macroInvocation | macroName | verbatimQuotedText | ctext)
     ;
 
 verbatimQuotedText

@@ -149,6 +149,19 @@ public class m4ParserBaseListener implements m4ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCtext(@NotNull m4Parser.CtextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCtext(@NotNull m4Parser.CtextContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterText(@NotNull m4Parser.TextContext ctx) { }
 	/**
 	 * {@inheritDoc}
