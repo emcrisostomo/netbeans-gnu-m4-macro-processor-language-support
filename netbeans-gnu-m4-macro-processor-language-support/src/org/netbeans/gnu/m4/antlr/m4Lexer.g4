@@ -73,12 +73,20 @@ LINE__:             '__line__' ;
 PROGRAM__:          '__program__' ;
 M4EXIT:             'm4exit' ;
 
+NEWLINE
+    : ('\r')? '\n'
+    ;
+
+HORIZONTAL_WHITESPACE
+    : ([ \t\f\u000c])+
+    ;
+
 WHITESPACE
-    : [ \t\n\r\f\u000c]+
+    : (HORIZONTAL_WHITESPACE | NEWLINE)+
     ;
 
 DNL_COMMENT
-    : 'dnl' [ \t\r]+ ~[\r\n]* ('\n')? -> skip
+    : 'dnl' (HORIZONTAL_WHITESPACE)+ ~[\r\n]* (NEWLINE)? -> skip
     ;
 
 /* Separators */
