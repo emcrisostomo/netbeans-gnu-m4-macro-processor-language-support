@@ -29,7 +29,12 @@ m4
 
 statement
     : expr
+    | quote
     | verbatimText
+    ;
+
+quote
+    : '[' (statement | punctuation)* ']'
     ;
 
 expr
@@ -51,15 +56,15 @@ parenthesizedText
     ;
 
 verbatimText
-    : NL
-    | WS
-    | ANY
+    : ( NL
+      | WS
+      | ANY)+
     ;
 
 punctuation
-    : LPAREN
-    | RPAREN
-    | COMMA
+    : ( LPAREN
+      | RPAREN
+      | COMMA)+
     ;
 
 /* Lexer */
@@ -74,6 +79,8 @@ ID
 
 LPAREN: '(' ;
 RPAREN: ')' ;
+LBRACKET: '[' ;
+RBRACKET: ']' ;
 COMMA:  ',' ;
 
 fragment

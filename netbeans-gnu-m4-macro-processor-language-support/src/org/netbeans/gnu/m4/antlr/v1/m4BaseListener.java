@@ -19,6 +19,19 @@ public class m4BaseListener implements m4Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterQuote(@NotNull m4Parser.QuoteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQuote(@NotNull m4Parser.QuoteContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx) { }
 	/**
 	 * {@inheritDoc}

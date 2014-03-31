@@ -11,6 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface m4Listener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link m4Parser#quote}.
+	 * @param ctx the parse tree
+	 */
+	void enterQuote(@NotNull m4Parser.QuoteContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#quote}.
+	 * @param ctx the parse tree
+	 */
+	void exitQuote(@NotNull m4Parser.QuoteContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link m4Parser#parenthesizedText}.
 	 * @param ctx the parse tree
 	 */
