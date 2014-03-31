@@ -64,6 +64,10 @@ punctuation
 
 /* Lexer */
 
+DNL_COMMENT
+    : 'dnl' (HORIZONTAL_WHITESPACE)+ ~[\r\n]* (NL)? -> skip
+    ;
+
 ID
     : M4_LETTER (M4_LETTER_OR_DIGIT)*
     ;
@@ -92,8 +96,11 @@ DIGIT
     : [0-9]
     ;
 
+WS: (NL | HORIZONTAL_WHITESPACE)+ ;
 NL: ('\r')? '\n' ;
-WS: (NL | ([ \t\f\u000c])+) ;
+HORIZONTAL_WHITESPACE
+    : ([ \t\f\u000c])
+    ;
 
 ANY
     : (.)+?

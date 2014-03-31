@@ -17,9 +17,11 @@ public class m4Parser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		ID=1, LPAREN=2, RPAREN=3, COMMA=4, NL=5, WS=6, ANY=7;
+		DNL_COMMENT=1, ID=2, LPAREN=3, RPAREN=4, COMMA=5, WS=6, NL=7, HORIZONTAL_WHITESPACE=8, 
+		ANY=9;
 	public static final String[] tokenNames = {
-		"<INVALID>", "ID", "'('", "')'", "','", "NL", "WS", "ANY"
+		"<INVALID>", "DNL_COMMENT", "ID", "'('", "')'", "','", "WS", "NL", "HORIZONTAL_WHITESPACE", 
+		"ANY"
 	};
 	public static final int
 		RULE_m4 = 0, RULE_statement = 1, RULE_expr = 2, RULE_exprParameters = 3, 
@@ -87,13 +89,13 @@ public class m4Parser extends Parser {
 			setState(20);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << WS) | (1L << NL) | (1L << ANY))) != 0)) {
 				{
 				setState(18);
 				switch (_input.LA(1)) {
 				case ID:
-				case NL:
 				case WS:
+				case NL:
 				case ANY:
 					{
 					setState(16); statement();
@@ -161,8 +163,8 @@ public class m4Parser extends Parser {
 				setState(25); expr();
 				}
 				break;
-			case NL:
 			case WS:
+			case NL:
 			case ANY:
 				enterOuterAlt(_localctx, 2);
 				{
@@ -273,7 +275,7 @@ public class m4Parser extends Parser {
 			setState(40);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << WS) | (1L << NL) | (1L << ANY))) != 0)) {
 				{
 				{
 				setState(37); exprParameter();
@@ -293,7 +295,7 @@ public class m4Parser extends Parser {
 				setState(47);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << WS) | (1L << NL) | (1L << ANY))) != 0)) {
 					{
 					{
 					setState(44); exprParameter();
@@ -350,8 +352,8 @@ public class m4Parser extends Parser {
 			setState(57);
 			switch (_input.LA(1)) {
 			case ID:
-			case NL:
 			case WS:
+			case NL:
 			case ANY:
 				enterOuterAlt(_localctx, 1);
 				{
@@ -425,7 +427,7 @@ public class m4Parser extends Parser {
 			setState(65);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << WS) | (1L << NL) | (1L << ANY))) != 0)) {
 				{
 				setState(63);
 				switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
@@ -493,7 +495,7 @@ public class m4Parser extends Parser {
 			{
 			setState(70);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NL) | (1L << WS) | (1L << ANY))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << WS) | (1L << NL) | (1L << ANY))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			consume();
@@ -555,26 +557,26 @@ public class m4Parser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tM\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\13M\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\7\2\25\n\2"+
 		"\f\2\16\2\30\13\2\3\2\3\2\3\3\3\3\5\3\36\n\3\3\4\3\4\3\4\3\4\3\4\3\4\5"+
 		"\4&\n\4\3\5\7\5)\n\5\f\5\16\5,\13\5\3\5\3\5\7\5\60\n\5\f\5\16\5\63\13"+
 		"\5\7\5\65\n\5\f\5\16\58\13\5\3\6\3\6\5\6<\n\6\3\7\3\7\3\7\3\7\7\7B\n\7"+
 		"\f\7\16\7E\13\7\3\7\3\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2"+
-		"\4\3\2\7\t\3\2\4\6O\2\26\3\2\2\2\4\35\3\2\2\2\6%\3\2\2\2\b*\3\2\2\2\n"+
-		";\3\2\2\2\f=\3\2\2\2\16H\3\2\2\2\20J\3\2\2\2\22\25\5\4\3\2\23\25\5\20"+
-		"\t\2\24\22\3\2\2\2\24\23\3\2\2\2\25\30\3\2\2\2\26\24\3\2\2\2\26\27\3\2"+
-		"\2\2\27\31\3\2\2\2\30\26\3\2\2\2\31\32\7\2\2\3\32\3\3\2\2\2\33\36\5\6"+
-		"\4\2\34\36\5\16\b\2\35\33\3\2\2\2\35\34\3\2\2\2\36\5\3\2\2\2\37 \7\3\2"+
-		"\2 !\7\4\2\2!\"\5\b\5\2\"#\7\5\2\2#&\3\2\2\2$&\7\3\2\2%\37\3\2\2\2%$\3"+
-		"\2\2\2&\7\3\2\2\2\')\5\n\6\2(\'\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2"+
-		"+\66\3\2\2\2,*\3\2\2\2-\61\7\6\2\2.\60\5\n\6\2/.\3\2\2\2\60\63\3\2\2\2"+
-		"\61/\3\2\2\2\61\62\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\64-\3\2\2\2\65"+
-		"8\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\67\t\3\2\2\28\66\3\2\2\29<\5\4\3"+
-		"\2:<\5\f\7\2;9\3\2\2\2;:\3\2\2\2<\13\3\2\2\2=C\7\4\2\2>B\5\f\7\2?B\5\4"+
-		"\3\2@B\5\16\b\2A>\3\2\2\2A?\3\2\2\2A@\3\2\2\2BE\3\2\2\2CA\3\2\2\2CD\3"+
-		"\2\2\2DF\3\2\2\2EC\3\2\2\2FG\7\5\2\2G\r\3\2\2\2HI\t\2\2\2I\17\3\2\2\2"+
-		"JK\t\3\2\2K\21\3\2\2\2\f\24\26\35%*\61\66;AC";
+		"\4\4\2\b\t\13\13\3\2\5\7O\2\26\3\2\2\2\4\35\3\2\2\2\6%\3\2\2\2\b*\3\2"+
+		"\2\2\n;\3\2\2\2\f=\3\2\2\2\16H\3\2\2\2\20J\3\2\2\2\22\25\5\4\3\2\23\25"+
+		"\5\20\t\2\24\22\3\2\2\2\24\23\3\2\2\2\25\30\3\2\2\2\26\24\3\2\2\2\26\27"+
+		"\3\2\2\2\27\31\3\2\2\2\30\26\3\2\2\2\31\32\7\2\2\3\32\3\3\2\2\2\33\36"+
+		"\5\6\4\2\34\36\5\16\b\2\35\33\3\2\2\2\35\34\3\2\2\2\36\5\3\2\2\2\37 \7"+
+		"\4\2\2 !\7\5\2\2!\"\5\b\5\2\"#\7\6\2\2#&\3\2\2\2$&\7\4\2\2%\37\3\2\2\2"+
+		"%$\3\2\2\2&\7\3\2\2\2\')\5\n\6\2(\'\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2"+
+		"\2\2+\66\3\2\2\2,*\3\2\2\2-\61\7\7\2\2.\60\5\n\6\2/.\3\2\2\2\60\63\3\2"+
+		"\2\2\61/\3\2\2\2\61\62\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\64-\3\2\2\2"+
+		"\658\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\67\t\3\2\2\28\66\3\2\2\29<\5"+
+		"\4\3\2:<\5\f\7\2;9\3\2\2\2;:\3\2\2\2<\13\3\2\2\2=C\7\5\2\2>B\5\f\7\2?"+
+		"B\5\4\3\2@B\5\16\b\2A>\3\2\2\2A?\3\2\2\2A@\3\2\2\2BE\3\2\2\2CA\3\2\2\2"+
+		"CD\3\2\2\2DF\3\2\2\2EC\3\2\2\2FG\7\6\2\2G\r\3\2\2\2HI\t\2\2\2I\17\3\2"+
+		"\2\2JK\t\3\2\2K\21\3\2\2\2\f\24\26\35%*\61\66;AC";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
