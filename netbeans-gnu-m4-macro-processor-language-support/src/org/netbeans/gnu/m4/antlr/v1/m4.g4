@@ -21,13 +21,50 @@ grammar m4;
 package org.netbeans.gnu.m4.antlr.v1;
 }
 
-m4 
-    : (ID)* EOF
+/* Parser */
+
+m4
+    : statement* EOF
     ;
+
+statement
+    : expr
+    | verbatimText
+    ;
+
+expr
+    : ID '(' exprParameters ')'
+    | ID
+    ;
+
+exprParameters
+    : (exprParameter)* (COMMA (exprParameter)*)*
+    ;
+
+exprParameter
+    : statement
+    | parenthesizedText
+    ;
+
+parenthesizedText
+    : LPAREN (parenthesizedText | statement | verbatimText)* RPAREN
+    ;
+
+verbatimText
+    : NL
+    | WS
+    | ANY
+    ;
+
+/* Lexer */
 
 ID
     : M4_LETTER (M4_LETTER_OR_DIGIT)*
     ;
+
+LPAREN: '(' ;
+RPAREN: ')' ;
+COMMA:  ',' ;
 
 fragment
 M4_LETTER
@@ -49,6 +86,9 @@ DIGIT
     : [0-9]
     ;
 
-Any
+NL: ('\r')? '\n' ;
+WS: (NL | ([ \t\f\u000c])+) ;
+
+ANY
     : (.)+?
     ;
