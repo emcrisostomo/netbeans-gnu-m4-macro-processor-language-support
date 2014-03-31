@@ -44,6 +44,17 @@ public interface m4Listener extends ParseTreeListener {
 	void exitStatement(@NotNull m4Parser.StatementContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link m4Parser#punctuation}.
+	 * @param ctx the parse tree
+	 */
+	void enterPunctuation(@NotNull m4Parser.PunctuationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#punctuation}.
+	 * @param ctx the parse tree
+	 */
+	void exitPunctuation(@NotNull m4Parser.PunctuationContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link m4Parser#expr}.
 	 * @param ctx the parse tree
 	 */

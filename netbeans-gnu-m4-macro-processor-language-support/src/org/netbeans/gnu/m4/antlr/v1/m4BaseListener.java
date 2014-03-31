@@ -58,6 +58,19 @@ public class m4BaseListener implements m4Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPunctuation(@NotNull m4Parser.PunctuationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPunctuation(@NotNull m4Parser.PunctuationContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpr(@NotNull m4Parser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}

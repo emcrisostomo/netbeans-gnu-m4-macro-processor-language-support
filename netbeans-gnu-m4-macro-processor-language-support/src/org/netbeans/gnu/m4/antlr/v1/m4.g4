@@ -24,7 +24,7 @@ package org.netbeans.gnu.m4.antlr.v1;
 /* Parser */
 
 m4
-    : statement* EOF
+    : (statement | punctuation)* EOF
     ;
 
 statement
@@ -54,6 +54,12 @@ verbatimText
     : NL
     | WS
     | ANY
+    ;
+
+punctuation
+    : LPAREN
+    | RPAREN
+    | COMMA
     ;
 
 /* Lexer */

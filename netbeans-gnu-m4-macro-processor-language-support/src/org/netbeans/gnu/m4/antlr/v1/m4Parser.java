@@ -23,10 +23,11 @@ public class m4Parser extends Parser {
 	};
 	public static final int
 		RULE_m4 = 0, RULE_statement = 1, RULE_expr = 2, RULE_exprParameters = 3, 
-		RULE_exprParameter = 4, RULE_parenthesizedText = 5, RULE_verbatimText = 6;
+		RULE_exprParameter = 4, RULE_parenthesizedText = 5, RULE_verbatimText = 6, 
+		RULE_punctuation = 7;
 	public static final String[] ruleNames = {
 		"m4", "statement", "expr", "exprParameters", "exprParameter", "parenthesizedText", 
-		"verbatimText"
+		"verbatimText", "punctuation"
 	};
 
 	@Override
@@ -49,7 +50,13 @@ public class m4Parser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class M4Context extends ParserRuleContext {
+		public PunctuationContext punctuation(int i) {
+			return getRuleContext(PunctuationContext.class,i);
+		}
 		public TerminalNode EOF() { return getToken(m4Parser.EOF, 0); }
+		public List<PunctuationContext> punctuation() {
+			return getRuleContexts(PunctuationContext.class);
+		}
 		public StatementContext statement(int i) {
 			return getRuleContext(StatementContext.class,i);
 		}
@@ -77,20 +84,37 @@ public class m4Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(17);
+			setState(20);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << RPAREN) | (1L << COMMA) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
 				{
-				{
-				setState(14); statement();
+				setState(18);
+				switch (_input.LA(1)) {
+				case ID:
+				case NL:
+				case WS:
+				case ANY:
+					{
+					setState(16); statement();
+					}
+					break;
+				case LPAREN:
+				case RPAREN:
+				case COMMA:
+					{
+					setState(17); punctuation();
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
 				}
 				}
-				setState(19);
+				setState(22);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(20); match(EOF);
+			setState(23); match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -129,12 +153,12 @@ public class m4Parser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_statement);
 		try {
-			setState(24);
+			setState(27);
 			switch (_input.LA(1)) {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(22); expr();
+				setState(25); expr();
 				}
 				break;
 			case NL:
@@ -142,7 +166,7 @@ public class m4Parser extends Parser {
 			case ANY:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(23); verbatimText();
+				setState(26); verbatimText();
 				}
 				break;
 			default:
@@ -183,22 +207,22 @@ public class m4Parser extends Parser {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_expr);
 		try {
-			setState(32);
-			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			setState(35);
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(26); match(ID);
-				setState(27); match(LPAREN);
-				setState(28); exprParameters();
-				setState(29); match(RPAREN);
+				setState(29); match(ID);
+				setState(30); match(LPAREN);
+				setState(31); exprParameters();
+				setState(32); match(RPAREN);
 				}
 				break;
 
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(31); match(ID);
+				setState(34); match(ID);
 				}
 				break;
 			}
@@ -246,42 +270,42 @@ public class m4Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(37);
+			setState(40);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
 				{
 				{
-				setState(34); exprParameter();
+				setState(37); exprParameter();
 				}
 				}
-				setState(39);
+				setState(42);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(49);
+			setState(52);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(40); match(COMMA);
-				setState(44);
+				setState(43); match(COMMA);
+				setState(47);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
 					{
 					{
-					setState(41); exprParameter();
+					setState(44); exprParameter();
 					}
 					}
-					setState(46);
+					setState(49);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 				}
-				setState(51);
+				setState(54);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -323,7 +347,7 @@ public class m4Parser extends Parser {
 		ExprParameterContext _localctx = new ExprParameterContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_exprParameter);
 		try {
-			setState(54);
+			setState(57);
 			switch (_input.LA(1)) {
 			case ID:
 			case NL:
@@ -331,13 +355,13 @@ public class m4Parser extends Parser {
 			case ANY:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(52); statement();
+				setState(55); statement();
 				}
 				break;
 			case LPAREN:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(53); parenthesizedText();
+				setState(56); parenthesizedText();
 				}
 				break;
 			default:
@@ -397,38 +421,38 @@ public class m4Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56); match(LPAREN);
-			setState(62);
+			setState(59); match(LPAREN);
+			setState(65);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ID) | (1L << LPAREN) | (1L << NL) | (1L << WS) | (1L << ANY))) != 0)) {
 				{
-				setState(60);
-				switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
+				setState(63);
+				switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 				case 1:
 					{
-					setState(57); parenthesizedText();
+					setState(60); parenthesizedText();
 					}
 					break;
 
 				case 2:
 					{
-					setState(58); statement();
+					setState(61); statement();
 					}
 					break;
 
 				case 3:
 					{
-					setState(59); verbatimText();
+					setState(62); verbatimText();
 					}
 					break;
 				}
 				}
-				setState(64);
+				setState(67);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(65); match(RPAREN);
+			setState(68); match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -467,7 +491,7 @@ public class m4Parser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(67);
+			setState(70);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NL) | (1L << WS) | (1L << ANY))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -486,26 +510,71 @@ public class m4Parser extends Parser {
 		return _localctx;
 	}
 
+	public static class PunctuationContext extends ParserRuleContext {
+		public TerminalNode LPAREN() { return getToken(m4Parser.LPAREN, 0); }
+		public TerminalNode COMMA() { return getToken(m4Parser.COMMA, 0); }
+		public TerminalNode RPAREN() { return getToken(m4Parser.RPAREN, 0); }
+		public PunctuationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_punctuation; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterPunctuation(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitPunctuation(this);
+		}
+	}
+
+	public final PunctuationContext punctuation() throws RecognitionException {
+		PunctuationContext _localctx = new PunctuationContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_punctuation);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(72);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LPAREN) | (1L << RPAREN) | (1L << COMMA))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			consume();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tH\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\3\2\7\2\22\n\2\f\2\16\2\25"+
-		"\13\2\3\2\3\2\3\3\3\3\5\3\33\n\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4#\n\4\3\5"+
-		"\7\5&\n\5\f\5\16\5)\13\5\3\5\3\5\7\5-\n\5\f\5\16\5\60\13\5\7\5\62\n\5"+
-		"\f\5\16\5\65\13\5\3\6\3\6\5\69\n\6\3\7\3\7\3\7\3\7\7\7?\n\7\f\7\16\7B"+
-		"\13\7\3\7\3\7\3\b\3\b\3\b\2\2\t\2\4\6\b\n\f\16\2\3\3\2\7\tJ\2\23\3\2\2"+
-		"\2\4\32\3\2\2\2\6\"\3\2\2\2\b\'\3\2\2\2\n8\3\2\2\2\f:\3\2\2\2\16E\3\2"+
-		"\2\2\20\22\5\4\3\2\21\20\3\2\2\2\22\25\3\2\2\2\23\21\3\2\2\2\23\24\3\2"+
-		"\2\2\24\26\3\2\2\2\25\23\3\2\2\2\26\27\7\2\2\3\27\3\3\2\2\2\30\33\5\6"+
-		"\4\2\31\33\5\16\b\2\32\30\3\2\2\2\32\31\3\2\2\2\33\5\3\2\2\2\34\35\7\3"+
-		"\2\2\35\36\7\4\2\2\36\37\5\b\5\2\37 \7\5\2\2 #\3\2\2\2!#\7\3\2\2\"\34"+
-		"\3\2\2\2\"!\3\2\2\2#\7\3\2\2\2$&\5\n\6\2%$\3\2\2\2&)\3\2\2\2\'%\3\2\2"+
-		"\2\'(\3\2\2\2(\63\3\2\2\2)\'\3\2\2\2*.\7\6\2\2+-\5\n\6\2,+\3\2\2\2-\60"+
-		"\3\2\2\2.,\3\2\2\2./\3\2\2\2/\62\3\2\2\2\60.\3\2\2\2\61*\3\2\2\2\62\65"+
-		"\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64\t\3\2\2\2\65\63\3\2\2\2\669\5"+
-		"\4\3\2\679\5\f\7\28\66\3\2\2\28\67\3\2\2\29\13\3\2\2\2:@\7\4\2\2;?\5\f"+
-		"\7\2<?\5\4\3\2=?\5\16\b\2>;\3\2\2\2><\3\2\2\2>=\3\2\2\2?B\3\2\2\2@>\3"+
-		"\2\2\2@A\3\2\2\2AC\3\2\2\2B@\3\2\2\2CD\7\5\2\2D\r\3\2\2\2EF\t\2\2\2F\17"+
-		"\3\2\2\2\13\23\32\"\'.\638>@";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tM\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\7\2\25\n\2"+
+		"\f\2\16\2\30\13\2\3\2\3\2\3\3\3\3\5\3\36\n\3\3\4\3\4\3\4\3\4\3\4\3\4\5"+
+		"\4&\n\4\3\5\7\5)\n\5\f\5\16\5,\13\5\3\5\3\5\7\5\60\n\5\f\5\16\5\63\13"+
+		"\5\7\5\65\n\5\f\5\16\58\13\5\3\6\3\6\5\6<\n\6\3\7\3\7\3\7\3\7\7\7B\n\7"+
+		"\f\7\16\7E\13\7\3\7\3\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2"+
+		"\4\3\2\7\t\3\2\4\6O\2\26\3\2\2\2\4\35\3\2\2\2\6%\3\2\2\2\b*\3\2\2\2\n"+
+		";\3\2\2\2\f=\3\2\2\2\16H\3\2\2\2\20J\3\2\2\2\22\25\5\4\3\2\23\25\5\20"+
+		"\t\2\24\22\3\2\2\2\24\23\3\2\2\2\25\30\3\2\2\2\26\24\3\2\2\2\26\27\3\2"+
+		"\2\2\27\31\3\2\2\2\30\26\3\2\2\2\31\32\7\2\2\3\32\3\3\2\2\2\33\36\5\6"+
+		"\4\2\34\36\5\16\b\2\35\33\3\2\2\2\35\34\3\2\2\2\36\5\3\2\2\2\37 \7\3\2"+
+		"\2 !\7\4\2\2!\"\5\b\5\2\"#\7\5\2\2#&\3\2\2\2$&\7\3\2\2%\37\3\2\2\2%$\3"+
+		"\2\2\2&\7\3\2\2\2\')\5\n\6\2(\'\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2"+
+		"+\66\3\2\2\2,*\3\2\2\2-\61\7\6\2\2.\60\5\n\6\2/.\3\2\2\2\60\63\3\2\2\2"+
+		"\61/\3\2\2\2\61\62\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\64-\3\2\2\2\65"+
+		"8\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\67\t\3\2\2\28\66\3\2\2\29<\5\4\3"+
+		"\2:<\5\f\7\2;9\3\2\2\2;:\3\2\2\2<\13\3\2\2\2=C\7\4\2\2>B\5\f\7\2?B\5\4"+
+		"\3\2@B\5\16\b\2A>\3\2\2\2A?\3\2\2\2A@\3\2\2\2BE\3\2\2\2CA\3\2\2\2CD\3"+
+		"\2\2\2DF\3\2\2\2EC\3\2\2\2FG\7\5\2\2G\r\3\2\2\2HI\t\2\2\2I\17\3\2\2\2"+
+		"JK\t\3\2\2K\21\3\2\2\2\f\24\26\35%*\61\66;AC";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
