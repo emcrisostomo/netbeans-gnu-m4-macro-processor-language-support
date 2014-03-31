@@ -35,6 +35,7 @@ statement
 
 quote
     : '[' (statement | punctuation)* ']'
+    | '`' (statement | punctuation)* '\''
     ;
 
 expr
@@ -77,11 +78,13 @@ ID
     : M4_LETTER (M4_LETTER_OR_DIGIT)*
     ;
 
-LPAREN: '(' ;
-RPAREN: ')' ;
+LPAREN:   '(' ;
+RPAREN:   ')' ;
 LBRACKET: '[' ;
 RBRACKET: ']' ;
-COMMA:  ',' ;
+COMMA:    ',' ;
+LQUOTE:   '`' ;
+RQUOTE:   '\'';
 
 fragment
 M4_LETTER
