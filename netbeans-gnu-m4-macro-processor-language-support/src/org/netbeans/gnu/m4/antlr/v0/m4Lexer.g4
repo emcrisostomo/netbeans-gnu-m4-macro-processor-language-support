@@ -17,7 +17,7 @@
 lexer grammar m4Lexer;
 
 @header {
-package org.netbeans.gnu.m4.antlr;
+package org.netbeans.gnu.m4.antlr.v0;
 }
 
 /* Lexer */

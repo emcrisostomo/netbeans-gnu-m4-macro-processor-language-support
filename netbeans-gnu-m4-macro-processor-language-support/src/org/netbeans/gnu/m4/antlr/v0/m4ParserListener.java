@@ -1,6 +1,6 @@
 // Generated from m4Parser.g4 by ANTLR 4.2.1
 
-package org.netbeans.gnu.m4.antlr;
+package org.netbeans.gnu.m4.antlr.v0;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;

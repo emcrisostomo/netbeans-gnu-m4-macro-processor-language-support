@@ -19,7 +19,7 @@ parser grammar m4Parser;
 options { tokenVocab=m4Lexer; }
 
 @header {
-package org.netbeans.gnu.m4.antlr;
+package org.netbeans.gnu.m4.antlr.v0;
 }
 
 compilationUnit

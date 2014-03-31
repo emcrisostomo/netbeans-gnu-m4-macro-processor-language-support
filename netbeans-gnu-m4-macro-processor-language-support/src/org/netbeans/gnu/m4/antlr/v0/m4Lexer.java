@@ -1,6 +1,6 @@
 // Generated from m4Lexer.g4 by ANTLR 4.2.1
 
-package org.netbeans.gnu.m4.antlr;
+package org.netbeans.gnu.m4.antlr.v0;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
