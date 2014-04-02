@@ -14,11 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.netbeans.gnu.m4.lexer.javacc;
+package org.netbeans.gnu.m4.lexer;
 
-import org.netbeans.gnu.m4.lexer.javacc.M4LanguageHierarchy;
 import org.netbeans.api.lexer.Language;
 import org.netbeans.api.lexer.TokenId;
+import org.netbeans.gnu.m4.lexer.javacc.M4LanguageHierarchy;
 
 /**
  *
@@ -33,13 +33,13 @@ public final class M4TokenId implements TokenId {
     private final int id;
     private boolean macroName = false;
 
-    M4TokenId(String name, String primaryCategory, int id) {
+    public M4TokenId(String name, String primaryCategory, int id) {
         this.name = name;
         this.primaryCategory = primaryCategory;
         this.id = id;
     }
 
-    M4TokenId(String name, String primaryCategory, int id, boolean macroName) {
+    public M4TokenId(String name, String primaryCategory, int id, boolean macroName) {
         this.name = name;
         this.primaryCategory = primaryCategory;
         this.id = id;

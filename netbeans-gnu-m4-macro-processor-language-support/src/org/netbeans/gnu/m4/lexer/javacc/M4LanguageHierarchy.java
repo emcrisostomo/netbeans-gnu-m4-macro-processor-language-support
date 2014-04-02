@@ -16,6 +16,7 @@
  */
 package org.netbeans.gnu.m4.lexer.javacc;
 
+import org.netbeans.gnu.m4.lexer.M4TokenId;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
