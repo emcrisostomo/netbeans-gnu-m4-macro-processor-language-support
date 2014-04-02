@@ -42,7 +42,7 @@ import org.openide.windows.TopComponent;
 )
 @DataObject.Registration(
         mimeType = "text/x-m4",
-        iconBase = "org/netbeans/gnu/m4/file/heckert_gnu.png",
+        iconBase = "org/netbeans/gnu/m4/file/m4.png",
         displayName = "#LBL_M4_LOADER",
         position = 300
 )
@@ -113,7 +113,7 @@ public class M4DataObject extends MultiDataObject {
 
     @MultiViewElement.Registration(
             displayName = "#LBL_M4_EDITOR",
-            iconBase = "org/netbeans/gnu/m4/file/heckert_gnu.png",
+            iconBase = "org/netbeans/gnu/m4/file/m4.png",
             mimeType = "text/x-m4",
             persistenceType = TopComponent.PERSISTENCE_ONLY_OPENED,
             preferredID = "M4",
