@@ -87,7 +87,7 @@ public class m4Lexer extends Lexer {
 		"\\^\5!\21\2][\3\2\2\2]\\\3\2\2\2^_\3\2\2\2_]\3\2\2\2_`\3\2\2\2`\36\3\2"+
 		"\2\2ac\7\17\2\2ba\3\2\2\2bc\3\2\2\2cd\3\2\2\2de\7\f\2\2e \3\2\2\2fg\t"+
 		"\6\2\2g\"\3\2\2\2hj\13\2\2\2ih\3\2\2\2jk\3\2\2\2kl\3\2\2\2ki\3\2\2\2l"+
-		"$\3\2\2\2\r\2,\61\65=PU]_bk\3\b\2\2";
+		"$\3\2\2\2\r\2,\61\65=PU]_bk\3\2\3\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

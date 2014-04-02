@@ -71,7 +71,7 @@ punctuation
 /* Lexer */
 
 DNL_COMMENT
-    : 'dnl' (HORIZONTAL_WHITESPACE)+ ~[\r\n]* (NL)? -> skip
+    : 'dnl' (HORIZONTAL_WHITESPACE)+ ~[\r\n]* (NL)? -> channel(HIDDEN)
     ;
 
 ID
