@@ -32,8 +32,7 @@ import org.netbeans.api.lexer.TokenHierarchy;
 import org.netbeans.api.lexer.TokenId;
 import org.netbeans.api.lexer.TokenSequence;
 import static org.netbeans.gnu.m4.Constants.isVerbose;
-import org.netbeans.gnu.m4.lexer.javacc.M4TokenId;
-import org.netbeans.gnu.m4.lexer.javacc.M4Lexer;
+import org.netbeans.gnu.m4.lexer.antlr.M4TokenId;
 import org.netbeans.gnu.m4.semantic.M4ColoringAttributes.Coloring;
 import org.netbeans.modules.parsing.spi.IndexingAwareParserResultTask;
 import org.netbeans.modules.parsing.spi.Parser.Result;
@@ -49,7 +48,7 @@ import org.netbeans.spi.editor.hints.ErrorDescription;
  */
 class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
-    private static final Logger logger = Logger.getLogger(M4Lexer.class.getName());
+    private static final Logger logger = Logger.getLogger(M4SemanticHighlighter.class.getName());
 
     M4SemanticHighlighter() {
         super(TaskIndexingMode.ALLOWED_DURING_SCAN);

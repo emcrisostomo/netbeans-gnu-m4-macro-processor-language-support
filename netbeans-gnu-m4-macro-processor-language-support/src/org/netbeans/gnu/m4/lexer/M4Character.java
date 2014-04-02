@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.netbeans.gnu.m4.lexer.javacc;
+package org.netbeans.gnu.m4.lexer;
 
 import java.util.HashSet;
 import java.util.Set;

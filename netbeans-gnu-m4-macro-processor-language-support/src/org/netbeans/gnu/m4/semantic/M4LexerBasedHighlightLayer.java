@@ -26,7 +26,7 @@ import org.netbeans.api.lexer.Token;
 import org.netbeans.api.lexer.TokenHierarchy;
 import org.netbeans.api.lexer.TokenId;
 import org.netbeans.api.lexer.TokenSequence;
-import org.netbeans.gnu.m4.lexer.javacc.M4TokenId;
+import org.netbeans.gnu.m4.lexer.antlr.M4TokenId;
 import org.netbeans.gnu.m4.semantic.M4ColoringAttributes.Coloring;
 import org.netbeans.spi.editor.highlighting.HighlightsSequence;
 import org.netbeans.spi.editor.highlighting.support.AbstractHighlightsContainer;
