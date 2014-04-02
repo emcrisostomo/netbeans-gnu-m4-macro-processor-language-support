@@ -14,15 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.netbeans.gnu.m4.lexer;
+package org.netbeans.gnu.m4.lexer.javacc;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.netbeans.gnu.m4.lexer.javacc.M4Lexer;
-import org.netbeans.gnu.m4.lexer.javacc.M4ParserConstants;
 import org.netbeans.spi.lexer.LanguageHierarchy;
 import org.netbeans.spi.lexer.Lexer;
 import org.netbeans.spi.lexer.LexerRestartInfo;

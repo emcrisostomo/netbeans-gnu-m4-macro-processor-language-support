@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.netbeans.gnu.m4.lexer;
+package org.netbeans.gnu.m4.lexer.javacc;
 
+import org.netbeans.gnu.m4.lexer.javacc.M4LanguageHierarchy;
 import org.netbeans.api.lexer.Language;
 import org.netbeans.api.lexer.TokenId;
 
