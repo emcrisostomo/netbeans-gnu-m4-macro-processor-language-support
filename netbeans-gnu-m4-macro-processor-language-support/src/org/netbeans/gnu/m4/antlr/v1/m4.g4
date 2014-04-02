@@ -23,7 +23,7 @@ package org.netbeans.gnu.m4.antlr.v1;
 
 /* Parser */
 
-m4
+compilationUnit
     : (statement | punctuation)* EOF
     ;
 

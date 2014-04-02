@@ -11,6 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface m4Listener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link m4Parser#compilationUnit}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompilationUnit(@NotNull m4Parser.CompilationUnitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#compilationUnit}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompilationUnit(@NotNull m4Parser.CompilationUnitContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link m4Parser#quote}.
 	 * @param ctx the parse tree
 	 */
@@ -31,17 +42,6 @@ public interface m4Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link m4Parser#m4}.
-	 * @param ctx the parse tree
-	 */
-	void enterM4(@NotNull m4Parser.M4Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link m4Parser#m4}.
-	 * @param ctx the parse tree
-	 */
-	void exitM4(@NotNull m4Parser.M4Context ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link m4Parser#statement}.

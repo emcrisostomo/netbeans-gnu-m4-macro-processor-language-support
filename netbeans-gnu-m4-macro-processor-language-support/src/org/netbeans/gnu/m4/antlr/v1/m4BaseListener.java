@@ -19,6 +19,19 @@ public class m4BaseListener implements m4Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCompilationUnit(@NotNull m4Parser.CompilationUnitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompilationUnit(@NotNull m4Parser.CompilationUnitContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterQuote(@NotNull m4Parser.QuoteContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -39,19 +52,6 @@ public class m4BaseListener implements m4Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterM4(@NotNull m4Parser.M4Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitM4(@NotNull m4Parser.M4Context ctx) { }
 
 	/**
 	 * {@inheritDoc}

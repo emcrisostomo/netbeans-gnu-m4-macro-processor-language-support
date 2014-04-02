@@ -24,11 +24,11 @@ public class m4Parser extends Parser {
 		"'''", "WS", "NL", "HORIZONTAL_WHITESPACE", "ANY"
 	};
 	public static final int
-		RULE_m4 = 0, RULE_statement = 1, RULE_quote = 2, RULE_expr = 3, RULE_exprParameters = 4, 
-		RULE_exprParameter = 5, RULE_parenthesizedText = 6, RULE_verbatimText = 7, 
-		RULE_punctuation = 8;
+		RULE_compilationUnit = 0, RULE_statement = 1, RULE_quote = 2, RULE_expr = 3, 
+		RULE_exprParameters = 4, RULE_exprParameter = 5, RULE_parenthesizedText = 6, 
+		RULE_verbatimText = 7, RULE_punctuation = 8;
 	public static final String[] ruleNames = {
-		"m4", "statement", "quote", "expr", "exprParameters", "exprParameter", 
+		"compilationUnit", "statement", "quote", "expr", "exprParameters", "exprParameter", 
 		"parenthesizedText", "verbatimText", "punctuation"
 	};
 
@@ -51,7 +51,7 @@ public class m4Parser extends Parser {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
-	public static class M4Context extends ParserRuleContext {
+	public static class CompilationUnitContext extends ParserRuleContext {
 		public PunctuationContext punctuation(int i) {
 			return getRuleContext(PunctuationContext.class,i);
 		}
@@ -65,23 +65,23 @@ public class m4Parser extends Parser {
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
 		}
-		public M4Context(ParserRuleContext parent, int invokingState) {
+		public CompilationUnitContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_m4; }
+		@Override public int getRuleIndex() { return RULE_compilationUnit; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterM4(this);
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterCompilationUnit(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitM4(this);
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitCompilationUnit(this);
 		}
 	}
 
-	public final M4Context m4() throws RecognitionException {
-		M4Context _localctx = new M4Context(_ctx, getState());
-		enterRule(_localctx, 0, RULE_m4);
+	public final CompilationUnitContext compilationUnit() throws RecognitionException {
+		CompilationUnitContext _localctx = new CompilationUnitContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_compilationUnit);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
