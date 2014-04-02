@@ -28,6 +28,7 @@ import java.util.Set;
 public enum M4ColoringAttributes {
 
     M4_MACRO,
+    M4_BUILTIN,
     DECLARATION;
 
     public static Coloring empty() {

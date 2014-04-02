@@ -48,6 +48,7 @@ public final class M4ColoringManager {
         type2Coloring = new LinkedHashMap<>();
 
         put("m4-macro-declaration", M4_MACRO, DECLARATION);
+        put("m4-builtin-macro", M4_BUILTIN);
         put("m4-macro", M4_MACRO);
     }
 
