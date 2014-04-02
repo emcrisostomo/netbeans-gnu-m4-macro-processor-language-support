@@ -16,7 +16,6 @@
  */
 package org.netbeans.gnu.m4.lexer.javacc;
 
-import org.netbeans.gnu.m4.lexer.M4TokenId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.netbeans.gnu.m4.Constants.isVerbose;

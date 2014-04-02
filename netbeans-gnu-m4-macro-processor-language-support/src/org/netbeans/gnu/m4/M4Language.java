@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ChangeListener;
 import org.netbeans.api.lexer.Language;
-import org.netbeans.gnu.m4.lexer.M4TokenId;
+import org.netbeans.gnu.m4.lexer.antlr.M4TokenId;
 import org.netbeans.modules.csl.api.Error;
 import org.netbeans.modules.csl.spi.DefaultLanguageConfig;
 import org.netbeans.modules.csl.spi.LanguageRegistration;

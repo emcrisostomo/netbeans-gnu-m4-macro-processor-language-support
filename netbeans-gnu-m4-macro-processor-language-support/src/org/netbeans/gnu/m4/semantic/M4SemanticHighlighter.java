@@ -32,7 +32,7 @@ import org.netbeans.api.lexer.TokenHierarchy;
 import org.netbeans.api.lexer.TokenId;
 import org.netbeans.api.lexer.TokenSequence;
 import static org.netbeans.gnu.m4.Constants.isVerbose;
-import org.netbeans.gnu.m4.lexer.M4TokenId;
+import org.netbeans.gnu.m4.lexer.javacc.M4TokenId;
 import org.netbeans.gnu.m4.lexer.javacc.M4Lexer;
 import org.netbeans.gnu.m4.semantic.M4ColoringAttributes.Coloring;
 import org.netbeans.modules.parsing.spi.IndexingAwareParserResultTask;
