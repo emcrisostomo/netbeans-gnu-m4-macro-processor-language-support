@@ -38,7 +38,7 @@ public final class M4LanguageHierarchy extends LanguageHierarchy<M4TokenId> {
         int regExCounter = 1;
         tokens = Arrays.asList(new M4TokenId[]{
             new M4TokenId("DNL_COMMENT", "comment", regExCounter++),
-            new M4TokenId("ID", "keyword", regExCounter++),
+            new M4TokenId("ID", "identifier", regExCounter++),
             new M4TokenId("LPAREN", "separator", regExCounter++),
             new M4TokenId("RPAREN", "separator", regExCounter++),
             new M4TokenId("LBRACKET", "separator", regExCounter++),
