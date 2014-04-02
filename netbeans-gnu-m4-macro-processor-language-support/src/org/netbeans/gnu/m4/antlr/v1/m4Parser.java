@@ -77,6 +77,11 @@ public class m4Parser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitCompilationUnit(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitCompilationUnit(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CompilationUnitContext compilationUnit() throws RecognitionException {
@@ -154,6 +159,11 @@ public class m4Parser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitStatement(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitStatement(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
@@ -222,6 +232,11 @@ public class m4Parser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitQuote(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitQuote(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -342,6 +357,11 @@ public class m4Parser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitExpr(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitExpr(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ExprContext expr() throws RecognitionException {
@@ -401,6 +421,11 @@ public class m4Parser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitExprParameters(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitExprParameters(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -482,6 +507,11 @@ public class m4Parser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitExprParameter(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitExprParameter(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ExprParameterContext exprParameter() throws RecognitionException {
@@ -554,6 +584,11 @@ public class m4Parser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitParenthesizedText(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitParenthesizedText(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -634,6 +669,11 @@ public class m4Parser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitVerbatimText(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitVerbatimText(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final VerbatimTextContext verbatimText() throws RecognitionException {
@@ -705,6 +745,11 @@ public class m4Parser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitPunctuation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitPunctuation(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
