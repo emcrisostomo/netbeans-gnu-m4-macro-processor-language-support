@@ -44,7 +44,7 @@ class M4LexerBasedHighlightSequence implements HighlightsSequence {
     public boolean moveNext() {
         while (ts.moveNext()) {
             Token<? extends TokenId> t = ts.token();
-            if (/* t.id() == M4 identifier && */colorings.containsKey(ts.token())) {
+            if (colorings.containsKey(ts.token())) {
                 return true;
             }
         }
