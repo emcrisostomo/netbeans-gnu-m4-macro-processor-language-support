@@ -80,9 +80,9 @@ DNL_COMMENT
     ;
 
 SINGLE_LINE_COMMENT
-    : '#' ~[\r\n]* NL {!quoted}?
+    : '#' ~[\r\n]* NL {!quoted}? -> channel(HIDDEN)
     ;
-      
+
 ID
     : M4_LETTER (M4_LETTER_OR_DIGIT)*
     ;
