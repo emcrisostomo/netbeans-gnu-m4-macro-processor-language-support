@@ -36,8 +36,8 @@ public class m4Lexer extends Lexer {
 	};
 
 
-	public static int quoteLevel = 0;
-	public static boolean quoted = false;
+	public int quoteLevel = 0;
+	public boolean quoted = false;
 
 
 	public m4Lexer(CharStream input) {
@@ -78,7 +78,7 @@ public class m4Lexer extends Lexer {
 	}
 	private void RBRACKET_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 1:  if (--quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false;  break;
+		case 1:  --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false;  break;
 		}
 	}
 	@Override

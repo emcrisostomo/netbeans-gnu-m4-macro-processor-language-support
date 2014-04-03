@@ -22,8 +22,8 @@ package org.netbeans.gnu.m4.antlr.v1;
 }
 
 @lexer::members {
-public static int quoteLevel = 0;
-public static boolean quoted = false;
+public int quoteLevel = 0;
+public boolean quoted = false;
 }
 
 /* Parser */
@@ -90,7 +90,7 @@ ID
 LPAREN:   '(' ;
 RPAREN:   ')' ;
 LBRACKET: '[' { ++quoteLevel; quoted = true; } ;
-RBRACKET: ']' { if (--quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
+RBRACKET: ']' { --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
 COMMA:    ',' ;
 LQUOTE:   '`' ;
 RQUOTE:   '\'';

@@ -39,6 +39,14 @@ public class M4Lexer implements Lexer<M4TokenId> {
         ANTLRCharStream stream = new ANTLRCharStream(info.input(), "M4");
 
         lexer = new m4Lexer(stream);
+        
+        Object state = info.state();
+        if (state instanceof M4LexerState)
+        {
+            M4LexerState m4State = (M4LexerState) state;
+            lexer.quoteLevel = m4State.quoteLevel;
+            lexer.quoted = m4State.quoted;
+        }
     }
 
     @Override
@@ -62,10 +70,21 @@ public class M4Lexer implements Lexer<M4TokenId> {
 
     @Override
     public Object state() {
-        return null;
+        return new M4LexerState(lexer.quoteLevel);
     }
 
     @Override
     public void release() {
+    }
+
+    private static class M4LexerState {
+
+        private final int quoteLevel;
+        private final boolean quoted;
+
+        public M4LexerState(int quoteLevel) {
+            this.quoteLevel = quoteLevel;
+            this.quoted = quoteLevel > 0;
+        }
     }
 }
