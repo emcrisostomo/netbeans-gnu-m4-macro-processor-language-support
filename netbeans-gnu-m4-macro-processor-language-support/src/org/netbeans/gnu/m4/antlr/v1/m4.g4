@@ -21,6 +21,11 @@ grammar m4;
 package org.netbeans.gnu.m4.antlr.v1;
 }
 
+@lexer::members {
+public static int quoteLevel = 0;
+public static boolean quoted = false;
+}
+
 /* Parser */
 
 compilationUnit
@@ -34,7 +39,7 @@ statement
     ;
 
 quote
-    : '[' (statement | punctuation)* ']'
+    : LBRACKET (statement | punctuation)* RBRACKET
     | '`' (statement | punctuation)* '\''
     ;
 
@@ -74,14 +79,18 @@ DNL_COMMENT
     : 'dnl' (HORIZONTAL_WHITESPACE)+ ~[\r\n]* (NL)? -> channel(HIDDEN)
     ;
 
+SINGLE_LINE_COMMENT
+    : '#' ~[\r\n]* NL {!quoted}?
+    ;
+      
 ID
     : M4_LETTER (M4_LETTER_OR_DIGIT)*
     ;
 
 LPAREN:   '(' ;
 RPAREN:   ')' ;
-LBRACKET: '[' ;
-RBRACKET: ']' ;
+LBRACKET: '[' { ++quoteLevel; quoted = true; } ;
+RBRACKET: ']' { if (--quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
 COMMA:    ',' ;
 LQUOTE:   '`' ;
 RQUOTE:   '\'';

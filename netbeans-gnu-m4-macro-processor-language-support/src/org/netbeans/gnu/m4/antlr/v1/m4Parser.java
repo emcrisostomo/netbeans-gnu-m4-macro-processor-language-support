@@ -17,11 +17,13 @@ public class m4Parser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		DNL_COMMENT=1, ID=2, LPAREN=3, RPAREN=4, LBRACKET=5, RBRACKET=6, COMMA=7, 
-		LQUOTE=8, RQUOTE=9, WS=10, NL=11, HORIZONTAL_WHITESPACE=12, ANY=13;
+		DNL_COMMENT=1, SINGLE_LINE_COMMENT=2, ID=3, LPAREN=4, RPAREN=5, LBRACKET=6, 
+		RBRACKET=7, COMMA=8, LQUOTE=9, RQUOTE=10, WS=11, NL=12, HORIZONTAL_WHITESPACE=13, 
+		ANY=14;
 	public static final String[] tokenNames = {
-		"<INVALID>", "DNL_COMMENT", "ID", "'('", "')'", "'['", "']'", "','", "'`'", 
-		"'''", "WS", "NL", "HORIZONTAL_WHITESPACE", "ANY"
+		"<INVALID>", "DNL_COMMENT", "SINGLE_LINE_COMMENT", "ID", "'('", "')'", 
+		"'['", "']'", "','", "'`'", "'''", "WS", "NL", "HORIZONTAL_WHITESPACE", 
+		"ANY"
 	};
 	public static final int
 		RULE_compilationUnit = 0, RULE_statement = 1, RULE_quote = 2, RULE_expr = 3, 
@@ -209,12 +211,14 @@ public class m4Parser extends Parser {
 	}
 
 	public static class QuoteContext extends ParserRuleContext {
+		public TerminalNode RBRACKET() { return getToken(m4Parser.RBRACKET, 0); }
 		public PunctuationContext punctuation(int i) {
 			return getRuleContext(PunctuationContext.class,i);
 		}
 		public List<PunctuationContext> punctuation() {
 			return getRuleContexts(PunctuationContext.class);
 		}
+		public TerminalNode LBRACKET() { return getToken(m4Parser.LBRACKET, 0); }
 		public StatementContext statement(int i) {
 			return getRuleContext(StatementContext.class,i);
 		}
@@ -799,31 +803,31 @@ public class m4Parser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\17j\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\20j\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\3\2\7\2"+
 		"\27\n\2\f\2\16\2\32\13\2\3\2\3\2\3\3\3\3\3\3\5\3!\n\3\3\4\3\4\3\4\7\4"+
 		"&\n\4\f\4\16\4)\13\4\3\4\3\4\3\4\3\4\7\4/\n\4\f\4\16\4\62\13\4\3\4\5\4"+
 		"\65\n\4\3\5\3\5\3\5\3\5\3\5\3\5\5\5=\n\5\3\6\7\6@\n\6\f\6\16\6C\13\6\3"+
 		"\6\3\6\7\6G\n\6\f\6\16\6J\13\6\7\6L\n\6\f\6\16\6O\13\6\3\7\3\7\5\7S\n"+
 		"\7\3\b\3\b\3\b\3\b\7\bY\n\b\f\b\16\b\\\13\b\3\b\3\b\3\t\6\ta\n\t\r\t\16"+
-		"\tb\3\n\6\nf\n\n\r\n\16\ng\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\4\4\2\f\r"+
-		"\17\17\4\2\5\6\t\ts\2\30\3\2\2\2\4 \3\2\2\2\6\64\3\2\2\2\b<\3\2\2\2\n"+
+		"\tb\3\n\6\nf\n\n\r\n\16\ng\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\4\4\2\r\16"+
+		"\20\20\4\2\6\7\n\ns\2\30\3\2\2\2\4 \3\2\2\2\6\64\3\2\2\2\b<\3\2\2\2\n"+
 		"A\3\2\2\2\fR\3\2\2\2\16T\3\2\2\2\20`\3\2\2\2\22e\3\2\2\2\24\27\5\4\3\2"+
 		"\25\27\5\22\n\2\26\24\3\2\2\2\26\25\3\2\2\2\27\32\3\2\2\2\30\26\3\2\2"+
 		"\2\30\31\3\2\2\2\31\33\3\2\2\2\32\30\3\2\2\2\33\34\7\2\2\3\34\3\3\2\2"+
 		"\2\35!\5\b\5\2\36!\5\6\4\2\37!\5\20\t\2 \35\3\2\2\2 \36\3\2\2\2 \37\3"+
-		"\2\2\2!\5\3\2\2\2\"\'\7\7\2\2#&\5\4\3\2$&\5\22\n\2%#\3\2\2\2%$\3\2\2\2"+
-		"&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2(*\3\2\2\2)\'\3\2\2\2*\65\7\b\2\2+\60"+
-		"\7\n\2\2,/\5\4\3\2-/\5\22\n\2.,\3\2\2\2.-\3\2\2\2/\62\3\2\2\2\60.\3\2"+
-		"\2\2\60\61\3\2\2\2\61\63\3\2\2\2\62\60\3\2\2\2\63\65\7\13\2\2\64\"\3\2"+
-		"\2\2\64+\3\2\2\2\65\7\3\2\2\2\66\67\7\4\2\2\678\7\5\2\289\5\n\6\29:\7"+
-		"\6\2\2:=\3\2\2\2;=\7\4\2\2<\66\3\2\2\2<;\3\2\2\2=\t\3\2\2\2>@\5\f\7\2"+
-		"?>\3\2\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2\2BM\3\2\2\2CA\3\2\2\2DH\7\t\2\2"+
+		"\2\2\2!\5\3\2\2\2\"\'\7\b\2\2#&\5\4\3\2$&\5\22\n\2%#\3\2\2\2%$\3\2\2\2"+
+		"&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2(*\3\2\2\2)\'\3\2\2\2*\65\7\t\2\2+\60"+
+		"\7\13\2\2,/\5\4\3\2-/\5\22\n\2.,\3\2\2\2.-\3\2\2\2/\62\3\2\2\2\60.\3\2"+
+		"\2\2\60\61\3\2\2\2\61\63\3\2\2\2\62\60\3\2\2\2\63\65\7\f\2\2\64\"\3\2"+
+		"\2\2\64+\3\2\2\2\65\7\3\2\2\2\66\67\7\5\2\2\678\7\6\2\289\5\n\6\29:\7"+
+		"\7\2\2:=\3\2\2\2;=\7\5\2\2<\66\3\2\2\2<;\3\2\2\2=\t\3\2\2\2>@\5\f\7\2"+
+		"?>\3\2\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2\2BM\3\2\2\2CA\3\2\2\2DH\7\n\2\2"+
 		"EG\5\f\7\2FE\3\2\2\2GJ\3\2\2\2HF\3\2\2\2HI\3\2\2\2IL\3\2\2\2JH\3\2\2\2"+
 		"KD\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2N\13\3\2\2\2OM\3\2\2\2PS\5\4\3"+
-		"\2QS\5\16\b\2RP\3\2\2\2RQ\3\2\2\2S\r\3\2\2\2TZ\7\5\2\2UY\5\16\b\2VY\5"+
+		"\2QS\5\16\b\2RP\3\2\2\2RQ\3\2\2\2S\r\3\2\2\2TZ\7\6\2\2UY\5\16\b\2VY\5"+
 		"\4\3\2WY\5\20\t\2XU\3\2\2\2XV\3\2\2\2XW\3\2\2\2Y\\\3\2\2\2ZX\3\2\2\2Z"+
-		"[\3\2\2\2[]\3\2\2\2\\Z\3\2\2\2]^\7\6\2\2^\17\3\2\2\2_a\t\2\2\2`_\3\2\2"+
+		"[\3\2\2\2[]\3\2\2\2\\Z\3\2\2\2]^\7\7\2\2^\17\3\2\2\2_a\t\2\2\2`_\3\2\2"+
 		"\2ab\3\2\2\2b`\3\2\2\2bc\3\2\2\2c\21\3\2\2\2df\t\3\2\2ed\3\2\2\2fg\3\2"+
 		"\2\2ge\3\2\2\2gh\3\2\2\2h\23\3\2\2\2\23\26\30 %\'.\60\64<AHMRXZbg";
 	public static final ATN _ATN =
