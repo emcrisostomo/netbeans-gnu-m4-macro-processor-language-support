@@ -91,24 +91,28 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
         builtinSpec.add(M4ColoringAttributes.M4_BUILTIN);
         final Coloring builtinColoring = collection2Coloring(builtinSpec);
         final ANTLRTokenToNetBeansTokenMapper mapper = new ANTLRTokenToNetBeansTokenMapper(doc);
-        
+
         final Map<Token<? extends TokenId>, Coloring> newColoring = new IdentityHashMap<>();
         final Set<Token<? extends TokenId>> addedTokens = new HashSet<>();
         final Map<Token<? extends TokenId>, Coloring> removedTokens = new IdentityHashMap<>(M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, doc).getColorings());
 
         for (org.antlr.v4.runtime.Token antlrToken : builtinIdentifiers) {
-            logger.info(String.format("M4 Builtin Token Position: %d %d %d.", antlrToken.getLine(), antlrToken.getCharPositionInLine(), antlrToken.getText().length()));
+            logger.info(String.format(
+                    "M4 Builtin Token Position: %d %d %d.",
+                    antlrToken.getLine(),
+                    antlrToken.getCharPositionInLine(),
+                    antlrToken.getText().length()));
 
-            Token<? extends TokenId> token = mapper.findToken(antlrToken);
+            final Token<? extends TokenId> token = mapper.findToken(antlrToken);
 
             if (token == null) {
                 continue;
             }
 
             newColoring.put(token, builtinColoring);
-            
+
             Coloring oldColoring = removedTokens.remove(token);
-            
+
             if (oldColoring == null || !oldColoring.equals(builtinColoring)) {
                 addedTokens.add(token);
             }
@@ -148,7 +152,10 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
         public void setHighlights(Document doc, OffsetsBag highlights);
 
-        public void setColorings(Document doc, Map<Token<? extends TokenId>, Coloring> colorings, Set<Token<? extends TokenId>> addedTokens);
+        public void setColorings(
+                Document doc,
+                Map<Token<? extends TokenId>, Coloring> colorings,
+                Set<Token<? extends TokenId>> addedTokens);
     }
 
     private static final ErrorDescriptionSetter ERROR_DESCRIPTION_SETTER = new ErrorDescriptionSetter() {
@@ -167,7 +174,10 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
         }
 
         @Override
-        public void setColorings(final Document doc, final Map<Token<? extends TokenId>, Coloring> colorings, final Set<Token<? extends TokenId>> addedTokens) {
+        public void setColorings(
+                final Document doc,
+                final Map<Token<? extends TokenId>, Coloring> colorings,
+                final Set<Token<? extends TokenId>> addedTokens) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {

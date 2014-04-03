@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.netbeans.gnu.m4.antlr.v1.m4BaseVisitor;
 import org.netbeans.gnu.m4.antlr.v1.m4Parser;
 import org.netbeans.gnu.m4.lexer.M4Keyword;
@@ -36,10 +37,12 @@ public class M4BuiltinMacroVisitor extends m4BaseVisitor<Void> {
 
     @Override
     public Void visitExpr(m4Parser.ExprContext ctx) {
-        logger.info(String.format("M4 Identifier found: %s", ctx.ID().getText()));
+        final TerminalNode identifier = ctx.ID();
 
-        if (M4Keyword.isBuiltin(ctx.ID().getText())) {
-            final Token symbol = ctx.ID().getSymbol();
+        logger.info(String.format("M4 Identifier found: %s", identifier.getText()));
+
+        if (M4Keyword.isBuiltin(identifier.getText())) {
+            final Token symbol = identifier.getSymbol();
 
             builtinIdentifiers.add(symbol);
         }
