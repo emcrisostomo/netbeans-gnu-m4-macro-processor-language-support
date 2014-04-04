@@ -78,7 +78,7 @@ public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
     public void setColorings(final Map<Token<? extends TokenId>, Coloring> colorings, final Set<Token<? extends TokenId>> addedTokens) {
         bag.clear();
 
-        M4LexerBasedHighlightLayer.this.colorings = colorings;
+        this.colorings = colorings;
 
         if (addedTokens.isEmpty()) {
             return;
