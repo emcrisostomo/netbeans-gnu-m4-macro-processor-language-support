@@ -215,6 +215,8 @@ public class m4Parser extends Parser {
 		public PunctuationContext punctuation(int i) {
 			return getRuleContext(PunctuationContext.class,i);
 		}
+		public TerminalNode RQUOTE() { return getToken(m4Parser.RQUOTE, 0); }
+		public TerminalNode LQUOTE() { return getToken(m4Parser.LQUOTE, 0); }
 		public List<PunctuationContext> punctuation() {
 			return getRuleContexts(PunctuationContext.class);
 		}
