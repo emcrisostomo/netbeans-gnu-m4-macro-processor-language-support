@@ -76,7 +76,8 @@ punctuation
 /* Lexer */
 
 DNL_COMMENT
-    : 'dnl' (HORIZONTAL_WHITESPACE)+ ~[\r\n]* (NL)? -> channel(HIDDEN)
+    : ( 'dnl' (HORIZONTAL_WHITESPACE)+ ~[\r\n]* (NL)
+      | 'dnl' (NL)) -> channel(HIDDEN)
     ;
 
 SINGLE_LINE_COMMENT
@@ -87,13 +88,13 @@ ID
     : M4_LETTER (M4_LETTER_OR_DIGIT)*
     ;
 
-LPAREN:   '(' ;
-RPAREN:   ')' ;
-LBRACKET: '[' { ++quoteLevel; quoted = true; } ;
-RBRACKET: ']' { --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
-COMMA:    ',' ;
-LQUOTE:   '`' ;
-RQUOTE:   '\'';
+LPAREN:   '('  ;
+RPAREN:   ')'  ;
+LBRACKET: '['  { ++quoteLevel; quoted = true; } ;
+RBRACKET: ']'  { --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
+COMMA:    ','  ;
+LQUOTE:   '`'  { ++quoteLevel; quoted = true; } ;
+RQUOTE:   '\'' { --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
 
 fragment
 M4_LETTER
