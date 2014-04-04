@@ -6,6 +6,8 @@ following functionality:
 
   * Syntax highlighting for M4 files (`.m4`).
   * Brace matching for M4 files.
+  * Code completion.
+  * Integrated documentation in code completion popups.
 
 Limitations
 -----------
