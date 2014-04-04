@@ -72,14 +72,6 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
         final Document doc = result.getSnapshot().getSource().getDocument(false);
 
-        if (!(doc instanceof StyledDocument)) {
-            throw new IllegalStateException(
-                    String.format(
-                            "Unexpected document class [%s] is not instance of [%s].",
-                            doc.getClass().getName(),
-                            StyledDocument.class.getName()));
-        }
-
         M4Parser.M4ParserResult res = (M4Parser.M4ParserResult) result;
         CompilationUnitContext compilationUnit = res.getCompilationUnit();
         M4BuiltinMacroVisitor visitor = new M4BuiltinMacroVisitor();
