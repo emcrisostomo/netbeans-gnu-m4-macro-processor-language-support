@@ -40,7 +40,7 @@ statement
 
 quote
     : LBRACKET (statement | punctuation)* RBRACKET
-    | '`' (statement | punctuation)* '\''
+    | LQUOTE (statement | punctuation)* RQUOTE
     ;
 
 expr
