@@ -108,7 +108,7 @@ public class ANTLRCharStream implements CharStream {
 
         markDepth++;
 
-        CharStreamState state = null;
+        CharStreamState state;
         if (markDepth >= markers.size()) {
             state = new CharStreamState();
             markers.add(state);
@@ -123,7 +123,7 @@ public class ANTLRCharStream implements CharStream {
 
         return markDepth;
     }
-
+            
     public void rewind() {
         rewind(lastMarker);
     }
