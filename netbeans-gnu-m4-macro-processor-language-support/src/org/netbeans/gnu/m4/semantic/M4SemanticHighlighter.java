@@ -26,7 +26,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.text.Document;
-import javax.swing.text.StyledDocument;
 import org.netbeans.api.lexer.Token;
 import org.netbeans.api.lexer.TokenId;
 import static org.netbeans.gnu.m4.Constants.isVerbose;
@@ -86,7 +85,6 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
         final Map<Token<? extends TokenId>, Coloring> newColoring = new IdentityHashMap<>();
         final Set<Token<? extends TokenId>> addedTokens = new HashSet<>();
-        final Map<Token<? extends TokenId>, Coloring> removedTokens = new IdentityHashMap<>(M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, doc).getColorings());
 
         for (org.antlr.v4.runtime.Token antlrToken : builtinIdentifiers) {
             logger.info(String.format(
@@ -103,11 +101,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
             newColoring.put(token, builtinColoring);
 
-            Coloring oldColoring = removedTokens.remove(token);
-
-            if (oldColoring == null || !oldColoring.equals(builtinColoring)) {
-                addedTokens.add(token);
-            }
+            addedTokens.add(token);
         }
 
         ERROR_DESCRIPTION_SETTER.setColorings(doc, newColoring, addedTokens);
@@ -157,12 +151,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
         @Override
         public void setHighlights(final Document doc, final OffsetsBag highlights) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            });
+            
         }
 
         @Override
@@ -170,12 +159,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
                 final Document doc,
                 final Map<Token<? extends TokenId>, Coloring> colorings,
                 final Set<Token<? extends TokenId>> addedTokens) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, doc).setColorings(colorings, addedTokens);
-                }
-            });
+            M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, doc).setColorings(colorings, addedTokens);
         }
     };
 }

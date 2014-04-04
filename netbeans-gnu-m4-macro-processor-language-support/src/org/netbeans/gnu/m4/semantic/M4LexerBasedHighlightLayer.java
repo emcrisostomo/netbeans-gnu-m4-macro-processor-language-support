@@ -16,6 +16,7 @@
  */
 package org.netbeans.gnu.m4.semantic;
 
+import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +27,10 @@ import org.netbeans.api.lexer.Token;
 import org.netbeans.api.lexer.TokenHierarchy;
 import org.netbeans.api.lexer.TokenId;
 import org.netbeans.api.lexer.TokenSequence;
-import org.netbeans.gnu.m4.lexer.antlr.M4TokenId;
 import org.netbeans.gnu.m4.semantic.M4ColoringAttributes.Coloring;
 import org.netbeans.spi.editor.highlighting.HighlightsSequence;
 import org.netbeans.spi.editor.highlighting.support.AbstractHighlightsContainer;
+import org.netbeans.spi.editor.highlighting.support.OffsetsBag;
 
 /**
  *
@@ -39,11 +40,13 @@ public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
 
     private Map<Token<? extends TokenId>, Coloring> colorings;
     private final Map<Coloring, AttributeSet> CACHE = new HashMap<>();
-    private final Document doc;
+    private final WeakReference<Document> doc;
+    private final OffsetsBag bag;
 
     private M4LexerBasedHighlightLayer(Document doc) {
-        this.doc = doc;
+        this.doc = new WeakReference<>(doc);
         this.colorings = Collections.emptyMap();
+        this.bag = new OffsetsBag(doc);
     }
 
     public static M4LexerBasedHighlightLayer getLayer(Class<?> id, Document doc) {
@@ -62,71 +65,35 @@ public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
             return HighlightsSequence.EMPTY;
         }
 
-        TokenHierarchy<Document> th = TokenHierarchy.get(doc);
+        TokenHierarchy<Document> th = TokenHierarchy.get(doc.get());
         TokenSequence<? extends TokenId> seq = th.tokenSequence();
 
         if (seq == null) { // Null when token hierarchy is inactive
             return HighlightsSequence.EMPTY;
         }
 
-        if (seq.language() == M4TokenId.getLanguage()) {
-            return new M4LexerBasedHighlightSequence(this, seq.subSequence(startOffset, endOffset), colorings);
-        } else {
-            return new HighlightsSequence() {
-
-                @Override
-                public boolean moveNext() {
-                    return false;
-                }
-
-                @Override
-                public int getStartOffset() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public int getEndOffset() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public AttributeSet getAttributes() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-            };
-        }
+        return bag.getHighlights(startOffset, endOffset);
     }
 
     public void setColorings(final Map<Token<? extends TokenId>, Coloring> colorings, final Set<Token<? extends TokenId>> addedTokens) {
-        doc.render(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (M4LexerBasedHighlightLayer.this) {
-                    M4LexerBasedHighlightLayer.this.colorings = colorings;
+        bag.clear();
 
-                    if (addedTokens.isEmpty()) {
-                        return;
-                    }
-                    
-                    if (addedTokens.size() < 30) {
-                        int startOffset = Integer.MAX_VALUE;
-                        int endOffset = -1;
-                        for (Token<? extends TokenId> t : addedTokens) {
-                            int tOffset = t.offset(null);
-                            startOffset = Math.min(tOffset, startOffset);
-                            endOffset = Math.max(endOffset, tOffset + t.length());
-                        }
-                        fireHighlightsChange(startOffset, endOffset);
-                    } else { // Too many tokens => repaint all
-                        fireHighlightsChange(0, doc.getLength());
-                    }
-                }
+        M4LexerBasedHighlightLayer.this.colorings = colorings;
+
+        if (addedTokens.isEmpty()) {
+            return;
+        }
+
+        for (Token<? extends TokenId> token : addedTokens) {
+            if (!colorings.containsKey(token)) {
+                continue;
             }
-        });
-    }
 
-    public synchronized Map<Token<? extends TokenId>, Coloring> getColorings() {
-        return colorings;
+            final Coloring coloring = colorings.get(token);
+            final int startOffset = token.offset(null);
+
+            bag.addHighlight(startOffset, startOffset + token.length(), this.getColoring(coloring));
+        }
     }
 
     public synchronized void clearColoringCache() {
