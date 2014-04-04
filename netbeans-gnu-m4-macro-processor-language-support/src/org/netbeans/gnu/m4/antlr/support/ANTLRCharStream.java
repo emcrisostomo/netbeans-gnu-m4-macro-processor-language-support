@@ -113,7 +113,7 @@ public class ANTLRCharStream implements CharStream {
             state = new CharStreamState();
             markers.add(state);
         } else {
-            state = (CharStreamState) markers.get(markDepth);
+            state = markers.get(markDepth);
         }
 
         state.index = index;
@@ -129,7 +129,7 @@ public class ANTLRCharStream implements CharStream {
     }
 
     public void rewind(int marker) {
-        CharStreamState state = (CharStreamState) markers.get(marker);
+        CharStreamState state = markers.get(marker);
         // restore stream state
         seek(state.index);
         line = state.line;
