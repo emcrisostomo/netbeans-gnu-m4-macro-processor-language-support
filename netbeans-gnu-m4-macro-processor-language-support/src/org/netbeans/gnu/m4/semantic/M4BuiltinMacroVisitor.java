@@ -33,17 +33,37 @@ public class M4BuiltinMacroVisitor extends m4BaseVisitor<Void> {
 
     private static final Logger logger = Logger.getLogger(M4BuiltinMacroVisitor.class.getName());
 
+    private final Set<Token> identifiers = new HashSet<>();
     private final Set<Token> builtinIdentifiers = new HashSet<>();
+    private final Set<Token> macroInvocations = new HashSet<>();
 
     @Override
-    public Void visitExpr(m4Parser.ExprContext ctx) {
+    public Void visitExpression_with_params(m4Parser.Expression_with_paramsContext ctx) {
+        final TerminalNode identifier = ctx.ID();
+
+        logger.fine(String.format("M4 Identifier found in expression with params: %s", identifier.getText()));
+
+        final Token symbol = identifier.getSymbol();
+        identifiers.add(symbol);
+        macroInvocations.add(symbol);
+
+        if (M4Keyword.isBuiltin(identifier.getText())) {
+            builtinIdentifiers.add(symbol);
+        }
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Void visitExpression(m4Parser.ExpressionContext ctx) {
         final TerminalNode identifier = ctx.ID();
 
         logger.fine(String.format("M4 Identifier found: %s", identifier.getText()));
 
-        if (M4Keyword.isBuiltin(identifier.getText())) {
-            final Token symbol = identifier.getSymbol();
+        final Token symbol = identifier.getSymbol();
+        identifiers.add(symbol);
 
+        if (M4Keyword.isBuiltin(identifier.getText())) {
             builtinIdentifiers.add(symbol);
         }
 
@@ -52,5 +72,13 @@ public class M4BuiltinMacroVisitor extends m4BaseVisitor<Void> {
 
     public Set<Token> getBuiltinIdentifiers() {
         return builtinIdentifiers;
+    }
+
+    public Set<Token> getMacroInvocations() {
+        return macroInvocations;
+    }
+
+    public Set<Token> getIdentifiers() {
+        return identifiers;
     }
 }

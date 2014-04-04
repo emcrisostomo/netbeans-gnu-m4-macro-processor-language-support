@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 import javax.swing.text.Document;
 import org.netbeans.api.lexer.Token;
 import org.netbeans.api.lexer.TokenId;
-import static org.netbeans.gnu.m4.Constants.isVerbose;
 import org.netbeans.gnu.m4.antlr.support.ANTLRTokenToNetBeansTokenMapper;
 import org.netbeans.gnu.m4.antlr.v1.m4Parser.CompilationUnitContext;
 import org.netbeans.gnu.m4.parser.M4Parser;
@@ -55,7 +54,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
     @Override
     public void run(Result result, SchedulerEvent event) {
         logger.finest("Running.");
-        
+
         if (result == null) {
             logger.severe("Parser result is null.");
             return;
@@ -68,24 +67,25 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
         final Document doc = result.getSnapshot().getSource().getDocument(false);
 
+        // Analyse parse results
         M4Parser.M4ParserResult res = (M4Parser.M4ParserResult) result;
         CompilationUnitContext compilationUnit = res.getCompilationUnit();
         M4BuiltinMacroVisitor visitor = new M4BuiltinMacroVisitor();
         visitor.visit(compilationUnit);
 
+        // Get visitor results
+        final Set<org.antlr.v4.runtime.Token> identifiers = visitor.getIdentifiers();
         final Set<org.antlr.v4.runtime.Token> builtinIdentifiers = visitor.getBuiltinIdentifiers();
+        final Set<org.antlr.v4.runtime.Token> macroInvocations = visitor.getMacroInvocations();
 
-        final List<M4ColoringAttributes> builtinSpec = new ArrayList<>();
-        builtinSpec.add(M4ColoringAttributes.M4_BUILTIN);
-        final Coloring builtinColoring = collection2Coloring(builtinSpec);
         final ANTLRTokenToNetBeansTokenMapper mapper = new ANTLRTokenToNetBeansTokenMapper(doc);
 
         final Map<Token<? extends TokenId>, Coloring> newColoring = new IdentityHashMap<>();
         final Set<Token<? extends TokenId>> addedTokens = new HashSet<>();
 
-        for (org.antlr.v4.runtime.Token antlrToken : builtinIdentifiers) {
+        for (org.antlr.v4.runtime.Token antlrToken : identifiers) {
             logger.fine(String.format(
-                    "M4 Builtin Token Position: %d %d %d.",
+                    "M4 Token Position: %d %d %d.",
                     antlrToken.getLine(),
                     antlrToken.getCharPositionInLine(),
                     antlrToken.getText().length()));
@@ -96,8 +96,17 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
                 continue;
             }
 
-            newColoring.put(token, builtinColoring);
+            List<M4ColoringAttributes> attributes = new ArrayList<>();
 
+            if (builtinIdentifiers.contains(antlrToken)) {
+                attributes.add(M4ColoringAttributes.M4_BUILTIN);
+            }
+
+            if (macroInvocations.contains(antlrToken)) {
+                attributes.add(M4ColoringAttributes.INVOCATION);
+            }
+                       
+            newColoring.put(token, collection2Coloring(attributes));
             addedTokens.add(token);
         }
 
@@ -148,7 +157,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
         @Override
         public void setHighlights(final Document doc, final OffsetsBag highlights) {
-            
+
         }
 
         @Override

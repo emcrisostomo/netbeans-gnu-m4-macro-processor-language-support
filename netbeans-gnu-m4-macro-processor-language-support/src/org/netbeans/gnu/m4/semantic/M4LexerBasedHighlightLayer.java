@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.Document;
 import org.netbeans.api.lexer.Token;
@@ -38,6 +40,7 @@ import org.netbeans.spi.editor.highlighting.support.OffsetsBag;
  */
 public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
 
+    private static final Logger logger = Logger.getLogger(M4LexerBasedHighlightLayer.class.getName());
     private Map<Token<? extends TokenId>, Coloring> colorings;
     private final Map<Coloring, AttributeSet> CACHE = new HashMap<>();
     private final WeakReference<Document> doc;
@@ -86,10 +89,19 @@ public class M4LexerBasedHighlightLayer extends AbstractHighlightsContainer {
 
         for (Token<? extends TokenId> token : addedTokens) {
             if (!colorings.containsKey(token)) {
+                logger.log(Level.WARNING, "Token {0} has no coloring info.", token.text().toString());
                 continue;
             }
 
             final Coloring coloring = colorings.get(token);
+
+            if (logger.isLoggable(Level.FINE)) {
+                logger.log(Level.FINE, "Token {0} has the following coloring info: ", token.text().toString());
+                for (M4ColoringAttributes attrib : coloring) {
+                    logger.log(Level.FINE, "Coloring Attribute: {0}", attrib.name());
+                }
+            }
+
             final int startOffset = token.offset(null);
 
             bag.addHighlight(startOffset, startOffset + token.length(), this.getColoring(coloring));

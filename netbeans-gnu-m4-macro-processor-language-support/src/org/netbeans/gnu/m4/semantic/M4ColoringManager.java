@@ -48,9 +48,8 @@ public final class M4ColoringManager {
     static {
         type2Coloring = new LinkedHashMap<>();
 
-        put("m4-macro-declaration", M4_MACRO, DECLARATION);
         put("m4-builtin-macro", M4_BUILTIN);
-        put("m4-macro", M4_MACRO);
+        put("m4-macro-invocation", INVOCATION);
     }
 
     private static void put(String coloring, M4ColoringAttributes... attributes) {
@@ -78,7 +77,9 @@ public final class M4ColoringManager {
         for (Map.Entry<Set<M4ColoringAttributes>, String> attribs2Colorings : type2Coloring.entrySet()) {
             if (es.containsAll(attribs2Colorings.getKey())) {
                 String key = attribs2Colorings.getValue();
-
+                
+                logger.log(Level.FINE, "Matching coloring key: {0}", key);
+                
                 es.removeAll(attribs2Colorings.getKey());
 
                 if (key != null) {

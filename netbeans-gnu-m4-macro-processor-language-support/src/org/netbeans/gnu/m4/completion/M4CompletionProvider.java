@@ -18,6 +18,8 @@ package org.netbeans.gnu.m4.completion;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -45,6 +47,7 @@ import org.openide.util.Exceptions;
 @MimeRegistration(mimeType = "text/x-m4", service = CompletionProvider.class)
 public class M4CompletionProvider implements CompletionProvider {
 
+    private static final Logger logger = Logger.getLogger(M4CompletionProvider.class.getName());
     private static final M4BuiltinMacro macroNames[] = M4BuiltinMacro.values();
 
     @Override
@@ -117,7 +120,8 @@ public class M4CompletionProvider implements CompletionProvider {
 
                     while (ts.moveNext()) {
                         Token<? extends TokenId> t = ts.token();
-                        System.out.println(t);
+                        
+                        logger.log(Level.FINER, "Completion provider checking token {0}", t.text().toString());
 
                         // Only add macros defined before the current
                         // caret position.
