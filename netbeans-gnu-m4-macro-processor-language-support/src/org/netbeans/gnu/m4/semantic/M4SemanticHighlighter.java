@@ -165,7 +165,12 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
         @Override
         public void setHighlights(final Document doc, final OffsetsBag highlights) {
-            
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
         }
 
         @Override
@@ -173,7 +178,12 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
                 final Document doc,
                 final Map<Token<? extends TokenId>, Coloring> colorings,
                 final Set<Token<? extends TokenId>> addedTokens) {
-            M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, doc).setColorings(colorings, addedTokens);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, doc).setColorings(colorings, addedTokens);
+                }
+            });
         }
     };
 }
