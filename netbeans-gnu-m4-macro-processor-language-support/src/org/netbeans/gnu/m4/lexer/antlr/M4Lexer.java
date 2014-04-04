@@ -18,6 +18,7 @@ package org.netbeans.gnu.m4.lexer.antlr;
 
 import java.util.logging.Logger;
 import org.antlr.v4.runtime.Token;
+import org.netbeans.gnu.m4.Constants;
 import org.netbeans.gnu.m4.antlr.support.ANTLRCharStream;
 import org.netbeans.gnu.m4.antlr.v1.m4Lexer;
 import org.netbeans.spi.lexer.Lexer;
@@ -39,10 +40,9 @@ public class M4Lexer implements Lexer<M4TokenId> {
         ANTLRCharStream stream = new ANTLRCharStream(info.input(), "M4");
 
         lexer = new m4Lexer(stream);
-        
+
         Object state = info.state();
-        if (state instanceof M4LexerState)
-        {
+        if (state instanceof M4LexerState) {
             M4LexerState m4State = (M4LexerState) state;
             lexer.quoteLevel = m4State.quoteLevel;
             lexer.quoted = m4State.quoted;
@@ -53,9 +53,7 @@ public class M4Lexer implements Lexer<M4TokenId> {
     public org.netbeans.api.lexer.Token<M4TokenId> nextToken() {
         Token token = lexer.nextToken();
 
-        if (true) {
-            logger.info((token == null) ? "token: null" : token.getText() + ":" + token.getType());
-        }
+        logger.fine((token == null) ? "token: null" : token.getText() + ":" + token.getType());
 
         if (token == null) {
             throw new IllegalStateException("Token unexpectedly null.");

@@ -42,6 +42,7 @@ import org.netbeans.gnu.m4.semantic.M4ColoringAttributes.Coloring;
  */
 public final class M4ColoringManager {
 
+    private static final Logger logger = Logger.getLogger(M4ColoringManager.class.getName());
     private static final Map<Set<M4ColoringAttributes>, String> type2Coloring;
 
     static {
@@ -84,7 +85,7 @@ public final class M4ColoringManager {
                     AttributeSet colors = fcs.getTokenFontColors(key);
 
                     if (colors == null) {
-                        Logger.getLogger(M4ColoringManager.class.getName()).log(Level.SEVERE, "no colors for: {0}", key);
+                        logger.log(Level.SEVERE, "no colors for: {0}", key);
                         continue;
                     }
 

@@ -91,7 +91,7 @@ public final class ANTLRTokenToNetBeansTokenMapper {
         Token<? extends TokenId> token = tokensByStartOffset.get(startOffset);
 
         if (token == null) {
-            logger.info(String.format("Cannot find token at offset [%d].", startOffset));
+            logger.warning(String.format("Cannot find token at offset [%d].", startOffset));
             return null;
         }
         

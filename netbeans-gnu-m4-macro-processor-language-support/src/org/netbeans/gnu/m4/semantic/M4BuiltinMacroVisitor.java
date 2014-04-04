@@ -39,7 +39,7 @@ public class M4BuiltinMacroVisitor extends m4BaseVisitor<Void> {
     public Void visitExpr(m4Parser.ExprContext ctx) {
         final TerminalNode identifier = ctx.ID();
 
-        logger.info(String.format("M4 Identifier found: %s", identifier.getText()));
+        logger.fine(String.format("M4 Identifier found: %s", identifier.getText()));
 
         if (M4Keyword.isBuiltin(identifier.getText())) {
             final Token symbol = identifier.getSymbol();

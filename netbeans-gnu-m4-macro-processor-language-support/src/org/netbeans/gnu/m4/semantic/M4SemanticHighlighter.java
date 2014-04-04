@@ -54,10 +54,8 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
 
     @Override
     public void run(Result result, SchedulerEvent event) {
-        if (isVerbose()) {
-            logger.info("Running.");
-        }
-
+        logger.finest("Running.");
+        
         if (result == null) {
             logger.severe("Parser result is null.");
             return;
@@ -86,7 +84,7 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
         final Set<Token<? extends TokenId>> addedTokens = new HashSet<>();
 
         for (org.antlr.v4.runtime.Token antlrToken : builtinIdentifiers) {
-            logger.info(String.format(
+            logger.fine(String.format(
                     "M4 Builtin Token Position: %d %d %d.",
                     antlrToken.getLine(),
                     antlrToken.getCharPositionInLine(),

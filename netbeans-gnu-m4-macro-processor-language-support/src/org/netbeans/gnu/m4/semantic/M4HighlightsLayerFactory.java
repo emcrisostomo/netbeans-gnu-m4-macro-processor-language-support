@@ -35,7 +35,7 @@ public class M4HighlightsLayerFactory implements HighlightsLayerFactory {
     @Override
     public HighlightsLayer[] createLayers(Context context) {
         if (Constants.isVerbose()) {
-            logger.info("Initializing highlight layers.");
+            logger.fine("Initializing highlight layers.");
         }
 
         M4LexerBasedHighlightLayer semantic = M4LexerBasedHighlightLayer.getLayer(M4SemanticHighlighter.class, context.getDocument());
