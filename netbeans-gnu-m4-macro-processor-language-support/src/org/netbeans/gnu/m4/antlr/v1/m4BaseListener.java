@@ -45,6 +45,19 @@ public class m4BaseListener implements m4Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExpression(@NotNull m4Parser.ExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpression(@NotNull m4Parser.ExpressionContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -52,6 +65,19 @@ public class m4BaseListener implements m4Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpression_with_params(@NotNull m4Parser.Expression_with_paramsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpression_with_params(@NotNull m4Parser.Expression_with_paramsContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -78,19 +104,6 @@ public class m4BaseListener implements m4Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPunctuation(@NotNull m4Parser.PunctuationContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpr(@NotNull m4Parser.ExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpr(@NotNull m4Parser.ExprContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

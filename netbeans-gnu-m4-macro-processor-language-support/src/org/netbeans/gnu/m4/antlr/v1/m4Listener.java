@@ -33,6 +33,17 @@ public interface m4Listener extends ParseTreeListener {
 	void exitQuote(@NotNull m4Parser.QuoteContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link m4Parser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression(@NotNull m4Parser.ExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression(@NotNull m4Parser.ExpressionContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link m4Parser#parenthesizedText}.
 	 * @param ctx the parse tree
 	 */
@@ -42,6 +53,17 @@ public interface m4Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link m4Parser#expression_with_params}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression_with_params(@NotNull m4Parser.Expression_with_paramsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link m4Parser#expression_with_params}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression_with_params(@NotNull m4Parser.Expression_with_paramsContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link m4Parser#statement}.
@@ -64,17 +86,6 @@ public interface m4Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPunctuation(@NotNull m4Parser.PunctuationContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link m4Parser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExpr(@NotNull m4Parser.ExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link m4Parser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExpr(@NotNull m4Parser.ExprContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link m4Parser#exprParameters}.

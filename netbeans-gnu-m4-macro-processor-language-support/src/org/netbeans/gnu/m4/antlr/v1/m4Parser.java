@@ -347,25 +347,50 @@ public class m4Parser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(m4Parser.ID, 0); }
-		public ExprParametersContext exprParameters() {
-			return getRuleContext(ExprParametersContext.class,0);
-		}
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
+	 
+		public ExprContext() { }
+		public void copyFrom(ExprContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ExpressionContext extends ExprContext {
+		public TerminalNode ID() { return getToken(m4Parser.ID, 0); }
+		public ExpressionContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterExpr(this);
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitExpr(this);
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitExpression(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitExpr(this);
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitExpression(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class Expression_with_paramsContext extends ExprContext {
+		public TerminalNode ID() { return getToken(m4Parser.ID, 0); }
+		public ExprParametersContext exprParameters() {
+			return getRuleContext(ExprParametersContext.class,0);
+		}
+		public Expression_with_paramsContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).enterExpression_with_params(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof m4Listener ) ((m4Listener)listener).exitExpression_with_params(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof m4Visitor ) return ((m4Visitor<? extends T>)visitor).visitExpression_with_params(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -377,6 +402,7 @@ public class m4Parser extends Parser {
 			setState(58);
 			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
+				_localctx = new Expression_with_paramsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(52); match(ID);
@@ -387,6 +413,7 @@ public class m4Parser extends Parser {
 				break;
 
 			case 2:
+				_localctx = new ExpressionContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(57); match(ID);

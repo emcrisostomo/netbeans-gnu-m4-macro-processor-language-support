@@ -36,7 +36,23 @@ public class m4BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements m4V
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitExpression(@NotNull m4Parser.ExpressionContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitExpression_with_params(@NotNull m4Parser.Expression_with_paramsContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -53,14 +69,6 @@ public class m4BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements m4V
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitPunctuation(@NotNull m4Parser.PunctuationContext ctx) { return visitChildren(ctx); }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitExpr(@NotNull m4Parser.ExprContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

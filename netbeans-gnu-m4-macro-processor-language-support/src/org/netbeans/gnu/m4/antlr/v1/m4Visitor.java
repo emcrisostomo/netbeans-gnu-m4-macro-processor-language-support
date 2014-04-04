@@ -28,11 +28,25 @@ public interface m4Visitor<T> extends ParseTreeVisitor<T> {
 	T visitQuote(@NotNull m4Parser.QuoteContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link m4Parser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression(@NotNull m4Parser.ExpressionContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link m4Parser#parenthesizedText}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitParenthesizedText(@NotNull m4Parser.ParenthesizedTextContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link m4Parser#expression_with_params}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression_with_params(@NotNull m4Parser.Expression_with_paramsContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link m4Parser#statement}.
@@ -47,13 +61,6 @@ public interface m4Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPunctuation(@NotNull m4Parser.PunctuationContext ctx);
-
-	/**
-	 * Visit a parse tree produced by {@link m4Parser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpr(@NotNull m4Parser.ExprContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link m4Parser#exprParameters}.

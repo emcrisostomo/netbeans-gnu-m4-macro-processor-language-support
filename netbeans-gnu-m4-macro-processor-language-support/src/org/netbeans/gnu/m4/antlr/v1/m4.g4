@@ -44,8 +44,8 @@ quote
     ;
 
 expr
-    : ID '(' exprParameters ')'
-    | ID
+    : ID '(' exprParameters ')' # expression_with_params
+    | ID                        # expression
     ;
 
 exprParameters
