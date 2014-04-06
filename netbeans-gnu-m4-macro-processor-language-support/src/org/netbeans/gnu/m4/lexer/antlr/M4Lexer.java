@@ -18,7 +18,6 @@ package org.netbeans.gnu.m4.lexer.antlr;
 
 import java.util.logging.Logger;
 import org.antlr.v4.runtime.Token;
-import org.netbeans.gnu.m4.Constants;
 import org.netbeans.gnu.m4.antlr.support.ANTLRCharStream;
 import org.netbeans.gnu.m4.antlr.v1.m4Lexer;
 import org.netbeans.spi.lexer.Lexer;
