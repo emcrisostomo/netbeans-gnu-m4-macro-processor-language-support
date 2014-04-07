@@ -29,7 +29,7 @@ import org.netbeans.gnu.m4.lexer.M4Keyword;
  *
  * @author Enrico M. Crisostomo
  */
-public class M4BuiltinMacroVisitor extends m4BaseVisitor<Void> {
+class M4BuiltinMacroVisitor extends m4BaseVisitor<Void> {
 
     private static final Logger logger = Logger.getLogger(M4BuiltinMacroVisitor.class.getName());
 
