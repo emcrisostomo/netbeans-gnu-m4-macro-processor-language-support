@@ -1,4 +1,4 @@
-// Generated from m4.g4 by ANTLR 4.2.1
+// Generated from m4.g4 by ANTLR 4.2.2
 
 package org.netbeans.gnu.m4.antlr.v1;
 

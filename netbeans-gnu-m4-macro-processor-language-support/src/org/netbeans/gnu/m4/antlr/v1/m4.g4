@@ -21,9 +21,25 @@ grammar m4;
 package org.netbeans.gnu.m4.antlr.v1;
 }
 
+tokens { LQUOTE, RQUOTE }
+
 @lexer::members {
 public int quoteLevel = 0;
 public boolean quoted = false;
+public String lquote = "[";
+public String rquote = "]";
+
+private boolean isQuote(String q) {
+    return lquote.equals(q) || rquote.equals(q);
+}
+
+private boolean isLQuote(String q) {
+    return lquote.equals(q);
+}
+
+private boolean isRQuote(String q) {
+    return rquote.equals(q);
+}
 }
 
 /* Parser */
@@ -39,8 +55,7 @@ statement
     ;
 
 quote
-    : LBRACKET (statement | punctuation)* RBRACKET
-    | LQUOTE (statement | punctuation)* RQUOTE
+    : LQUOTE (statement | punctuation)* RQUOTE
     ;
 
 expr
@@ -75,6 +90,11 @@ punctuation
 
 /* Lexer */
 
+ANYQUOTE
+    : (.)+? {isQuote(getText())}?
+      { if (isLQuote(getText())) { setType(m4Parser.LQUOTE); ++quoteLevel; quoted = true; } else if (isRQuote(getText())) { setType(m4Parser.RQUOTE); --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } }
+    ;
+
 DNL_COMMENT
     : ( 'dnl' (HORIZONTAL_WHITESPACE)+ ~[\r\n]* (NL)
       | 'dnl' (NL)) -> channel(HIDDEN)
@@ -90,11 +110,9 @@ ID
 
 LPAREN:   '('  ;
 RPAREN:   ')'  ;
-LBRACKET: '['  { ++quoteLevel; quoted = true; } ;
-RBRACKET: ']'  { --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
+// LBRACKET: '['  { ++quoteLevel; quoted = true; } ;
+// RBRACKET: ']'  { --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
 COMMA:    ','  ;
-LQUOTE:   '`'  { ++quoteLevel; quoted = true; } ;
-RQUOTE:   '\'' { --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
 
 fragment
 M4_LETTER
