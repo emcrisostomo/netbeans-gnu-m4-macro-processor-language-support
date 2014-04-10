@@ -30,7 +30,7 @@ public String lquote = "[";
 public String rquote = "]";
 
 private boolean isQuote(String q) {
-    return lquote.equals(q) || rquote.equals(q);
+    return isLQuote(q) || isRQuote(q);
 }
 
 private boolean isLQuote(String q) {
@@ -110,8 +110,6 @@ ID
 
 LPAREN:   '('  ;
 RPAREN:   ')'  ;
-// LBRACKET: '['  { ++quoteLevel; quoted = true; } ;
-// RBRACKET: ']'  { --quoteLevel; if (quoteLevel < 0) quoteLevel = 0; if (quoteLevel == 0) quoted = false; } ;
 COMMA:    ','  ;
 
 fragment

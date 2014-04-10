@@ -41,7 +41,7 @@ public class m4Lexer extends Lexer {
 	public String rquote = "]";
 
 	private boolean isQuote(String q) {
-	    return lquote.equals(q) || rquote.equals(q);
+	    return isLQuote(q) || isRQuote(q);
 	}
 
 	private boolean isLQuote(String q) {
