@@ -105,12 +105,18 @@ class M4SemanticHighlighter extends IndexingAwareParserResultTask<Result> {
             if (macroInvocations.contains(antlrToken)) {
                 attributes.add(M4ColoringAttributes.INVOCATION);
             }
-                       
+
+            if (attributes.isEmpty()) {
+                continue;
+            }
+
             newColoring.put(token, collection2Coloring(attributes));
             addedTokens.add(token);
         }
 
-        ERROR_DESCRIPTION_SETTER.setColorings(doc, newColoring, addedTokens);
+        if (!addedTokens.isEmpty()) {
+            ERROR_DESCRIPTION_SETTER.setColorings(doc, newColoring, addedTokens);
+        }
     }
 
     static Coloring collection2Coloring(Collection<M4ColoringAttributes> attr) {
